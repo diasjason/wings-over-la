@@ -1,0 +1,138 @@
+/* Homepage hero only. Header styling is shared in header.css. */
+.home-page .hero-premium {
+  min-height: 760px; height: 100svh; max-height: none;
+  background: #07182B; color: #F7F8FA; overflow: hidden;
+}
+.home-page .hero-premium::before {
+  background:
+    radial-gradient(ellipse at 96% 5%, rgba(198,164,103,.2), transparent 32%),
+    linear-gradient(90deg, rgba(7,24,43,.96) 0%, rgba(7,24,43,.88) 27%, rgba(24,54,83,.52) 49%, rgba(24,54,83,.14) 76%, rgba(7,24,43,.08) 100%),
+    linear-gradient(0deg, rgba(7,24,43,.78) 0%, rgba(7,24,43,.12) 43%, rgba(7,24,43,.16) 100%);
+}
+.home-page .hero-premium>.wrap {
+  min-height: 100svh; height: 100%; max-height: none; width: min(1560px, 90%);
+  padding: 150px 0 48px; align-items: flex-start; justify-content: center;
+}
+.home-page .hero-copy { width: min(58vw, 730px); max-width: 730px; position: relative; z-index: 2; }
+.home-page .hero-kicker {
+  display: flex; align-items: center; gap: 10px; padding: 0; margin-bottom: 26px;
+  color: #DCE7F0; background: transparent; border: 0; border-radius: 0; backdrop-filter: none;
+  font-size: 11px; font-weight: 700; letter-spacing: .12em;
+}
+.home-page .hero-location-icon { display: inline-flex; width: 18px; height: 18px; color: #C6A467; flex: 0 0 18px; }
+.home-page .hero-location-icon svg { width: 100%; height: 100%; stroke: currentColor; stroke-width: 2; }
+.home-page .hero-premium h1 {
+  max-width: 760px; margin: 0; color: #F7F8FA; font-size: clamp(48px, 4.54vw, 73px);
+  line-height: 1.02; letter-spacing: -.055em; font-weight: 700; text-shadow: 0 2px 28px rgba(7,24,43,.32);
+}
+.home-page .hero-premium h1 > span {
+  color: transparent; background: linear-gradient(95deg, #C6A467 0%, #C6A467 53%, #DCE7F0 100%);
+  background-clip: text; -webkit-background-clip: text; -webkit-text-fill-color: transparent;
+  filter: drop-shadow(0 2px 12px rgba(198,164,103,.25));
+}
+.home-page .hero-school-name {
+  display: inline-block; margin-top: 26px; color: #DCE7F0; font-size: 12px; font-weight: 700;
+  letter-spacing: .2em; position: relative;
+}
+.home-page .hero-school-name::after { content: ''; display: block; width: 62px; height: 2px; margin-top: 9px; background: linear-gradient(90deg,#C6A467,rgba(198,164,103,0)); }
+.home-page .hero-premium .intro { max-width: 650px; margin: 20px 0 30px; color: #DCE7F0; font-size: 17px; line-height: 1.72; text-wrap: pretty; }
+.home-page .hero-premium .hero-actions { display: flex; flex-wrap: wrap; gap: 14px; margin: 0; width: 100%; }
+.home-page .hero-actions .btn {
+  min-height: 58px; padding: 12px 22px; gap: 12px; border-radius: 999px; font-family: 'DM Sans', sans-serif;
+  font-size: 14px; font-weight: 700; letter-spacing: -.01em; color: #07182B;
+  box-shadow: 0 10px 28px rgba(7,24,43,.24); transition: transform .22s ease, box-shadow .22s ease, background .22s ease;
+}
+.home-page .hero-actions .btn svg { width: 22px; height: 22px; flex: 0 0 22px; stroke: currentColor; stroke-width: 1.8; stroke-linecap: round; stroke-linejoin: round; }
+.home-page .hero-actions .btn::after { content: '→'; display: inline-grid; place-items: center; width: 26px; height: 26px; margin-left: 3px; border-radius: 50%; color: #07182B; background: rgba(247,248,250,.15); font-size: 17px; line-height: 1; }
+.home-page .hero-actions .hero-primary {
+  border: 1px solid rgba(198,164,103,.95); background: linear-gradient(115deg,#C6A467,#C6A467 62%,#C6A467);
+  box-shadow: 0 8px 27px rgba(198,164,103,.35), inset 0 1px rgba(247,248,250,.25);
+}
+.home-page .hero-actions .hero-primary:hover { background: linear-gradient(115deg,#C6A467,#C6A467 62%,#C6A467); box-shadow: 0 12px 34px rgba(198,164,103,.49), 0 0 18px rgba(198,164,103,.27); transform: translateY(-2px); }
+.home-page .hero-actions .hero-secondary {
+  border: 1px solid rgba(220,231,240,.77); color: #F7F8FA; background: rgba(7,24,43,.3);
+  backdrop-filter: blur(10px); -webkit-backdrop-filter: blur(10px); box-shadow: inset 0 1px rgba(247,248,250,.08);
+}
+.home-page .hero-actions .hero-secondary::after { background: rgba(247,248,250,.09); }
+.home-page .hero-actions .hero-secondary:hover { color: #F7F8FA; background: rgba(198,164,103,.42); border-color: #DCE7F0; transform: translateY(-2px); box-shadow: 0 10px 28px rgba(7,24,43,.28); }
+.home-page .hero-phone {
+  display: inline-flex; align-items: center; gap: 12px; color: #DCE7F0; font-size: 12px; margin-top: 26px;
+}
+.home-page .hero-phone svg { width: 22px; height: 22px; color: #C6A467; stroke: currentColor; stroke-width: 1.7; stroke-linecap: round; stroke-linejoin: round; }
+.home-page .hero-phone strong { color: #F7F8FA; font-weight: 700; margin-left: 6px; }
+.home-page .hero-school-preview {
+  display: flex; align-items: center; gap: 15px; width: fit-content; max-width: 100%; margin-top: 24px;
+  padding: 14px 17px 14px 0; border-top: 1px solid rgba(220,231,240,.22); border-radius: 0;
+}
+.home-page .hero-school-preview > img { width: 88px; height: 58px; border-radius: 10px; border: 1px solid rgba(247,248,250,.28); }
+.home-page .hero-school-preview strong { color: #F7F8FA; font-size: 14px; font-family: 'Plus Jakarta Sans', sans-serif; font-weight: 600; }
+.home-page .hero-school-preview small { color: #DCE7F0; font-size: 11px; }
+.home-page .hero-media.video-ready video { opacity: 1; }
+.home-page .hero-media.video-ready .hero-poster { opacity: 0; }
+@media (max-width: 1200px) {
+
+
+
+
+
+
+
+}
+
+@media (max-width: 700px) {
+  .home-page .hero-premium { min-height: 820px; height: max(820px, 100svh); }
+  .home-page .hero-premium>.wrap { width: 88%; min-height: 820px; height: 100%; padding: 112px 0 160px; justify-content: flex-start; }
+  .home-page .hero-copy { width: min(100%, 560px); }
+  .home-page .hero-kicker { font-size: 9px; letter-spacing: .09em; margin-bottom: 22px; }
+  .home-page .hero-premium h1 { max-width: 600px; font-size: clamp(38px, 9.35vw, 60px); line-height: 1.04; }
+  .home-page .hero-school-name { margin-top: 22px; font-size: 10px; letter-spacing: .15em; }
+  .home-page .hero-premium .intro { max-width: 480px; font-size: 15px; margin: 17px 0 22px; }
+  .home-page .hero-premium .hero-actions { gap: 10px; }
+  .home-page .hero-actions .btn { width: 100%; justify-content: flex-start; min-height: 54px; font-size: 13px; padding-inline: 17px; }
+  .home-page .hero-phone { margin-top: 20px; font-size: 11px; gap: 9px; }
+  .home-page .hero-phone strong { margin-left: 0; }
+  .home-page .hero-school-preview { margin-top: 18px; padding-top: 15px; }
+  .home-page .hero-school-preview > img { width: 76px; height: 51px; }
+  .home-page .hero-school-preview strong { font-size: 12px; }
+  .home-page .hero-school-preview small { font-size: 9px; }
+  .home-page .hero-premium .hero-media img, .home-page .hero-premium .hero-media video { object-position: 62% center; }
+  .home-page .hero-premium::before {
+    background:
+      linear-gradient(90deg,rgba(7,24,43,.86),rgba(7,24,43,.62) 64%,rgba(7,24,43,.34)),
+      linear-gradient(0deg,rgba(7,24,43,.77),rgba(7,24,43,.08) 62%);
+  }
+}
+@media (max-width: 560px) {
+
+
+
+
+
+
+
+
+  .home-page .hero-premium { min-height: 780px; height: max(780px, 100svh); }
+  .home-page .hero-premium>.wrap { min-height: 780px; width: 88%; padding-top: 106px; padding-bottom: 180px; }
+  .home-page .hero-premium h1 { font-size: clamp(36px, 9.25vw, 49px); }
+  .home-page .hero-kicker { font-size: 8px; }
+}
+@media (max-width: 360px) {
+
+
+
+
+
+
+}
+@media (prefers-reduced-motion: reduce) {
+
+}
+
+/* Lower the location row in normal flow while preserving the headline's position. */
+.home-page .hero-premium .hero-kicker {
+  padding-block-start: 12px;
+  margin-block-end: 14px;
+}
+@media (max-width: 700px) {
+  .home-page .hero-premium .hero-kicker { margin-block-end: 10px; }
+}

@@ -1,0 +1,444 @@
+/* Homepage-only cinematic aviation direction. Interior pages retain their design. */
+/* Attributed Google review marquee, scoped to the homepage. */
+.home-page .flight-reviews{padding:72px 0 28px;background:radial-gradient(ellipse at 82% 5%,#183653 0,transparent 52%),#07182B;color:#F7F8FA;overflow:hidden;border-top:1px solid #183653;border-bottom:1px solid #183653}
+.home-page .flight-reviews-heading{display:flex;align-items:center;justify-content:space-between;gap:30px;margin-bottom:30px}
+.home-page .flight-reviews .eyebrow{color:#C6A467;letter-spacing:.23em;font-size:11px}
+.home-page .flight-reviews h2{font-size:clamp(34px,4vw,54px);margin:12px 0;line-height:1.1;color:#F7F8FA}
+.home-page .flight-reviews h2>span{color:#AAB8C5}
+.home-page .flight-reviews-heading p{margin:0;color:#DCE7F0;font-size:15px}
+.home-page .flight-reviews-actions{display:flex;flex-direction:column;align-items:flex-end;gap:14px;flex-shrink:0}
+.home-page .google-mark{width:19px;height:19px;flex-shrink:0}
+.home-page .flight-review-rating{display:flex;align-items:center;gap:17px;border:1px solid #183653;border-radius:16px;padding:14px 23px;text-decoration:none;background:#183653;box-shadow:0 0 30px #C6A46714;color:#F7F8FA;font-size:12px}
+.home-page .flight-review-rating>.google-mark{width:30px;height:30px}
+.home-page .flight-review-rating strong{display:block;font-size:38px;line-height:1.05;letter-spacing:-.04em}
+.home-page .flight-review-rating strong span{font-size:13px;font-weight:400;color:#AAB8C5;letter-spacing:0;margin-left:6px}
+.home-page .flight-review-stars{white-space:nowrap;color:#C6A467;letter-spacing:1px;font-size:14px}
+.home-page .flight-review-controls{display:flex;gap:7px}
+.home-page .flight-review-controls[hidden]{display:none}
+.home-page .flight-review-controls button{min-width:40px;min-height:40px;border:1px solid #183653;background:#183653;color:#F7F8FA;border-radius:8px;padding:7px 12px;font:inherit;font-size:12px;cursor:pointer;transition:background .2s,border-color .2s}
+.home-page .flight-review-controls button:hover{background:#C6A467;border-color:#C6A467}
+.home-page .flight-review-viewport{overflow-x:auto;scrollbar-width:thin;scrollbar-color:#183653 #183653;padding:6px max(24px,calc((100vw - 1200px)/2)) 24px;overscroll-behavior-x:contain}
+.home-page .flight-review-track{display:flex;gap:22px;width:max-content}
+.home-page .flight-review{width:350px;flex:0 0 350px;border:1px solid #183653;border-radius:17px;overflow:hidden;background:linear-gradient(145deg,#183653,#183653);box-shadow:0 12px 28px #07182B22;transition:border-color .3s,box-shadow .3s}
+.home-page .flight-review:hover{border-color:#C6A467;box-shadow:0 0 24px #C6A46727}
+.home-page .flight-review figure{height:204px;position:relative;margin:0;overflow:hidden;background:#183653}
+.home-page .flight-review figure:after{content:'';position:absolute;inset:50% 0 0;background:linear-gradient(transparent,#07182Bd9);pointer-events:none}
+.home-page .flight-review figure img{width:100%;height:100%;object-fit:cover;transition:transform .6s}
+.home-page .flight-review:hover figure img{transform:scale(1.035)}
+.home-page .flight-review figcaption{position:absolute;top:9px;right:9px;left:9px;text-align:right;color:#F7F8FA;font-size:9px;text-shadow:0 1px 5px #07182B;background:#07182B88;padding:4px 6px;border-radius:4px;width:fit-content;margin-left:auto}
+.home-page .flight-review-tag{position:absolute;z-index:1;bottom:15px;left:19px;font-size:9px;letter-spacing:.17em;color:#DCE7F0;border:1px solid #C6A467;background:#07182Be6;padding:8px 10px;border-radius:4px}
+.home-page .flight-review-body{padding:22px 20px 21px}
+.home-page .flight-review-person{display:flex;align-items:center;gap:10px;flex-wrap:wrap}
+.home-page .flight-review-avatar{display:grid;place-items:center;width:38px;height:38px;border-radius:50%;background:#183653;border:1px solid #C6A467;font-size:12px;color:#07182B}
+.home-page .flight-review-person h3{font:700 14px/1.3 'Manrope',sans-serif;letter-spacing:0;margin:0 0 4px;color:#F7F8FA}
+.home-page .flight-review-platform{display:flex;align-items:center;gap:5px;font-size:10px;color:#DCE7F0}
+.home-page .flight-review-platform .google-mark{width:13px;height:13px}
+.home-page .flight-review-person>.flight-review-stars{margin-left:auto;font-size:12px;letter-spacing:0}
+.home-page .flight-review blockquote{font-size:23px;line-height:1.5;letter-spacing:-.02em;margin:25px 0 26px;min-height:104px;color:#F7F8FA;font-weight:500}
+.home-page .flight-review-body>a{font-size:12px;color:#C6A467;text-decoration:none;display:flex;justify-content:space-between;align-items:center}
+.home-page .flight-review-body>a:hover{text-decoration:underline}
+.home-page .flight-review-foot{border-top:1px solid #183653;padding:13px 20px;display:flex;justify-content:space-between;color:#AAB8C5;font-size:8px;letter-spacing:.14em}
+.home-page .flight-reviews-note{display:flex;justify-content:space-between;gap:20px;padding-top:15px;font-size:10px;color:#AAB8C5;line-height:1.6}
+.home-page .flight-reviews-note a{color:#AAB8C5;white-space:nowrap}
+.home-page .flight-reviews :focus-visible{outline:3px solid #DCE7F0;outline-offset:4px}
+@media(max-width:700px){.home-page .flight-reviews{padding-top:44px}.home-page .flight-reviews-heading{display:block}.home-page .flight-reviews-actions{align-items:flex-start;flex-direction:row;align-items:center;justify-content:space-between;margin-top:22px;gap:10px}.home-page .flight-review-rating{padding:10px 13px;gap:9px}.home-page .flight-review-rating strong{font-size:32px}.home-page .flight-review-rating>.flight-review-stars{display:none}.home-page .flight-review{width:300px;flex-basis:300px}.home-page .flight-review figure{height:180px}.home-page .flight-review blockquote{font-size:21px}.home-page .flight-reviews-note{flex-direction:column;gap:5px}.home-page .flight-review-controls button{padding:7px 9px;min-width:36px;min-height:44px}}
+@media(prefers-reduced-motion:reduce){.home-page .flight-review,.home-page .flight-review figure img{transition:none}.home-page .flight-review:hover figure img{transform:none}}
+body.home-page{--navy:#07182B;--deep:#07182B;--blue:#C6A467;--electric:#C6A467;--cream:#F7F8FA;--ink:#183653;--muted:#AAB8C5;--line:#F7F8FA;--red:#C6A467;background:var(--cream);color:var(--ink)}
+.home-page h1,.home-page h2,.home-page h3{font-weight:500;letter-spacing:-.045em;text-wrap:balance}
+.home-page .wrap{width:min(1320px,89%)}
+.home-page .btn{background:var(--blue);color:#07182B;border:1px solid transparent;border-radius:10px;padding:14px 22px;min-height:50px;font-size:12px;box-shadow:none}
+.home-page .btn:hover{background:#C6A467;box-shadow:0 8px 26px #C6A4672b;transform:translateY(-2px)}
+.home-page .btn:focus-visible,.home-page a:focus-visible,.home-page button:focus-visible{outline:3px solid #C6A467;outline-offset:4px}
+.home-page .text-link{color:#C6A467}
+.home-page .eyebrow{color:#C6A467;font-size:9px;letter-spacing:.16em}
+.home-page .eyebrow::before,.home-page .status-dot{background:#C6A467;box-shadow:none}
+
+
+
+
+
+
+/* The message and both actions share the first screen with the film. */
+.home-page .hero-premium{background:#07182B;color:#F7F8FA;position:relative;isolation:isolate;overflow:hidden}
+.home-page .hero-premium::before{content:'';position:absolute;inset:0;background:linear-gradient(90deg,#07182Bf2 0%,#07182Bdb 26%,#07182B70 49%,#07182B0d 76%),linear-gradient(0deg,#07182Bd9,transparent 40%);z-index:1;pointer-events:none}
+.home-page .hero-premium>.wrap{position:relative;z-index:2;display:flex;flex-direction:column;align-items:flex-start;justify-content:center;gap:0;min-height:690px;height:calc(100svh - 74px);max-height:820px;padding:55px 0;text-align:left;pointer-events:none}
+.home-page .hero-premium .hero-copy{min-width:0;width:min(600px,52%);pointer-events:auto}
+.home-page .hero-premium h1{font-size:clamp(43px,4.3vw,64px);line-height:1.035;color:#F7F8FA;text-shadow:none;max-width:650px;margin:0}
+.home-page .hero-premium h1>span{color:#C6A467;-webkit-text-fill-color:unset;background:none;white-space:nowrap}
+.home-page .hero-kicker{border:none;background:none;border-radius:0;backdrop-filter:none;padding:0;letter-spacing:.16em;color:#AAB8C5;font-size:8px;margin-bottom:23px;gap:11px}
+.home-page .hero-school-name{color:#AAB8C5;font-size:8px;letter-spacing:.18em;margin-top:21px}
+.home-page .hero-premium .intro{color:#DCE7F0;font-size:14px;line-height:1.85;margin:13px 0 25px;max-width:520px}
+.home-page .hero-premium .hero-actions{display:flex;flex-wrap:wrap;gap:11px;margin:0;width:100%}
+.home-page .hero-actions .btn{font-size:13px;padding:14px 22px;min-height:52px}
+.home-page .hero-actions .hero-primary{background:#C6A467;border-color:#C6A467;box-shadow:0 7px 30px #C6A46729}
+.home-page .hero-actions .hero-primary:hover{background:#C6A467;box-shadow:0 8px 34px #C6A4674d}
+.home-page .hero-actions .hero-secondary{background:#F7F8FA06;color:#F7F8FA;border-color:#AAB8C577}
+.home-page .hero-actions .hero-secondary:hover{background:#F7F8FA10;border-color:#AAB8C5}
+.home-page .hero-phone{display:inline-flex;flex-wrap:wrap;gap:9px;color:#AAB8C5;font-size:10px;margin-top:17px}
+.home-page .hero-phone strong{font-weight:600;color:#DCE7F0}
+.home-page .hero-school-preview{display:flex;gap:15px;align-items:center;margin-top:29px;padding-top:22px;border-top:1px solid #F7F8FA14;max-width:440px}
+.home-page .hero-school-preview>img{width:91px;height:62px;object-fit:cover;border-radius:8px;flex-shrink:0;border:1px solid #F7F8FA1f}
+.home-page .hero-school-preview strong{font-family:Outfit,sans-serif;color:#F7F8FA;font-size:14px;line-height:1.4;font-weight:500;display:block}
+.home-page .hero-school-preview small{font-size:9px;line-height:1.6;color:#AAB8C5;display:block;margin-top:5px}
+/* Full-bleed footage stays beneath the normal-flow navigation. */
+.home-page .hero-premium .hero-media{position:absolute;inset:0;width:100%;height:100%;min-height:0;aspect-ratio:auto;padding:0;z-index:0;background:#183653;border-radius:0;overflow:hidden}
+.home-page .hero-premium .hero-media img,.home-page .hero-premium .hero-media video{position:absolute;inset:0;width:100%;height:100%;object-fit:cover;object-position:65% center;filter:none;animation:none;transform:none}
+.home-page .hero-premium .hero-media::after{display:none}
+
+
+.home-proof{background:#183653;border-top:1px solid #F7F8FA0b;border-bottom:1px solid #F7F8FA0b}
+.home-proof .wrap{display:grid;grid-template-columns:repeat(3,1fr);gap:30px;padding:28px 0 31px}
+.home-proof .wrap>div{padding-left:25px;border-left:1px solid #AAB8C53d}
+.home-proof .wrap>div:first-child{padding-left:0;border:0}
+.home-proof span{display:block;font-size:7px;letter-spacing:.13em;color:#AAB8C5;margin-bottom:6px}
+.home-proof strong{display:block;font-family:Outfit,sans-serif;font-size:20px;font-weight:400;color:#F7F8FA;line-height:1.4}
+.home-proof small{display:block;font-size:9px;color:#AAB8C5;margin-top:3px}
+
+/* Light chapters provide reading space between the cinematic navy sections. */
+.home-page .section{padding:95px 0}
+.home-page .section-head{margin-bottom:37px}
+.home-page .section-head p{font-size:13px;line-height:1.9}
+.home-page .section.path-section{background:#F7F8FA;border-top:0;color:#183653;padding-top:60px}
+.home-page .path-section .section-head{display:block;margin-bottom:24px}
+.home-page .path-section .section-head .eyebrow{margin-bottom:14px}
+.home-page .path-section .section-head h2{font-size:clamp(39px,4.2vw,62px);line-height:1.08;margin:0 0 14px;max-width:none}
+.home-page .path-section .section-head>p{max-width:690px;margin:0;font-size:14px;line-height:1.7;color:#AAB8C5}
+.home-page .path-tabs{gap:12px;margin-bottom:17px}
+.home-page .path-tabs button{border-radius:13px;background:#F7F8FA80;border-color:#F7F8FA;color:#183653;padding:22px;min-height:104px;gap:17px}
+.home-page .path-tabs button:hover{background:#F7F8FA;border-color:#AAB8C5}
+.home-page .path-tabs strong{font-size:22px;font-weight:500}
+.home-page .path-tabs small{color:#AAB8C5}
+.home-page .path-tabs button[aria-selected=true]{background:#183653;color:#F7F8FA;border-color:#C6A467;box-shadow:inset 0 -2px 0 #C6A467,0 8px 24px #18365312}
+.home-page .path-tabs button[aria-selected=true] small{color:#DCE7F0}
+.home-page .path-tabs button[aria-selected=true] .tab-number{color:#C6A467}
+.home-page .path-panels{border-radius:17px;background:#F7F8FA;border-color:#DCE7F0;box-shadow:0 18px 50px #18365307}
+.home-page .path-panel{grid-template-columns:1fr 1.03fr;min-height:450px}
+.home-page .path-detail{padding:42px 47px}
+.home-page .path-detail h3{font-weight:500;font-size:43px}
+.home-page .path-detail p{color:#AAB8C5;font-size:13px;line-height:1.9}
+.home-page .path-detail .training-pills span{background:#F7F8FA;color:#AAB8C5;border-color:#F7F8FA;border-radius:6px}
+.home-page .photo-pill{border-radius:7px;background:#07182Bc2}
+.home-page .path-photo{min-height:450px}
+.home-page .path-photo>img{max-height:none}
+
+.home-page .mei-spotlight{background:#07182B;color:#F7F8FA;position:relative;overflow:hidden}
+.home-page .mei-spotlight::before{content:'';position:absolute;inset:0;background:radial-gradient(ellipse at 100% 70%,#18365338,transparent 65%);pointer-events:none}
+.home-page .mei-spotlight .wrap{position:relative}
+.home-page .spotlight-grid{gap:85px;grid-template-columns:.95fr 1.05fr}
+.home-page .spotlight-copy .eyebrow{color:#DCE7F0}
+.home-page .spotlight-copy h2{font-size:clamp(43px,4.3vw,64px)}
+.home-page .spotlight-copy h2 span{color:#C6A467}
+.home-page .spotlight-copy>p{color:#AAB8C5;font-size:13px;max-width:440px}
+.home-page .spotlight-links a{border-color:#F7F8FA18;color:#DCE7F0;font-size:13px;padding:15px 0}
+.home-page .spotlight-links a:hover{color:#C6A467;border-color:#AAB8C570}
+.home-page .mei-spotlight .section-actions{gap:12px}
+.home-page .mei-spotlight .section-actions .btn{font-size:11px;padding:14px 19px}
+.home-page .mei-spotlight .btn.white-outline{background:#F7F8FA05;color:#F7F8FA;border-color:#AAB8C55c}
+.home-page .aircraft-composition{padding-bottom:110px}
+.home-page .main-aircraft{border-radius:16px;height:420px;border:1px solid #F7F8FA18;box-shadow:0 20px 60px #07182B33;transform:translateY(var(--image-shift,0px))}
+.home-page .aircraft-caption{border-radius:9px;border-color:#F7F8FA30;background:#183653e8;color:#F7F8FA;box-shadow:0 8px 32px #07182B33;backdrop-filter:blur(10px)}
+.home-page .aircraft-caption small{color:#AAB8C5}
+.home-page .cockpit-inset{border-color:#07182B;border-radius:16px;box-shadow:0 15px 40px #07182B33}
+.home-page .inset-caption{color:#AAB8C5}
+
+.home-page .career-section{background:#F7F8FA;color:#183653;padding:85px 0 70px}
+.home-page .career-section::before{display:none}
+.home-page .career-section .eyebrow{color:#C6A467}
+.home-page .career-section h2{font-size:clamp(39px,4vw,58px);line-height:1.08;font-weight:500}
+.home-page .career-section .section-head>p{color:#AAB8C5}
+.home-page .career-tour-bar>p{color:#AAB8C5}
+.home-page .career-tour-toggle{border-color:#DCE7F0;background:#F7F8FA70;color:#183653;border-radius:9px}
+.home-page .career-tour-toggle:hover{background:#F7F8FA}
+.home-page .career-tabs{gap:10px;margin-bottom:19px}
+.home-page .career-tab{background:#F7F8FA80;color:#183653;border-color:#DCE7F0;box-shadow:none;border-radius:11px}
+.home-page .career-tab strong{font-weight:500;font-size:18px}
+.home-page .career-tab small{color:#AAB8C5}
+.home-page .career-tab-number{color:#AAB8C5}
+.home-page .career-tab:hover{background:#F7F8FA;border-color:#AAB8C5}
+.home-page .career-tab[aria-selected=true]{background:#183653;color:#F7F8FA;border-color:#183653;box-shadow:0 7px 22px #18365312}
+.home-page .career-tab[aria-selected=true] small{color:#DCE7F0}
+.home-page .career-progress{background:#C6A4670d}
+.home-page .career-progress i{background:#C6A467}
+.home-page .career-stage{border-radius:17px;border-color:#DCE7F0;box-shadow:0 18px 55px #1836530d}
+.home-page .career-photo-label{color:#F7F8FA}
+.home-page .career-detail h3{font-weight:500;color:#183653}
+.home-page .career-skills li{border-radius:6px}
+.home-page .career-actions .career-secondary{color:#C6A467;background:#F7F8FA;border-color:#AAB8C5}
+.home-page .career-more{color:#C6A467}
+.home-page .career-bottom .route-note{color:#AAB8C5}
+.home-page .career-bottom .text-link{color:#C6A467}
+.home-page .career-track{position:relative;height:1px;background:#DCE7F0;margin:19px 10% 30px;--stop:0}
+.home-page .career-track-fill{position:absolute;left:0;top:0;height:1px;width:calc(var(--stop)*25%);background:#C6A467}
+.home-page .career-track>i{position:absolute;width:5px;height:5px;top:-2px;border:1px solid #AAB8C5;border-radius:50%;background:#F7F8FA;transform:translateX(-50%)}
+.home-page .career-track-plane{position:absolute;left:calc(var(--stop)*25%);top:0;transform:translate(-50%,-50%) rotate(90deg);width:26px;height:26px;color:#C6A467;background:#F7F8FA;z-index:1;display:grid;place-items:center}
+.home-page .career-track-plane svg{width:21px;height:21px}
+@media(prefers-reduced-motion:no-preference){.home-page .career-track-plane{transition:left .65s cubic-bezier(.2,.7,.25,1)}.home-page .career-track-fill{transition:width .65s cubic-bezier(.2,.7,.25,1)}}
+
+.home-page .personal-section{background:#F7F8FA}
+.home-page .personal-section h2{font-weight:500;font-size:clamp(39px,4vw,58px)}
+.home-page .personal-section .split{gap:90px}
+.home-page .school-collage>img{border-radius:16px;height:490px}
+.home-page .home-base-tag{border-radius:8px;border:0;box-shadow:0 8px 30px #18365312}
+.home-page .collage-stamp.official-stamp{border-radius:10px;border-color:#F7F8FA;box-shadow:0 12px 40px #18365314}
+.home-page .owner-card{background:#F7F8FA;border-radius:11px;border:1px solid #F7F8FA}
+.home-page .owner-card>img{border-radius:8px}
+.home-page .experience-section{background:#183653;color:#F7F8FA;padding-top:90px}
+.home-page .experience-section .eyebrow{color:#DCE7F0}
+.home-page .experience-section .section-head>p{color:#AAB8C5}
+.home-page .experience{border:1px solid #F7F8FA24;border-radius:16px;min-height:460px}
+.home-page .experience::after{background:linear-gradient(0deg,#07182Bf5,#07182B55 80%)}
+.home-page .experience h3{font-weight:500;font-size:43px}
+.home-page .experience p{color:#DCE7F0}
+.home-page .experience .experience-cta{background:#F7F8FA;color:#07182B;border-radius:9px;font-size:12px}
+.home-page .rental-note{border-top:1px solid #F7F8FA18;margin-top:27px;padding-top:25px}
+.home-page .rental-note>span{color:#DCE7F0}
+.home-page .rental-note p{color:#DCE7F0}
+.home-page .rental-note .btn.white-outline{color:#F7F8FA;border-color:#AAB8C580;background:#F7F8FA05}
+.home-page .home-faq{background:#F7F8FA}
+.home-page .home-faq h2{font-size:clamp(39px,4vw,58px)}
+.home-page .faq-list details{background:#F7F8FA;border-color:#F7F8FA!important;border-radius:11px}
+.home-page .faq-list summary{font-size:13px}
+.home-page .faq-list summary::after{background:#F7F8FA;border-radius:6px;color:#C6A467}
+.home-page .cta-band{background:#07182B;color:#F7F8FA;border:0;padding:85px 0 75px}
+.home-page .cta-band h2{font-size:clamp(41px,4.6vw,68px);font-weight:500;line-height:1.07}
+.home-page .cta-band h2::before{background:#C6A467;width:40px;height:2px}
+.home-page .cta-band p{color:#AAB8C5}
+.home-page .home-closing-actions{display:flex;align-items:center;justify-content:center;gap:12px;flex-wrap:wrap}
+.home-page .cta-band .home-closing-secondary{background:#F7F8FA05;border-color:#AAB8C580;color:#F7F8FA}
+.home-page .footer{background:#07182B;border-top:1px solid #F7F8FA12;padding-bottom:125px}
+.home-page .footer h4{color:#AAB8C5}
+.home-page .footer .brand.official-brand{border-radius:8px}
+.home-page .footer .footer-links{color:#AAB8C5}
+.home-page .footer p{color:#AAB8C5}
+.home-page .footer-bottom{color:#AAB8C5}
+
+/* Direct contact actions near the left edge. */
+.home-inquiry-bar {
+  position: fixed;
+  inset-inline-start: max(6px, env(safe-area-inset-left));
+  inset-block-start: 55%;
+  transform: translateY(-50%);
+  z-index: 80;
+  display: grid;
+  gap: 6px;
+}
+.home-inquiry-bar[hidden] { display: none; }
+
+.home-page .home-inquiry-bar .btn {
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 7px;
+  width: 44px;
+  min-height: 44px;
+  padding: 8px;
+  border-radius: 7px;
+  font-size: 12px;
+  box-shadow: 0 4px 14px #18365340;
+}
+.home-inquiry-bar svg {
+  width: 21px;
+  height: 21px;
+  flex: none;
+}
+.home-inquiry-bar .text-status {
+  position: absolute;
+  top: 4px;
+  right: 4px;
+  width: 8px;
+  height: 8px;
+  border-radius: 50%;
+  background: #C6A467;
+  box-shadow: 0 0 0 2px #F7F8FA;
+}
+@media (prefers-reduced-motion: no-preference) {
+  .home-inquiry-bar .text-status { animation: contact-status-pulse 2.8s ease-out infinite; }
+  .home-inquiry-bar .btn svg { transition: transform .2s ease; }
+  .home-inquiry-bar .btn:is(:hover, :focus-visible) svg { transform: rotate(-8deg) scale(1.08); }
+  @keyframes contact-status-pulse {
+    0%, 100% { box-shadow: 0 0 0 2px #F7F8FA, 0 0 0 2px #C6A46700; }
+    55% { box-shadow: 0 0 0 2px #F7F8FA, 0 0 0 7px #C6A46700; }
+    5% { box-shadow: 0 0 0 2px #F7F8FA, 0 0 0 2px #C6A46755; }
+  }
+}
+.home-page .home-inquiry-bar .home-bar-secondary {
+  background: #F7F8FA;
+  border-color: #AAB8C5;
+  color: #C6A467;
+}
+
+@media (max-width: 820px) {
+  .home-inquiry-bar {
+    inset-block-start: auto;
+    inset-block-end: calc(12px + env(safe-area-inset-bottom));
+    transform: none;
+  }
+}
+.home-page .wings-chat-launcher{background:#C6A467;border-color:#C6A467}
+.home-page .mobile-call{display:none!important}
+
+@media(max-width:1200px){.home-page .hero-premium>.wrap{gap:40px;padding-top:45px;padding-bottom:45px}.home-page .hero-premium h1{font-size:52px}.home-page .hero-actions .btn{padding:13px 17px;font-size:12px}.home-page .spotlight-grid{gap:55px}.home-page .path-detail{padding:35px}.home-page .path-detail h3{font-size:38px}.home-page .career-tab strong{font-size:17px}}
+@media(max-width:1100px){.home-page .hero-premium>.wrap{gap:35px}.home-page .hero-premium h1{font-size:47px}.home-page .hero-premium .intro{font-size:12px}.home-page .hero-actions .btn{font-size:12px}.home-page .hero-school-preview strong{font-size:13px}.home-page .hero-school-preview small{font-size:8px}.home-page .section{padding:80px 0}.home-page .personal-section .split{gap:55px}.home-page .school-collage>img{height:460px}}
+@media(max-width:820px){.home-page .hero-premium>.wrap{grid-template-columns:1fr;gap:35px;padding:43px 0 45px;width:88%}.home-page .hero-premium .hero-copy{max-width:640px}.home-page .hero-premium h1{font-size:57px;max-width:650px}.home-page .hero-premium .intro{font-size:13px;max-width:580px}.home-page .hero-kicker{font-size:8px}.home-page .hero-actions .btn{font-size:12px;padding:14px 22px}.home-page .hero-school-preview{margin-top:22px;padding-top:19px;max-width:100%}.home-page .hero-school-preview>img{width:77px;height:51px}.home-proof .wrap{gap:15px;padding:25px 0}.home-proof .wrap>div{padding-left:16px}.home-proof strong{font-size:16px}.home-proof small{font-size:8px}.home-proof span{font-size:6px}.home-page .spotlight-grid{grid-template-columns:1fr;gap:40px}.home-page .spotlight-copy>p{max-width:600px}.home-page .aircraft-composition{max-width:660px;padding-bottom:100px}.home-page .main-aircraft{height:420px}.home-page .path-panel{grid-template-columns:1fr 1fr}.home-page .path-photo{min-height:410px}.home-page .path-detail{padding:30px}.home-page .path-detail h3{font-size:34px}.home-page .path-detail p{font-size:12px}.home-page .career-section{padding:75px 0 60px}.home-page .career-track{margin-bottom:24px}.home-page .career-tab{flex-basis:190px}.home-page .personal-section .split{gap:45px}.home-page .school-collage>img{height:420px}.home-page .experience h3{font-size:35px}.home-page .wings-chat-teaser{bottom:102px}}
+@media(max-width:560px){.home-page .hero-premium>.wrap{padding:33px 0 32px;gap:27px}.home-page .hero-kicker{font-size:7px;letter-spacing:.13em;margin-bottom:21px}.home-page .hero-premium h1{font-size:43px;line-height:1.05;letter-spacing:-.045em}.home-page .hero-school-name{font-size:7px;margin-top:18px;letter-spacing:.13em}.home-page .hero-premium .intro{font-size:12px;line-height:1.85;margin:12px 0 22px}.home-page .hero-premium .hero-actions{gap:10px;flex-direction:column;align-items:stretch}.home-page .hero-actions .btn{font-size:12px;min-height:49px;padding:13px 17px;text-align:center}.home-page .hero-phone{font-size:9px;gap:5px;margin-top:15px}.home-page .hero-school-preview{margin-top:22px;padding-top:19px;gap:12px}.home-page .hero-school-preview>img{width:76px;height:51px}.home-page .hero-school-preview strong{font-size:12px}.home-page .hero-school-preview small{font-size:8px}.home-proof .wrap{grid-template-columns:1fr;gap:19px;padding:27px 0}.home-proof .wrap>div,.home-proof .wrap>div:first-child{border-left:1px solid #AAB8C53d;padding-left:18px}.home-proof span{font-size:7px;margin-bottom:4px}.home-proof strong{font-size:20px}.home-proof small{font-size:9px}.home-page .section{padding:65px 0}.home-page .section-head{margin-bottom:28px}.home-page .eyebrow{font-size:8px}.home-page .path-section h2{font-size:41px}.home-page .path-tabs{gap:9px}.home-page .path-tabs button{min-height:80px;border-radius:10px;padding:17px 19px}.home-page .path-tabs strong{font-size:20px}.home-page .path-panel{grid-template-columns:1fr;min-height:0}.home-page .path-photo{min-height:0;height:240px}.home-page .path-photo>img{height:100%;max-height:none}.home-page .path-detail{padding:30px 25px 34px}.home-page .path-detail h3{font-size:37px}.home-page .path-detail p{font-size:12px}.home-page .path-panels{border-radius:14px}.home-page .spotlight-copy h2{font-size:43px}.home-page .spotlight-copy>p{font-size:12px}.home-page .spotlight-links a{font-size:12px;padding:14px 0}.home-page .mei-spotlight .section-actions{align-items:stretch;flex-direction:column}.home-page .mei-spotlight .section-actions .btn{min-height:49px;font-size:12px}.home-page .main-aircraft{height:300px;border-radius:13px}.home-page .aircraft-composition{padding-bottom:85px}.home-page .aircraft-caption{padding:11px 13px}.home-page .cockpit-inset{border-radius:13px}.home-page .career-section{padding:65px 0 50px}.home-page .career-section h2{font-size:39px}.home-page .career-tab strong{font-size:18px}.home-page .career-stage{border-radius:14px}.home-page .career-track{margin-top:18px;margin-bottom:27px}.home-page .career-detail h3{font-size:35px}.home-page .career-actions .btn{border-radius:9px}.home-page .personal-section h2{font-size:42px}.home-page .school-collage>img{height:365px;border-radius:13px}.home-page .experience-section{padding-top:65px}.home-page .experience{min-height:430px;border-radius:13px}.home-page .experience h3{font-size:37px}.home-page .experience .experience-cta{font-size:12px}.home-page .home-faq h2{font-size:41px}.home-page .cta-band{padding:65px 0 60px}.home-page .cta-band h2{font-size:43px}.home-page .home-closing-actions{width:100%;gap:11px;flex-direction:column;align-items:stretch;max-width:340px}.home-page .home-closing-actions .btn{font-size:12px}.home-page .footer{padding-bottom:130px}.home-page .wings-chat-teaser{bottom:91px}.home-page .wings-chat-panel{bottom:86px}.home-page.chat-open }
+@media(max-width:360px){.home-page .hero-premium h1{font-size:37px}.home-page .hero-school-name{font-size:6px}.home-page .hero-kicker{font-size:6px}.home-page .hero-phone{font-size:8px}.home-page .hero-school-preview strong{font-size:11px}.home-page .hero-school-preview small{font-size:7px}.home-page .path-detail h3{font-size:34px}.home-page .career-detail h3{font-size:31px}.home-page .personal-section h2{font-size:38px}}
+@media(prefers-reduced-motion:reduce){.home-page .main-aircraft{transform:none!important}.home-page .career-track-plane,.home-page .career-track-fill{transition:none!important}}
+
+@media(max-width:1100px){
+ .home-page .hero-premium .hero-copy{width:min(600px,62%)}
+ .home-page .hero-premium>.wrap{height:calc(100svh - 72px);min-height:670px;gap:0}
+}
+@media(max-width:820px){
+ .home-page .hero-premium>.wrap{min-height:700px;height:auto;max-height:none;padding:65px 0 60px;gap:0}
+ .home-page .hero-premium .hero-copy{width:78%;max-width:560px}
+ .home-page .hero-premium::before{background:linear-gradient(90deg,#07182Bea,#07182Bb3 48%,#07182B24),linear-gradient(0deg,#07182Be0,transparent 70%)}
+ .home-page .hero-premium h1{font-size:52px}
+}
+@media(max-width:560px){
+ .home-page .hero-premium>.wrap{min-height:730px;padding:60px 0 67px}
+ .home-page .hero-premium .hero-copy{width:100%}
+ .home-page .hero-premium .hero-media img,.home-page .hero-premium .hero-media video{object-position:71% center}
+ .home-page .hero-premium::before{background:linear-gradient(0deg,#07182Bf5,#07182Bdb 28%,#07182Ba6 75%,#07182B55),linear-gradient(90deg,#07182B70,transparent)}
+ .home-page .hero-premium h1{font-size:43px}
+ .home-page .hero-school-preview{max-width:360px}
+ 
+ 
+}
+@media(max-width:360px){.home-page .hero-premium h1{font-size:37px}}
+
+/* Phone layouts use complete selectors and clear, separate floating controls. */
+.path-label-phone{display:none}
+@media(max-width:820px){
+
+ .home-page .path-panel{grid-template-columns:1fr}
+ .home-page .path-photo{min-height:0;height:280px}
+ .home-page .path-photo>img{height:100%;max-height:none}
+ .home-page .career-panel{grid-template-columns:1fr;min-height:0}
+ .home-page .career-photo{min-height:0;height:260px}
+ .home-page .career-detail{min-height:0}
+}
+@media(max-width:600px){
+ .home-page{font-size:14px}
+ .home-page .wrap{width:calc(100% - 40px)}
+ .home-page .section,.home-page .career-section{padding:52px 0}
+ .home-page .section-head{gap:16px;margin-bottom:24px;align-items:flex-start}
+ .home-page .section-head p,.home-page .spotlight-copy>p,.home-page .personal-section .split p,.home-page .faq-wrap p{font-size:13px;line-height:1.8}
+ .home-page .section h2,.home-page .career-section h2{font-size:clamp(30px,8.7vw,38px);line-height:1.1}
+ .home-page .eyebrow{font-size:8px;letter-spacing:.1em;margin-bottom:16px}
+ .home-page .hero-premium>.wrap{width:calc(100% - 40px);min-height:650px;padding:58px 0 35px;justify-content:flex-start}
+ .home-page .hero-premium .hero-copy{width:100%;max-width:100%}
+ .home-page .hero-premium .hero-actions{flex-direction:column;align-items:stretch}
+ .home-page .hero-premium h1{font-size:clamp(32px,9.8vw,43px);line-height:1.07}
+ .home-page .hero-kicker{font-size:7px;margin-bottom:20px;letter-spacing:.07em}
+ .home-page .hero-school-name{margin-top:16px;font-size:7px}
+ .home-page .hero-premium .intro{font-size:13px;line-height:1.75;margin:14px 0 22px}
+ .home-page .hero-actions .btn{font-size:12px;min-height:48px}
+ .home-page .hero-phone{font-size:10px;gap:6px;line-height:1.7}
+ .home-page .hero-school-preview{margin-top:22px;padding-top:17px;gap:12px}
+ .home-page .hero-school-preview strong{font-size:12px}
+ .home-page .hero-school-preview small{font-size:9px}
+ .home-proof .wrap{grid-template-columns:repeat(3,minmax(0,1fr));gap:12px;padding:24px 0}
+ .home-proof .wrap>div,.home-proof .wrap>div:first-child{padding:0 0 0 11px;border-left:1px solid #AAB8C53d;min-width:0}
+ .home-proof span{font-size:6px;letter-spacing:.06em;margin-bottom:8px}
+ .home-proof strong{font-size:16px;line-height:1.3}
+ .home-proof small{font-size:9px;line-height:1.5;margin-top:7px}
+ .home-page .path-tabs{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:7px;margin-bottom:13px}
+ .home-page .path-tabs button{min-width:0;min-height:98px;padding:12px 10px;gap:8px;flex-direction:column;align-items:flex-start;justify-content:flex-start}
+ .home-page .path-tabs .tab-number{font-size:10px}
+ .home-page .path-tabs strong{font-size:14px;line-height:1.25;overflow-wrap:normal}
+ .home-page .path-tabs small,.path-label-wide{display:none}
+ .path-label-phone{display:inline}
+ .home-page .path-photo{height:195px}
+ .home-page .path-detail{padding:25px 22px 28px}
+ .home-page .path-detail h3{font-size:30px;line-height:1.1}
+ .home-page .path-detail p{font-size:13px;line-height:1.75}
+ .home-page .path-detail .training-pills{gap:6px}
+ .home-page .path-detail .training-pills span{font-size:9px}
+ .home-page .section-actions{width:100%;gap:13px;align-items:stretch;flex-direction:column}
+ .home-page .section-actions .btn{width:100%;min-height:46px;font-size:12px}
+ .home-page .section-actions .text-link{align-self:flex-start;font-size:12px}
+ .home-page .spotlight-grid{gap:30px}
+ .home-page .spotlight-links a{font-size:13px}
+ .home-page .aircraft-composition{display:grid;grid-template-columns:1fr;gap:12px;padding:0;max-width:100%}
+ .home-page .main-aircraft{height:240px;object-position:center}
+ .home-page .aircraft-caption{position:static;grid-row:2;padding:12px 14px;gap:10px;box-shadow:none}
+ .home-page .aircraft-caption strong{font-size:12px}
+ .home-page .aircraft-caption small{font-size:8px;letter-spacing:.05em}
+ .home-page .cockpit-inset{position:static;width:100%;height:175px;border:1px solid #F7F8FA25;border-radius:12px}
+ .home-page .inset-caption{position:static;font-size:8px;max-width:none;padding:0 2px}
+ .home-page .career-track{display:none}
+ .home-page .career-tabs{display:grid;grid-template-columns:repeat(6,minmax(0,1fr));gap:7px;padding:0;margin-bottom:14px;overflow:visible;scroll-snap-type:none}
+ .home-page .career-tab{grid-column:span 2;min-width:0;min-height:72px;padding:11px 9px 15px;gap:7px;flex-direction:column;flex-basis:auto}
+ .home-page .career-tab:nth-child(n+4){grid-column:span 3}
+ .home-page .career-tab strong{font-size:13px;line-height:1.2}
+ .home-page .career-tab-number{font-size:10px;padding:0}
+ .home-page .career-tab small{display:none}
+ .home-page .career-photo{height:180px;min-height:0}
+ .home-page .career-photo-label{left:18px;bottom:16px;font-size:7px}
+ .home-page .career-detail{padding:24px 22px 28px;min-height:0;justify-content:flex-start}
+ .home-page .career-detail-label{font-size:8px;margin-bottom:12px}
+ .home-page .career-detail h3{font-size:28px;line-height:1.12}
+ .home-page .career-detail>p{font-size:13px;line-height:1.75;margin-top:15px}
+ .home-page .career-skills{margin:17px 0 19px;gap:6px}
+ .home-page .career-skills li{font-size:9px;padding:5px 9px}
+ .home-page .career-actions .btn{font-size:12px;min-height:46px}
+ .home-page .career-more{font-size:12px;margin-top:16px}
+ .home-page .career-inquiry-note{font-size:10px;line-height:1.65}
+ .home-page .career-bottom{margin-top:20px;gap:15px}
+ .home-page .career-bottom .route-note{font-size:10px;line-height:1.7}
+ .home-page .personal-section .split{gap:30px}
+ .home-page .school-collage{padding:0 10px 20px 0}
+ .home-page .school-collage>img{height:285px}
+ .home-page .collage-stamp.official-stamp{width:115px;padding:10px 12px}
+ .home-page .home-base-tag{top:14px;left:14px;font-size:7px;padding:8px 10px}
+ .home-page .owner-card{gap:11px;padding:13px;margin:24px 0;flex-wrap:wrap}
+ .home-page .owner-card>a{margin:0;flex-basis:100%;font-size:12px;padding:3px 0}
+ .home-page .owner-card strong{font-size:14px}
+ .home-page .owner-card span{font-size:8px}
+ .home-page .experience{min-height:350px}
+ .home-page .experience h3{font-size:32px}
+ .home-page .experience p{font-size:13px}
+ .home-page .experience .experience-cta{font-size:13px}
+ .home-page .faq-list summary{font-size:13px;padding-right:40px;line-height:1.6}
+ .home-page .cta-band{padding:54px 0}
+ .home-page .cta-band h2{font-size:37px}
+ .home-page .cta-band p{font-size:13px}
+ .home-page .footer{padding-bottom:100px}
+ .home-page.home-inquiry-visible .wings-chat-launcher{width:46px;height:46px;bottom:calc(10px + env(safe-area-inset-bottom));right:16px}
+ .home-page.home-inquiry-visible .wings-chat-teaser{bottom:calc(87px + env(safe-area-inset-bottom))}
+ .home-page .wings-chat-teaser{width:230px;right:18px}
+ .home-page #chat-teaser-open{padding:17px 18px}
+ .home-page #chat-teaser-open strong{font-size:16px}
+ .home-page #chat-teaser-open>span{font-size:11px}
+ .home-page .wings-chat-panel{right:10px;left:10px;width:auto;max-width:none;bottom:84px;height:min(640px,calc(100svh - 104px))}
+}
+@media(max-width:360px){
+ .home-page .wrap,.home-page .hero-premium>.wrap{width:calc(100% - 32px)}
+ .home-page .path-tabs button{padding:11px 8px}
+ .home-page .path-tabs strong{font-size:13px}
+ .home-page .career-detail{padding:23px 18px 26px}
+ .home-page .career-detail h3{font-size:26px}
+}
+
+/* Delayed, restrained emphasis for the homepage MEI consultation actions. */
+@media(prefers-reduced-motion:no-preference){
+ .home-page.mei-attention-ready a.btn[href$="contact/index.html?goal=MEI"]{
+  background-image:linear-gradient(110deg,#C6A467 0%,#C6A467 28%,#DCE7F0 50%,#C6A467 72%,#C6A467 100%);
+  background-size:260% 100%;
+  animation:wola-mei-attention 7s ease-in-out infinite;
+ }
+}
+@keyframes wola-mei-attention{
+ 0%{background-position:0% 50%}
+ 25%{background-position:100% 50%}
+ 50%,100%{background-position:0% 50%}
+}
+
+@media(max-width:600px){.home-page .section.path-section{padding-top:36px}.home-page .path-section .section-head h2{font-size:clamp(30px,8.7vw,38px);line-height:1.1;margin-bottom:12px}.home-page .path-section .section-head>p{font-size:13px;line-height:1.7}.home-page .path-section .section-head{margin-bottom:22px}}
+
+/* Featured five-star review ratings; not an aggregate Google rating. */
+.aviation-theme.home-page .flight-review-rating > .flight-review-stars,
+.aviation-theme.home-page .flight-review-rating strong { color: #C6A467; }
+@media(max-width:700px) { .home-page .flight-reviews-actions { flex-wrap: wrap; } }

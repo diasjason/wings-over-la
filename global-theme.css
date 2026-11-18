@@ -1,0 +1,261 @@
+/* Wings Over L.A. — shared aviation palette and component surfaces. */
+:root, body.home-page {
+  --navy: #07182B; --deep: #07182B; --blue: #C6A467; --electric: #C6A467;
+  --sky: #DCE7F0; --gold: #C6A467; --ink: #F7F8FA; --cream: #07182B;
+  --muted: #AAB8C5; --line: rgb(170 184 197 / .2); --red: #C6A467;
+  --surface: #183653; --surface-raised: #183653;
+}
+html { background: #07182B; color-scheme: dark; }
+body.aviation-theme { background: #07182B; color: #F7F8FA; font-family: 'DM Sans', sans-serif; }
+body.aviation-theme :is(h1,h2,h3,h4) { font-family: 'Plus Jakarta Sans', sans-serif; color: #F7F8FA !important; }
+body.aviation-theme :is(button,input,select,textarea,.btn) { font-family: 'DM Sans', sans-serif; }
+body.aviation-theme main :is(p,dd,figcaption), body.aviation-theme .cta-band p { color: #AAB8C5; }
+body.aviation-theme :focus-visible { outline: 3px solid #DCE7F0; outline-offset: 4px; }
+::selection { background: #C6A467; color: #F7F8FA; }
+.aviation-theme :is(.eyebrow,.detail-label,.program-tag,.career-detail-label,.tab-number,.program-number,.step .number,.gold) { color: #AAB8C5; }
+.aviation-theme .eyebrow::before, .aviation-theme .status-dot { background: #C6A467; box-shadow: 0 0 14px rgb(198 164 103 / .35); }
+.aviation-theme :is(.section,.section-tight,.academy-section,.light,.process-section,.personal-section,.path-section,.experience-section,.home-faq,.career-section,.mei-spotlight,.journey-section,.map-section) {
+  background: #07182B; color: #F7F8FA;
+}
+.aviation-theme :is(.light,.academy-section,.path-section,.career-section,.map-section,.home-faq) {
+  background: linear-gradient(145deg, rgb(198 164 103 / .065), transparent 65%), #07182B;
+}
+.aviation-theme :is(.section-head p,.path-section .section-head > p,.career-section .section-head > p,.spotlight-copy > p,.career-detail > p,.path-detail p,.feature-content p,.faq-list details p,.split p,.rental-note p,.program-row p,.step p,.form-panel > p,.form-notice) { color: #AAB8C5; }
+.aviation-theme :is(.academy-card,.academy-rows > .academy-card:nth-child(even),.path-panels,.path-panel,.career-stage,.career-panel,.program-row,.fleet-card,.owner-card,.step,.portrait,.navy-box,.info-box,.form-panel,.review-wall,.review-card,.faq-list details) {
+  background: linear-gradient(140deg, rgb(220 231 240 / .035), transparent 70%), #183653;
+  color: #F7F8FA; border-color: rgb(170 184 197 / .2); box-shadow: 0 14px 38px rgb(7 24 43 / .13);
+}
+.aviation-theme :is(.academy-card,.program-row,.fleet-card,.step,.form-panel,.review-wall,.review-card,.navy-box,.info-box) { border: 1px solid rgb(170 184 197 / .2); border-radius: 18px; }
+.aviation-theme .academy-rows > .academy-card { border-top: 2px solid #C6A467; }
+.aviation-theme .academy-rows > .academy-card:hover { border-color: rgb(170 184 197 / .5); box-shadow: 0 15px 40px rgb(198 164 103 / .08); }
+.aviation-theme :is(.academy-card p,.academy-specs dd,.academy-section cite,.academy-note,.info-box,.program-tag,.portrait p,.fleet-meta,.photo-caption,.step p,.owner-card span,.owner-card small) { color: #AAB8C5; }
+.aviation-theme :is(.academy-specs dt,.owner-card strong,.fleet-card h3,.program-row h3,.step h3,.career-detail h3,.path-detail h3) { color: #F7F8FA; }
+.aviation-theme :is(.academy-specs > div,.fleet-meta,.list li,.feature-points div,.contact-item,.contact-details-grid .contact-item,.review-summary,.review-wall .review-summary,.spotlight-links a,.map-address) { border-color: rgb(170 184 197 / .2) !important; }
+.aviation-theme :is(.text-link,.career-more,.review-all,.review-wall .review-all,.legal-content a,.owner-card > a,.chat-response-links a) { color: #AAB8C5; }
+.aviation-theme :is(.text-link,.career-more,.review-all,.legal-content a,.footer a):hover { color: #F7F8FA; }
+.aviation-theme .text-link::after { color: #AAB8C5; border-color: rgb(170 184 197 / .4); }
+.aviation-theme .text-link:hover::after { background: #C6A467; color: #07182B; border-color: #C6A467; }
+.aviation-theme .program-row .text-link,
+.aviation-theme .program-row .text-link:is(:hover, :focus-visible, :active) {
+  background: #C6A467;
+  color: #07182B;
+}
+.aviation-theme .list li::before { color: #C6A467; }
+.aviation-theme :is(.program-number,.flight-route a > span) { color: #AAB8C5; background: rgb(198 164 103 / .13); border-color: rgb(170 184 197 / .4); }
+.aviation-theme :is(.feature,.navy-box,.map-copy,.home-proof,.mini-nav) { background: #07182B; color: #F7F8FA; }
+.aviation-theme .home-proof { border-color: rgb(170 184 197 / .15); }
+.aviation-theme .home-proof :is(span,small), .aviation-theme :is(.route-note,.career-inquiry-note,.career-bottom .route-note,.career-tour-bar > p) { color: #AAB8C5; }
+.aviation-theme .home-proof strong { color: #F7F8FA; font-family: 'Plus Jakarta Sans', sans-serif; }
+.aviation-theme .mini-nav a { color: #AAB8C5; border-color: rgb(170 184 197 / .25); }
+.aviation-theme .mini-nav a:hover { background: #C6A467; color: #07182B; }
+.aviation-theme .inner-hero { background: #07182B; min-height: 570px; padding-top: 138px; }
+.aviation-theme .inner-hero::after { background: linear-gradient(180deg, rgb(7 24 43 / .52), rgb(7 24 43 / .96)), linear-gradient(90deg, rgb(7 24 43 / .55), transparent); }
+.aviation-theme .inner-hero :is(p,.eyebrow) { color: #AAB8C5; }
+.aviation-theme.interior-page main > .section-tight:first-child { padding-top: 150px; background: #07182B; }
+.aviation-theme.interior-page main > .section:first-child:has(.legal-content) { padding-top: 165px; }
+.aviation-theme .legal-content :is(p,li) { color: #AAB8C5; }
+
+/* Shared buttons preserve every original destination and click action. */
+.aviation-theme :is(main,.cta-band,.cookie-dialog,.wings-chat-panel) .btn,
+.aviation-theme .hero-actions .btn,
+.aviation-theme .cta-band .btn.dark {
+  background: #C6A467; color: #07182B; border: 1px solid rgb(170 184 197 / .35);
+  border-radius: 999px; font-weight: 700; box-shadow: 0 5px 22px rgb(198 164 103 / .16);
+  transition: transform .22s ease, filter .22s ease, box-shadow .22s ease, border-color .22s ease;
+}
+.aviation-theme :is(main,.cta-band,.cookie-dialog,.wings-chat-panel) :is(.btn.white-outline,.btn.outline,.career-secondary,.hero-secondary,.home-closing-secondary,.home-bar-secondary) {
+  background: rgb(7 24 43 / .48); color: #F7F8FA; border-color: rgb(170 184 197 / .65); box-shadow: none;
+}
+.aviation-theme .hero-actions .hero-primary { background: linear-gradient(110deg, #C6A467, #C6A467 60%, #07182B 155%); }
+.aviation-theme .hero-actions .hero-secondary { background: rgb(7 24 43 / .4); color: #F7F8FA; border-color: #AAB8C5; box-shadow: none; }
+.aviation-theme :is(main,.cta-band,.cookie-dialog,.wings-chat-panel) .btn:hover,
+.aviation-theme .hero-actions .btn:hover {
+  background-image: none !important; filter: brightness(1.12); transform: translateY(-2px);
+  border-color: #AAB8C5; box-shadow: 0 9px 28px rgb(198 164 103 / .25); animation: none !important;
+}
+.aviation-theme .btn::after { color: #07182B; background: rgb(247 248 250 / .12); }
+.aviation-theme .experience .experience-cta { color: #07182B; background: #C6A467; }
+.aviation-theme .path-tabs button, .aviation-theme .career-tab {
+  color: #F7F8FA; background: #183653; border-color: rgb(170 184 197 / .25); box-shadow: none;
+}
+.aviation-theme :is(.path-tabs button,.career-tab):hover { background: #183653; border-color: #AAB8C5; background-image: none !important; animation: none !important; }
+.aviation-theme :is(.path-tabs button,.career-tab)[aria-selected='true'] {
+  background: linear-gradient(135deg, rgb(198 164 103 / .3), rgb(198 164 103 / .1)), #183653;
+  color: #F7F8FA; border-color: #C6A467; box-shadow: inset 0 -2px #C6A467, 0 7px 24px rgb(198 164 103 / .1);
+}
+.aviation-theme :is(.path-tabs small,.career-tab small,.career-tab-number,.career-tour-toggle) { color: #AAB8C5; }
+.aviation-theme .career-tour-toggle { background: #183653; border-color: rgb(170 184 197 / .4); }
+.aviation-theme .path-detail .training-pills span, .aviation-theme :is(.career-skills li,.photo-pill,.career-progress) { color: #AAB8C5; background: rgb(198 164 103 / .09); border-color: rgb(170 184 197 / .24); }
+.aviation-theme .career-tab::after, .aviation-theme .career-track-fill { background: #C6A467; }
+.aviation-theme :is(.career-track-stop,.career-track-plane) { color: #AAB8C5; }
+.aviation-theme .career-track-stop.active { color: #F7F8FA; }
+.aviation-theme :is(.home-base-tag,.aircraft-caption,.image-note) { color: #F7F8FA; background: #183653; border-color: rgb(170 184 197 / .25); }
+.aviation-theme .aircraft-caption small, .aviation-theme .inset-caption { color: #AAB8C5; }
+.aviation-theme .cockpit-inset { border-color: #07182B; }
+.aviation-theme .collage-stamp.official-stamp { background: transparent; border: 0; box-shadow: none; }
+.aviation-theme .official-stamp img { filter: none; }
+.aviation-theme :is(.faq-list details,.program-row) { border-color: rgb(170 184 197 / .2) !important; }
+.aviation-theme .faq-list summary { color: #F7F8FA; }
+.aviation-theme .faq-list summary::after { background: rgb(198 164 103 / .13); color: #AAB8C5; }
+.aviation-theme .experience::after { background: linear-gradient(0deg, rgb(7 24 43 / .98), rgb(7 24 43 / .2)); }
+
+/* Homepage footage and source are unchanged. Only the surrounding presentation changes. */
+.aviation-theme.home-page .hero-premium { background: #07182B; }
+.aviation-theme.home-page .hero-premium h1 { font-size: clamp(48px, 4.54vw, 73px); font-weight: 700; }
+.aviation-theme.home-page .hero-premium h1 > span { background: linear-gradient(100deg, #C6A467, #DCE7F0); background-clip: text; -webkit-background-clip: text; -webkit-text-fill-color: transparent; }
+.aviation-theme.home-page .hero-premium::before {
+  background: radial-gradient(ellipse at 95% 5%, rgb(198 164 103 / .12), transparent 32%),
+    linear-gradient(90deg, rgb(7 24 43 / .96), rgb(7 24 43 / .85) 27%, rgb(7 24 43 / .48) 49%, rgb(7 24 43 / .08) 80%),
+    linear-gradient(0deg, rgb(7 24 43 / .8), transparent 45%);
+}
+.aviation-theme.home-page .hero-premium .intro { color: #F7F8FA; }
+.aviation-theme.home-page :is(.hero-kicker,.hero-school-name,.hero-phone,.hero-school-preview small) { color: #AAB8C5; }
+.aviation-theme.home-page :is(.hero-location-icon,.hero-phone svg) { color: #C6A467; }
+.aviation-theme.home-page :is(.hero-phone strong,.hero-school-preview strong) { color: #F7F8FA; }
+.aviation-theme.home-page .hero-school-name::after { background: linear-gradient(90deg, #C6A467, transparent); }
+
+/* Contact fields retain the existing submission flow and validation. */
+.aviation-theme .field label, .aviation-theme .consent, .aviation-theme #inquiry-form .consent strong { color: #F7F8FA; }
+.aviation-theme .field :is(input,select,textarea), .aviation-theme .email-result textarea {
+  color: #F7F8FA; background: #07182B; border: 1px solid rgb(170 184 197 / .4); border-radius: 10px;
+}
+.aviation-theme .field :is(input,textarea)::placeholder { color: #AAB8C5; opacity: .8; }
+.aviation-theme .field :is(input,select,textarea):focus { border-color: #DCE7F0; outline: 2px solid rgb(220 231 240 / .35); outline-offset: 2px; }
+.aviation-theme .field select option { color: #F7F8FA; background: #07182B; }
+.aviation-theme .consent input { accent-color: #C6A467; }
+.aviation-theme .consent a, .aviation-theme .form-notice, .aviation-theme .consent-copy, .aviation-theme .contact-item small { color: #AAB8C5; }
+.aviation-theme .contact-item a { color: #F7F8FA; }
+.aviation-theme .contact-item a:hover { color: #AAB8C5; }
+.aviation-theme .email-result { background: #183653; border-color: rgb(170 184 197 / .3); color: #F7F8FA; }
+.aviation-theme #inquiry-form button[type='submit'] { background: #C6A467; box-shadow: 0 6px 24px rgb(198 164 103 / .2); }
+.aviation-theme #inquiry-form button[type='submit']::before { background: linear-gradient(110deg, transparent 34%, rgb(220 231 240 / .3) 50%, transparent 66%); }
+.aviation-theme #inquiry-form button[type='submit']:focus-visible { outline-color: #DCE7F0; }
+.aviation-theme .review-wall .review-summary { color: #F7F8FA; background: transparent; box-shadow: none; }
+.aviation-theme .review-wall .review-summary > strong { color: #F7F8FA; }
+.aviation-theme .review-wall .review-summary :is(span,b,p), .aviation-theme .review-card :is(small,em), .aviation-theme .review-wall .review-card small { color: #AAB8C5; }
+.aviation-theme .review-wall .review-card p, .aviation-theme .review-card small strong { color: #F7F8FA; }
+.aviation-theme .review-card em { background: rgb(198 164 103 / .12); }
+.aviation-theme .map-copy .eyebrow, .aviation-theme .map-copy p { color: #AAB8C5; }
+.aviation-theme .map-frame { background: #183653; }
+.aviation-theme .map-grid { border: 1px solid rgb(170 184 197 / .2); border-radius: 20px; overflow: hidden; }
+.aviation-theme.home-page .flight-reviews { background: radial-gradient(ellipse at 80% 0, rgb(198 164 103 / .1), transparent 55%), #07182B; border-color: rgb(170 184 197 / .2); }
+.aviation-theme.home-page :is(.flight-review,.flight-review-rating,.flight-review-controls button) { background: #183653; color: #F7F8FA; border-color: rgb(170 184 197 / .3); }
+.aviation-theme.home-page :is(.flight-review-stars,.flight-review-platform,.flight-reviews-heading p,.flight-reviews-note,.flight-review-foot,.flight-review-rating strong span,.flight-review-tag) { color: #AAB8C5; }
+.aviation-theme.home-page .flight-review blockquote { color: #F7F8FA; }
+.aviation-theme.home-page .flight-review-tag { background: rgb(7 24 43 / .85); border-color: rgb(170 184 197 / .45); }
+.aviation-theme.home-page .flight-review-avatar { background: #C6A467; color: #07182B; border-color: #AAB8C5; }
+.aviation-theme.home-page .flight-review-body > a { color: #AAB8C5; }
+.aviation-theme.home-page .flight-review-controls button:hover { background: #C6A467; border-color: #AAB8C5; }
+
+/* Shared footer, privacy dialog, and the existing assistant. Official artwork is intact. */
+.aviation-theme .cta-band { background: #07182B; color: #F7F8FA; border-top: 1px solid rgb(170 184 197 / .18); }
+.aviation-theme .cta-band h2::before { background: #C6A467; }
+.aviation-theme .footer { background: #07182B; border-top: 1px solid rgb(170 184 197 / .18); }
+.aviation-theme .footer :is(.footer-links,p,.footer-bottom) { color: #AAB8C5; }
+.aviation-theme .footer a:hover { color: #C6A467; }
+.aviation-theme .footer-bottom { border-color: rgb(170 184 197 / .2); }
+.aviation-theme .brand.official-brand { padding: 0; background: transparent; border: 0; border-radius: 0; box-shadow: none; }
+.aviation-theme .footer .official-logo { filter: none; }
+.aviation-theme .footer-social-icon { background: rgb(198 164 103 / .07); border-color: rgb(170 184 197 / .3); }
+.aviation-theme .footer-social a:hover .footer-social-icon { background: rgb(198 164 103 / .2); border-color: #C6A467; }
+.aviation-theme :is(.cookie-dialog,.privacy-panel,.preference-row,.privacy-status) { color: #F7F8FA; background: #183653; border-color: rgb(170 184 197 / .3); }
+.aviation-theme :is(.cookie-dialog p,.privacy-panel p,.preference-row small) { color: #AAB8C5; }
+.aviation-theme :is(.dialog-close,.cookie-dialog .dialog-close) { background: #07182B; color: #F7F8FA; }
+.aviation-theme .wings-chat-launcher { background: #C6A467; color: #07182B; border-color: #AAB8C5; box-shadow: 0 8px 30px rgb(198 164 103 / .22); }
+.aviation-theme .wings-chat-panel { background: #07182B; color: #F7F8FA; border-color: rgb(170 184 197 / .4); }
+.aviation-theme :is(.wings-chat-header,.wings-chat-footer) { color: #F7F8FA; background: #183653; border-color: rgb(170 184 197 / .2); border-top-color: #C6A467; }
+.aviation-theme :is(.wings-chat-header p,.wings-chat-footer p,.wings-chat-footer a,.chat-author,.chat-quick-label) { color: #AAB8C5; }
+.aviation-theme .wings-chat-header > button { color: #F7F8FA; background: #07182B; border-color: rgb(170 184 197 / .3); }
+.aviation-theme .chat-logo { background: transparent; padding: 0; }
+.aviation-theme .chat-logo img { filter: drop-shadow(0 0 1px #F7F8FA); }
+.aviation-theme .assistant-message { color: #F7F8FA; background: #183653; border-color: rgb(170 184 197 / .2); }
+.aviation-theme .visitor-message { color: #F7F8FA; background: #183653; }
+.aviation-theme .chat-quick-questions > button { color: #AAB8C5; background: #183653; border-color: rgb(170 184 197 / .3); }
+.aviation-theme .chat-quick-questions > button:hover { color: #F7F8FA; background: #C6A467; background-image: none !important; animation: none !important; }
+.aviation-theme #chat-teaser-open, .aviation-theme .wings-chat-teaser::after { background: #07182B; border-color: rgb(170 184 197 / .5); }
+.aviation-theme #chat-teaser-open:hover { background: #183653; background-image: none !important; animation: none !important; }
+.aviation-theme #chat-teaser-open span { color: #AAB8C5; }
+.aviation-theme .mobile-call { background: #C6A467; }
+@media (max-width: 1180px) {
+  .aviation-theme .inner-hero { padding-top: 115px; }
+  .aviation-theme.interior-page main > .section-tight:first-child { padding-top: 125px; }
+  .aviation-theme.interior-page main > .section:first-child:has(.legal-content) { padding-top: 145px; }
+}
+@media (max-width: 700px) {
+  .aviation-theme.home-page .hero-premium h1 { font-size: clamp(38px, 9.35vw, 60px); }
+  .aviation-theme.home-page .hero-premium::before { background: linear-gradient(90deg, rgb(7 24 43 / .88), rgb(7 24 43 / .58) 70%, rgb(7 24 43 / .3)), linear-gradient(0deg, rgb(7 24 43 / .85), transparent 70%); }
+}
+@media (max-width: 560px) {
+  .aviation-theme .inner-hero { min-height: 470px; padding-top: 96px; }
+  .aviation-theme.interior-page main > .section-tight:first-child { padding-top: 108px; }
+  .aviation-theme.interior-page main > .section:first-child:has(.legal-content) { padding-top: 120px; }
+  .aviation-theme.home-page .hero-premium h1 { font-size: clamp(36px, 9.25vw, 49px); }
+  .aviation-theme.home-page .hero-premium > .wrap { padding-top: 112px; }
+}
+@media (prefers-reduced-motion: reduce) {
+  .aviation-theme *, .aviation-theme *::before, .aviation-theme *::after { animation: none !important; transition: none !important; }
+}
+
+.aviation-theme .chat-message p, .aviation-theme .chat-message strong { color: #F7F8FA; }
+.aviation-theme .chat-message a { color: #AAB8C5; }
+/* Resolve the homepage's former light selector and pathway diagram surfaces. */
+.aviation-theme.home-page .section.path-section { background: linear-gradient(145deg, rgb(198 164 103 / .065), transparent 65%), #07182B; color: #F7F8FA; }
+.aviation-theme.home-page .career-track { background: rgb(220 231 240 / .22); }
+.aviation-theme.home-page .career-track-plane { color: #AAB8C5; background: #07182B; }
+.aviation-theme.home-page .career-track-stop i { background: #07182B; border-color: #AAB8C5; }
+.aviation-theme.home-page .career-photo { background: #183653; }
+
+/* Let the hero grow with its copy instead of centering overflowing content into the header. */
+.aviation-theme.home-page .hero-premium {
+  --hero-content-top: 166px;
+  height: auto;
+  min-height: 100svh;
+}
+.aviation-theme.home-page .hero-premium > .wrap {
+  height: auto;
+  min-height: 100svh;
+  max-height: none;
+  justify-content: flex-start;
+  gap: 0;
+  padding-block: var(--hero-content-top) max(56px, env(safe-area-inset-bottom));
+}
+@media (max-width: 1180px) {
+  .aviation-theme.home-page .hero-premium { --hero-content-top: 140px; }
+}
+@media (max-width: 700px) {
+  .aviation-theme.home-page .hero-premium { --hero-content-top: 124px; }
+}
+@media (max-width: 560px) {
+  .aviation-theme.home-page .hero-premium { --hero-content-top: 112px; }
+}
+
+/* The shimmer uses a gradient; keep a solid gold surface when hover removes that image. */
+.aviation-theme a.btn[href$="contact/index.html?goal=MEI"],
+.aviation-theme a.btn[href$="contact/index.html?goal=MEI"]:is(:hover, :focus-visible, :active) {
+  background-color: #C6A467;
+  color: #07182B;
+}
+
+/* Refined service labels: Manrope Semibold, without changing sizes or spacing. */
+@font-face { font-family: 'Manrope'; src: url('assets/manrope-semibold.ttf') format('truetype'); font-weight: 600; font-style: normal; font-display: swap; }
+body.aviation-theme :is(.brand-name,.action-tile strong,.path-tabs strong,.flight-route strong,.tab-number,.collage-stamp,.program-number,.photo-caption strong,.contact-item a,.wings-chat-launcher .chat-launcher-label,.career-tab-number,.career-tab strong,#chat-teaser-open strong) {
+  font-family: 'Manrope', sans-serif;
+  font-weight: 600;
+}
+
+/* Highlight the existing left-side text action. */
+body.aviation-theme.home-page .home-inquiry-bar .home-bar-secondary {
+  border-color: #C6A467;
+  box-shadow: 0 0 0 1px #C6A46755, 0 0 18px #C6A46760, 0 0 32px #C6A46724;
+}
+.home-page .home-inquiry-bar .text-status {
+  background: #23C875;
+  box-shadow: 0 0 0 2px #07182B, 0 0 9px #23C87599;
+}
+@media (prefers-reduced-motion: no-preference) {
+  .home-page .home-inquiry-bar .text-status { animation-name: text-availability-glow; }
+  @keyframes text-availability-glow {
+    0%, 100% { box-shadow: 0 0 0 2px #07182B, 0 0 7px #23C87588; }
+    55% { box-shadow: 0 0 0 2px #07182B, 0 0 12px #23C875CC; }
+  }
+}

@@ -1,0 +1,140 @@
+/* One shared header: the original transparent logo sits outside the glass menu. */
+.header, .header.is-scrolled {
+  --header-height: 110px;
+  position: absolute;
+  inset: 16px 0 auto;
+  width: 100%; max-width: none; margin: 0; transform: none;
+  z-index: 90; color: #F7F8FA; background: transparent;
+  border: 0; border-radius: 0; box-shadow: none;
+  backdrop-filter: none; -webkit-backdrop-filter: none;
+}
+.header .wrap {
+  display: flex; justify-content: space-between; align-items: center;
+  width: min(1660px, calc(100% - 64px)); max-width: none;
+  height: 110px; padding: 0; gap: 28px;
+}
+.header .brand-group { flex: 0 0 auto; padding: 0; gap: 0; background: transparent; }
+.header .brand.official-brand {
+  width: 180px; height: 91px; padding: 0;
+  background: transparent; border: 0; border-radius: 0; box-shadow: none;
+}
+.header .official-logo {
+  display: block; width: 100%; height: 100%; object-fit: contain;
+  /* Lettering has a crisp Aviation White vector outline, without a surrounding glow. */
+  filter: none;
+}
+.header .header-actions {
+  position: relative; display: flex; align-items: center; justify-content: flex-end;
+  min-width: 0; gap: 13px; padding: 13px 14px; min-height: 88px;
+  border: 1px solid rgb(198 164 103 / .38); border-radius: 26px;
+  background: linear-gradient(110deg, rgb(7 24 43 / .9), rgb(7 24 43 / .72));
+  backdrop-filter: blur(20px) saturate(140%); -webkit-backdrop-filter: blur(20px) saturate(140%);
+  box-shadow: 0 14px 40px rgb(7 24 43 / .4), 0 0 24px rgb(198 164 103 / .09), inset 0 1px rgb(247 248 250 / .06);
+}
+.header .nav { display: flex; align-items: center; justify-content: flex-end; gap: 3px; flex-wrap: nowrap; }
+.header .nav > a, .header .flight-main > a {
+  display: inline-flex; align-items: center; position: relative;
+  font-family: 'Plus Jakarta Sans', sans-serif; font-weight: 500; font-size: 13px;
+  line-height: 1.5; letter-spacing: -.02em; -webkit-text-stroke: 0;
+  white-space: nowrap; padding: 12px 12px; border-radius: 999px; color: #F7F8FA;
+  transition: color .22s ease, background .22s ease, box-shadow .22s ease;
+}
+.header .nav a::before, .header .nav a::after { display: none; content: none; }
+.header .nav > a:hover, .header .flight-main > a:hover {
+  color: #AAB8C5; background: rgb(198 164 103 / .14);
+}
+.header .nav > a.active, .header .flight-main > a.active {
+  color: #07182B; background: #C6A467;
+  box-shadow: 0 5px 21px rgb(198 164 103 / .32), inset 0 1px rgb(247 248 250 / .22);
+}
+.header .header-cta {
+  display: inline-flex; align-items: center; gap: 11px; min-height: 54px;
+  padding: 7px 8px 7px 20px; border: 1px solid rgb(170 184 197 / .65); border-radius: 999px;
+  font-family: 'DM Sans', sans-serif; font-size: 13px; font-weight: 700;
+  line-height: 1.5; white-space: nowrap; letter-spacing: -.01em; color: #07182B;
+  background: linear-gradient(130deg, #C6A467, #C6A467 65%, #07182B 155%);
+  box-shadow: 0 6px 24px rgb(198 164 103 / .24), inset 0 1px rgb(247 248 250 / .2);
+  transition: transform .22s, filter .22s, box-shadow .22s;
+}
+.header .header-cta::after {
+  content: '→' !important; display: grid !important; place-items: center; width: 36px; height: 36px; flex: 0 0 36px;
+  margin: 0; border-radius: 50%; color: #07182B; background: #F7F8FA; font-size: 20px; transform: none;
+}
+.header .header-cta:hover { filter: brightness(1.1); transform: translateY(-2px); box-shadow: 0 9px 30px rgb(198 164 103 / .4); }
+.header :is(a, button):focus-visible { outline: 3px solid #DCE7F0; outline-offset: 4px; }
+.header .menu-btn {
+  display: none; min-height: 44px; padding: 9px 13px; border-radius: 999px;
+  font: 500 12px/1.5 'DM Sans', sans-serif; white-space: nowrap;
+  color: #F7F8FA; background: rgb(220 231 240 / .07); border: 1px solid rgb(170 184 197 / .35);
+}
+.header .flight-menu { position: relative; display: flex; align-items: center; }
+.header .flight-main { display: flex; align-items: center; }
+.header .flight-toggle {
+  display: grid; place-items: center; width: 28px; min-height: 36px; margin-left: -7px;
+  color: #AAB8C5; background: transparent; border: 0; border-radius: 999px;
+}
+.header .flight-toggle:hover { background: rgb(198 164 103 / .18); color: #F7F8FA; }
+.header .flight-toggle svg { width: 15px; height: 15px; fill: none; stroke: currentColor; stroke-width: 1.8; stroke-linecap: round; stroke-linejoin: round; transition: transform .2s; }
+.header .flight-toggle[aria-expanded='true'] svg { transform: rotate(180deg); }
+.header .flight-submenu {
+  position: absolute; z-index: 95; top: calc(100% + 18px); left: 0; min-width: 245px;
+  padding: 9px; display: flex; flex-direction: column; gap: 3px;
+  background: rgb(7 24 43 / .97); border: 1px solid rgb(198 164 103 / .4); border-radius: 16px;
+  box-shadow: 0 18px 45px rgb(7 24 43 / .5); backdrop-filter: blur(20px);
+  animation: navigation-enter .2s ease-out both;
+}
+.header .flight-submenu[hidden] { display: none !important; }
+.header .flight-submenu a {
+  display: block; padding: 11px 13px; border-radius: 9px;
+  color: #F7F8FA; font: 500 12px/1.5 'Plus Jakarta Sans', sans-serif;
+}
+.header .flight-submenu a:hover { color: #AAB8C5; background: rgb(198 164 103 / .16); }
+@keyframes navigation-enter { from { opacity: 0; transform: translateY(-6px); } to { opacity: 1; transform: translateY(0); } }
+@media (min-width: 1181px) and (max-width: 1380px) {
+  .header .wrap { width: calc(100% - 44px); gap: 20px; }
+  .header .header-actions { gap: 7px; padding: 12px 10px; }
+  .header .nav > a, .header .flight-main > a { font-size: 12px; padding-inline: 10px; }
+  .header .header-cta { font-size: 12px; gap: 8px; padding-left: 16px; }
+}
+@media (max-width: 1180px) {
+  .header, .header.is-scrolled { --header-height: 94px; top: 10px; }
+  .header .wrap { height: 94px; width: calc(100% - 40px); gap: 20px; }
+  .header .brand.official-brand { width: 155px; height: 79px; }
+  .header .header-actions { padding: 10px 12px; min-height: 70px; gap: 10px; border-radius: 23px; }
+  .header .menu-btn { display: inline-flex; align-items: center; }
+  .header .nav {
+    display: none; position: absolute; top: calc(100% + 10px); right: 0; left: auto;
+    width: min(360px, calc(100vw - 40px)); padding: 12px;
+    max-height: calc(100dvh - 125px); overflow-y: auto;
+    background: rgb(7 24 43 / .98); border: 1px solid rgb(198 164 103 / .4);
+    border-radius: 18px; box-shadow: 0 18px 40px rgb(7 24 43 / .5);
+  }
+  .header .nav.open { display: flex; flex-direction: column; align-items: stretch; gap: 4px; animation: navigation-enter .22s ease-out both; }
+  .header .nav > a, .header .flight-main > a { min-height: 46px; font-size: 15px; padding: 12px 16px; }
+  .header .flight-menu { display: block; }
+  .header .flight-main { justify-content: space-between; }
+  .header .flight-toggle { width: 44px; min-height: 44px; margin-left: auto; }
+  .header .flight-submenu { position: static; min-width: 0; margin: 5px 4px 4px 15px; box-shadow: none; background: rgb(220 231 240 / .05); animation: none; }
+  .header .flight-submenu a { font-size: 13px; }
+}
+@media (max-width: 560px) {
+  .header, .header.is-scrolled { --header-height: 80px; top: 7px; }
+  .header .wrap { width: calc(100% - 24px); height: 80px; gap: 10px; }
+  .header .brand.official-brand { width: 116px; height: 59px; }
+  .header .header-actions { gap: 6px; padding: 7px; min-height: 55px; border-radius: 20px; }
+  .header .header-cta { display: inline-flex; min-height: 40px; padding: 6px 7px 6px 11px; gap: 7px; font-size: 10px; }
+  .header .header-cta::after { width: 27px; height: 27px; flex-basis: 27px; font-size: 17px; }
+  .header .menu-btn { padding: 8px 10px; font-size: 11px; min-height: 40px; }
+  .header .nav { top: calc(100% + 10px); width: calc(100vw - 44px); max-height: calc(100dvh - 108px); }
+}
+@media (max-width: 370px) {
+  .header .wrap { width: calc(100% - 20px); gap: 8px; }
+  .header .brand.official-brand { width: 98px; height: 50px; }
+  .header .header-actions { padding: 6px; gap: 4px; }
+  .header .menu-btn { font-size: 10px; padding-inline: 8px; }
+  .header .header-cta { padding-inline: 9px; font-size: 9px; }
+  .header .header-cta::after { display: none !important; }
+}
+@media (prefers-reduced-motion: reduce) {
+  .header *, .header *::after { animation: none !important; transition: none !important; }
+}

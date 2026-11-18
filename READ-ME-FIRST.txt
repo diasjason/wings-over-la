@@ -1,0 +1,37 @@
+WINGS OVER L.A. — LOCAL WEBSITE PREVIEW
+
+FOR JESS
+1. Download and extract/unzip the ENTIRE ZIP file first.
+   On Windows: right-click the ZIP and choose Extract All.
+   On Mac: double-click the ZIP to extract it.
+2. Open the extracted Wings-Over-LA-Local-Preview folder.
+3. Double-click index.html to open the homepage in Chrome, Edge or Safari.
+4. Use the navigation to browse all 13 pages. Keep all files and folders together.
+
+No installation, account or web server is needed.
+
+INCLUDED
+The final 13-page website, original airplane background video, photographs,
+fonts, logo, animations and the latest contact-page review design.
+The export contains saved site version 63, source revision:
+20ea40527a05e80daa3a89014e96ac25dfa232ca
+
+WHAT TO EXPECT
+- The site can be previewed without internet. The Google Map, Google/Yelp
+  reviews links, social pages and other external destinations need internet.
+- The enquiry form prepares an email draft for review and sending. It does not
+  deliver leads to a server automatically. Do not submit real enquiries while
+  reviewing the design.
+- The assistant contains three sample responses; it is not a connected live AI.
+- Telephone, SMS and email links use the apps configured on your device.
+- If your browser blocks video autoplay, click the page or use Chrome/Edge.
+  Reduced-motion or data-saving preferences can intentionally show the poster.
+
+ONLINE VERSION
+https://wings-over-la-flight-academy.clientscaleiq.chatgpt.site/
+
+EXPORT NOTES
+Only local page/asset paths were adapted in this preview copy so it opens by
+file double-click. The published website has not been changed. This is a
+review package; it contains public website files, not hosting configuration,
+account credentials, private records or Git history.

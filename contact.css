@@ -1,0 +1,209 @@
+/* Clearly separated inquiry and optional marketing permissions. */
+#inquiry-form .consent{font-size:12px;line-height:1.45;gap:10px;margin:12px 0;padding:0;border:0;background:transparent}
+#inquiry-form .consent input{width:19px;height:19px;margin-top:3px}
+#inquiry-form .consent strong{display:block;color:#183653;font-size:13px;margin-bottom:5px;font-weight:700}
+#inquiry-form .consent .consent-copy{display:block}
+#inquiry-form .consent a{text-decoration:underline;text-underline-offset:3px}
+.contact-layout { align-items: start; gap: 32px; }
+body.interior-page main > .section-tight:first-child { padding: 24px 0; }
+body.interior-page main > .section-tight:first-child h1 { font-size: 32px; line-height: 1.15; }
+body.interior-page main > .section-tight:first-child h1 br { display: none; }
+body.interior-page main > .section-tight:first-child .eyebrow { margin-bottom: 10px; }
+body.interior-page main > .section-tight:first-child p { margin-top: 10px !important; }
+body.interior-page main > .section:has(.contact-layout) { padding-top: 24px; }
+.contact-layout .form-panel { padding: 20px; border-radius: 16px; }
+.contact-layout .form-panel .eyebrow { margin-bottom: 10px; }
+.contact-layout .form-panel h2 { font-size: 30px; }
+.contact-layout .form-panel > p { margin: 10px 0 16px; line-height: 1.5; }
+.contact-layout .form-grid { gap: 12px; }
+.contact-layout .field { gap: 5px; }
+.contact-layout .field textarea { min-height: 72px; }
+#inquiry-form button[type="submit"] { width: 100%; min-height: 44px; }
+#inquiry-form .form-notice { margin-top: 8px; font-size: 11px; line-height: 1.45; }
+.contact-layout #reviews { margin-top: 0; }
+.contact-details-below { margin-top: 32px; }
+.contact-details-below h2 { font-size: 30px; }
+
+#inquiry-form button[type="submit"] {
+  position: relative;
+  overflow: hidden;
+  box-shadow: inset 0 1px #C6A46780, 0 4px 12px #18365326;
+}
+
+#inquiry-form button[type="submit"]:focus-visible {
+  outline: 2px solid #C6A467;
+  outline-offset: 4px;
+}
+
+@media (prefers-reduced-motion: no-preference) {
+  #inquiry-form button[type="submit"] {
+    transition: transform .2s ease, box-shadow .2s ease, background-color .2s ease;
+  }
+
+  #inquiry-form button[type="submit"]::before {
+    content: "";
+    position: absolute;
+    inset: 0;
+    background: linear-gradient(110deg, transparent 34%, #DCE7F05c 50%, transparent 66%);
+    transform: translateX(-100%);
+    pointer-events: none;
+  }
+
+  #inquiry-form button[type="submit"]:is(:hover, :focus-visible) {
+    transform: translateY(-2px);
+    box-shadow: inset 0 1px #C6A467a0, 0 7px 18px #1836533f;
+  }
+
+  #inquiry-form button[type="submit"]:is(:hover, :focus-visible)::before {
+    animation: inquiry-button-shine .65s ease-out both;
+  }
+
+  @keyframes inquiry-button-shine {
+    to { transform: translateX(100%); }
+  }
+}
+
+.review-wall {
+  grid-template-columns: minmax(0, 1fr);
+  gap: 18px;
+  padding: 24px;
+  border: 1px solid #DCE7F0;
+  border-radius: 16px;
+  background: linear-gradient(135deg, #F7F8FA, #DCE7F0);
+  box-shadow: 0 8px 24px #18365310;
+}
+.review-wall .review-summary {
+  display: grid;
+  grid-template-columns: auto 1fr;
+  align-items: center;
+  gap: 5px 20px;
+  padding: 0 0 20px;
+  border: 0;
+  border-bottom: 1px solid #DCE7F0;
+  border-radius: 0;
+  background: transparent;
+  color: #183653;
+}
+.review-wall .review-summary > strong {
+  grid-column: 1;
+  grid-row: 1 / 4;
+  margin: 0;
+  font-size: 64px;
+  line-height: 1;
+  font-weight: 600;
+}
+.review-wall .review-summary > span {
+  grid-column: 2;
+  color: #C6A467;
+  font-size: 10px;
+}
+.review-wall .review-summary > b {
+  grid-column: 2;
+  margin: 0;
+  color: #C6A467;
+  font-size: 16px;
+}
+.review-wall .review-summary p {
+  grid-column: 2;
+  margin: 0;
+  color: #AAB8C5;
+  font-size: 12px;
+}
+.review-wall .review-list { gap: 12px; }
+.review-wall .review-card {
+  padding: 16px;
+  border: 1px solid #DCE7F0;
+  border-radius: 10px;
+  background: #F7F8FA;
+  box-shadow: none;
+}
+.review-wall .review-card p { color: #183653; font-size: 13px; line-height: 1.7; }
+.review-wall .review-card small { color: #AAB8C5; font-size: 11px; }
+.review-wall .review-all { color: #C6A467; font-size: 12px; min-height: 44px; display: flex; align-items: center; }
+@media (max-width: 560px) {
+  .review-wall { padding: 20px; }
+}
+
+/* Keep the review marquee inside the existing half-width contact column. */
+.contact-layout > *, .contact-review-marquee { min-width: 0; }
+.contact-layout #inquiry { order: 1; }
+.contact-review-marquee { overflow: hidden; }
+.aviation-theme .contact-review-marquee .review-summary > .contact-review-stars,
+.aviation-theme .contact-review-marquee .contact-review-stars { color: #C6A467; letter-spacing: .08em; white-space: nowrap; }
+.contact-review-viewport { width: 100%; min-width: 0; overflow-x: auto; overscroll-behavior-inline: contain; scrollbar-width: none; border-radius: 12px; }
+.contact-review-viewport::-webkit-scrollbar { display: none; }
+.contact-review-track { display: flex; gap: 14px; width: max-content; }
+.contact-review-card { flex: 0 0 auto; width: clamp(240px, 22vw, 320px); overflow: hidden; border: 1px solid rgb(170 184 197 / .25); border-radius: 12px; background: #07182B; color: #F7F8FA; display: flex; flex-direction: column; }
+.contact-review-card figure { position: relative; margin: 0; }
+.contact-review-card figure > img { width: 100%; height: 132px; object-fit: cover; }
+.contact-review-card figcaption { position: absolute; inset: auto 0 0; padding: 15px 10px 6px; background: linear-gradient(transparent, rgb(7 24 43 / .94)); color: #F7F8FA; font-size: 9px; }
+.contact-review-copy { padding: 16px; display: flex; flex-direction: column; flex: 1; }
+.contact-review-person { display: flex; flex-wrap: wrap; align-items: center; justify-content: space-between; gap: 6px 10px; font-size: 13px; }
+.contact-review-person > strong { font-weight: 600; }
+.contact-review-stars { font-size: 14px; }
+.contact-review-platform { display: flex; align-items: center; gap: 6px; margin-top: 6px; color: #AAB8C5; font-size: 10px; }
+.contact-review-platform svg { width: 14px; height: 14px; flex: 0 0 14px; }
+.contact-review-copy blockquote { min-height: 48px; margin: 14px 0 8px; color: #F7F8FA; font-size: 14px; line-height: 1.65; }
+.contact-review-copy > a { display: inline-flex; align-items: center; min-height: 32px; margin-top: auto; color: #DCE7F0; font-size: 11px; }
+.contact-review-bottom { display: flex; flex-wrap: wrap; align-items: center; justify-content: space-between; gap: 8px; }
+.contact-review-controls { display: flex; align-items: center; gap: 6px; }
+.contact-review-controls[hidden] { display: none; }
+.contact-review-controls button { display: inline-grid; place-items: center; min-width: 36px; min-height: 36px; padding: 6px 10px; border-radius: 999px; border: 1px solid rgb(170 184 197 / .45); color: #F7F8FA; background: #07182B; font-size: 12px; }
+.contact-review-controls button:hover { color: #07182B; background: #C6A467; }
+.contact-review-note { display: block; color: #AAB8C5; font-size: 10px; line-height: 1.5; }
+.contact-review-marquee .review-summary { position: relative; isolation: isolate; }
+.contact-review-marquee .review-summary::before { content: ''; position: absolute; z-index: -1; pointer-events: none; width: 150px; height: 120px; left: -22px; top: -18px; background: radial-gradient(ellipse, rgb(198 164 103 / .2), transparent 68%); }
+.aviation-theme .contact-review-marquee .review-summary > strong {
+  color: #C6A467;
+  background-image: linear-gradient(110deg, #C6A467 25%, #F7F8FA 47%, #DCE7F0 50%, #C6A467 70%);
+  background-size: 250% 100%;
+  background-clip: text;
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  filter: drop-shadow(0 0 12px rgb(198 164 103 / .32));
+}
+.aviation-theme .contact-review-marquee .review-summary > .contact-review-stars { font-size: 20px; text-shadow: 0 0 12px rgb(198 164 103 / .45); }
+@media (min-width: 821px) {
+  .contact-review-marquee { height: var(--review-form-height, auto); grid-template-rows: auto auto minmax(0, 1fr) auto auto; }
+  .contact-review-marquee .contact-review-viewport { height: 100%; min-height: 0; }
+  .contact-review-marquee .contact-review-track { height: 100%; }
+}
+@media (prefers-reduced-motion: no-preference) {
+  .aviation-theme .contact-review-marquee .review-summary > strong { animation: contact-rating-shimmer 7s ease-in-out infinite; }
+  @keyframes contact-rating-shimmer { 0%, 65%, 100% { background-position: 100% 50%; } 30% { background-position: 0% 50%; } }
+}
+@media (max-width: 820px) {
+  .contact-layout #inquiry { order: -1; }
+  .contact-review-card { width: min(300px, 68vw); }
+}
+@media (max-width: 560px) {
+  .contact-review-card { width: clamp(200px, 62vw, 280px); }
+  .contact-review-copy { padding: 13px; }
+  .contact-review-card figure > img { height: 116px; }
+  .contact-review-controls button { min-height: 44px; min-width: 44px; }
+}
+
+/* Approved Clear score treatment, limited to the contact review panel. */
+.contact-review-marquee .review-summary { display: block; padding-bottom: 18px; border-color: rgb(170 184 197 / .24); }
+.aviation-theme .contact-review-marquee .contact-review-eyebrow { display: block; color: #AAB8C5; font-size: 10px; letter-spacing: .18em; margin-bottom: 12px; }
+.contact-score-row { display: flex; align-items: center; gap: 24px; flex-wrap: wrap; }
+.contact-score { display: flex; align-items: baseline; gap: 6px; white-space: nowrap; }
+.aviation-theme .contact-review-marquee .contact-score > strong { font-size: 65px; line-height: 1; font-weight: 600; color: #C6A467; background-image: linear-gradient(110deg, #C6A467 25%, #F7F8FA 47%, #DCE7F0 50%, #C6A467 70%); background-size: 250% 100%; background-clip: text; -webkit-background-clip: text; -webkit-text-fill-color: transparent; filter: drop-shadow(0 0 12px rgb(198 164 103 / .28)); }
+.aviation-theme .contact-review-marquee .contact-score > span { font-size: 22px; color: #AAB8C5; }
+.aviation-theme .contact-review-marquee .contact-score-caption > .contact-review-stars { display: block; font-size: 20px; text-shadow: 0 0 12px rgb(198 164 103 / .38); }
+.aviation-theme .contact-review-marquee .contact-score-caption > p { margin: 5px 0 0; font-size: 11px; color: #AAB8C5; }
+.aviation-theme .contact-review-marquee .contact-review-heading { margin: 0; font-family: Manrope, sans-serif; font-size: 29px; line-height: 1.25; font-weight: 600; color: #F7F8FA; }
+.contact-review-viewport { scroll-snap-type: x mandatory; }
+.contact-review-card { width: var(--contact-review-card-width, 250px); scroll-snap-align: start; }
+.contact-review-card figure > img { display: block; height: 108px; }
+.contact-review-copy { padding: 15px; }
+.contact-review-copy blockquote { min-height: 0; }
+@media (prefers-reduced-motion: no-preference) {
+ .aviation-theme .contact-review-marquee .contact-score > strong { animation: contact-rating-shimmer 7s ease-in-out infinite; }
+}
+@media (max-width: 560px) {
+ .contact-score-row { gap: 16px; }
+ .aviation-theme .contact-review-marquee .contact-score > strong { font-size: 58px; }
+ .aviation-theme .contact-review-marquee .contact-review-heading { font-size: 26px; }
+}
+.aviation-theme .contact-review-marquee .review-summary .contact-score-caption > .contact-review-stars { color: #C6A467; }
