@@ -1,0 +1,23 @@
+.sms-smallprint {
+  margin-top: 16px;
+  font-size: 12px;
+  line-height: 1.6;
+  color: var(--muted, #AAB8C5);
+}
+
+.sms-placeholder,
+.legal-content .sms-placeholder {
+  font-family: ui-monospace, SFMono-Regular, Menlo, Consolas, monospace;
+  font-weight: 600;
+  color: #C6A467;
+}
+
+#sms-opt-in-result {
+  margin-top: 24px;
+}
+
+#sms-email-copy {
+  width: 100%;
+  min-height: 200px;
+  margin-top: 12px;
+}
