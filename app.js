@@ -633,26 +633,38 @@ if (careerSection) {
   syncTour();
 }
 
-// Shared flight-program dropdown; the primary link remains a direct page link.
+// Shared nav dropdowns (Flight Training, Our Fleet). The primary link remains a direct page link.
 (() => {
-  const group = document.querySelector('.flight-menu');
-  const toggle = group?.querySelector('.flight-toggle');
-  const submenu = group?.querySelector('.flight-submenu');
-  if (!group || !toggle || !submenu) return;
-  const close = (restoreFocus = false) => {
-    toggle.setAttribute('aria-expanded', 'false');
-    submenu.hidden = true;
-    if (restoreFocus) toggle.focus();
+  const menus = [...document.querySelectorAll('.flight-menu')].map(group => ({
+    group,
+    toggle: group.querySelector('.flight-toggle'),
+    submenu: group.querySelector('.flight-submenu')
+  })).filter(menu => menu.toggle && menu.submenu);
+  if (!menus.length) return;
+  const close = (menu, restoreFocus = false) => {
+    menu.toggle.setAttribute('aria-expanded', 'false');
+    menu.submenu.hidden = true;
+    if (restoreFocus) menu.toggle.focus();
   };
-  toggle.addEventListener('click', () => {
-    const open = toggle.getAttribute('aria-expanded') !== 'true';
-    toggle.setAttribute('aria-expanded', String(open));
-    submenu.hidden = !open;
+  const closeAll = (except) => {
+    menus.forEach(menu => { if (menu !== except) close(menu); });
+  };
+  menus.forEach(menu => {
+    menu.toggle.addEventListener('click', () => {
+      const open = menu.toggle.getAttribute('aria-expanded') !== 'true';
+      closeAll(menu);
+      menu.toggle.setAttribute('aria-expanded', String(open));
+      menu.submenu.hidden = !open;
+    });
   });
   document.addEventListener('click', event => {
-    if (!group.contains(event.target)) close();
+    if (!menus.some(menu => menu.group.contains(event.target))) {
+      menus.forEach(menu => close(menu));
+    }
   });
   document.addEventListener('keydown', event => {
-    if (event.key === 'Escape' && !submenu.hidden) close(true);
+    if (event.key !== 'Escape') return;
+    const openMenu = menus.find(menu => !menu.submenu.hidden);
+    if (openMenu) close(openMenu, true);
   });
 })();

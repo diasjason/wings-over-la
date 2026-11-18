@@ -143,3 +143,67 @@
   font-family: ui-monospace, SFMono-Regular, Menlo, Consolas, monospace;
   font-weight: 600;
 }
+
+/* POH handbook links: clearly clickable gold pill with document + external icons. */
+.poh-link {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 8px;
+  min-height: 44px;
+  padding: 10px 16px;
+  border: 2px solid #C6A467;
+  border-radius: 999px;
+  background: rgb(198 164 103 / .14);
+  color: #C6A467;
+  font-size: 13px;
+  font-weight: 700;
+  letter-spacing: .01em;
+  line-height: 1.25;
+  text-decoration: none;
+  box-shadow: 0 0 0 1px rgb(198 164 103 / .25);
+  transition: background .2s ease, color .2s ease, border-color .2s ease, box-shadow .2s ease, transform .2s ease;
+}
+.poh-link svg {
+  width: 18px;
+  height: 18px;
+  flex: none;
+}
+.poh-link:is(:hover, :focus-visible) {
+  background: #C6A467;
+  color: #07182B;
+  border-color: #C6A467;
+  box-shadow: 0 6px 20px rgb(198 164 103 / .38);
+  transform: translateY(-1px);
+}
+.poh-link:focus-visible {
+  outline: 2px solid #C6A467;
+  outline-offset: 3px;
+}
+@media (max-width: 560px) {
+  .poh-link {
+    font-size: 13px;
+    width: 100%;
+    max-width: 100%;
+    text-align: center;
+  }
+}
+
+/* Keep hash targets clear of the overlay header. */
+.academy-card[id^="fleet-"] {
+  scroll-margin-top: 140px;
+}
+@media (max-width: 1180px) {
+  .academy-card[id^="fleet-"] { scroll-margin-top: 120px; }
+}
+@media (max-width: 560px) {
+  .academy-card[id^="fleet-"] { scroll-margin-top: 100px; }
+}
+
+.fleet-rate-note {
+  margin: 14px 0 0;
+  max-width: 46rem;
+  color: #AAB8C5;
+  font-size: 14px;
+  line-height: 1.65;
+}
