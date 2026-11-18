@@ -243,19 +243,3 @@ body.aviation-theme :is(.brand-name,.action-tile strong,.path-tabs strong,.fligh
   font-weight: 600;
 }
 
-/* Highlight the existing left-side text action. */
-body.aviation-theme.home-page .home-inquiry-bar .home-bar-secondary {
-  border-color: #C6A467;
-  box-shadow: 0 0 0 1px #C6A46755, 0 0 18px #C6A46760, 0 0 32px #C6A46724;
-}
-.home-page .home-inquiry-bar .text-status {
-  background: #23C875;
-  box-shadow: 0 0 0 2px #07182B, 0 0 9px #23C87599;
-}
-@media (prefers-reduced-motion: no-preference) {
-  .home-page .home-inquiry-bar .text-status { animation-name: text-availability-glow; }
-  @keyframes text-availability-glow {
-    0%, 100% { box-shadow: 0 0 0 2px #07182B, 0 0 7px #23C87588; }
-    55% { box-shadow: 0 0 0 2px #07182B, 0 0 12px #23C875CC; }
-  }
-}
