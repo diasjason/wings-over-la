@@ -65,7 +65,8 @@
 
 .academy-rows > :nth-child(even) .academy-row-image { --slide-from: 20px; }
 
-.academy-row-image img {
+.academy-row-image > img,
+.academy-row-image .fleet-gallery-main img {
   position: absolute;
   inset: 0;
   width: 100%;
@@ -100,8 +101,10 @@
 @media (prefers-reduced-motion: no-preference) {
   .academy-row-visible .academy-row-image { animation: academy-image-in .65s ease-out both; }
   .academy-row-visible .academy-card-copy { animation: academy-copy-in .55s .1s ease-out both; }
-  .academy-row-image img { transition: transform .55s ease; }
-  .academy-row-image:hover img { transform: scale(1.035); }
+  .academy-row-image > img,
+  .academy-row-image .fleet-gallery-main img { transition: transform .55s ease; }
+  .academy-row-image:hover > img,
+  .academy-row-image:hover .fleet-gallery-main img { transform: scale(1.035); }
 
   @keyframes academy-image-in {
     from { opacity: .35; transform: translateX(var(--slide-from)); }
