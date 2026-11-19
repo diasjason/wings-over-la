@@ -110,12 +110,13 @@ function stampSmsConsentFields(form) {
   if (urlInput) urlInput.value = location.href;
   if (timeInput) timeInput.value = now;
   const record = {
-    consent_version: 'v1',
+    consent_version: 'v2',
     page_url: location.href,
     timestamp: now,
     ip: (ipInput && ipInput.value) || '',
     sms_service_consent: form.querySelector('[name="sms_service_consent"]')?.checked ? 'yes' : 'no',
     sms_marketing_consent: form.querySelector('[name="sms_marketing_consent"]')?.checked ? 'yes' : 'no',
+    disclosure_text: form.querySelector('.sms-smallprint')?.innerText.trim() || '',
     service_text: form.querySelector('#sms-service-consent')?.closest('label')?.querySelector('.consent-copy')?.innerText.trim() || '',
     marketing_text: form.querySelector('#sms-marketing-consent')?.closest('label')?.querySelector('.consent-copy')?.innerText.trim() || ''
   };
@@ -130,6 +131,7 @@ function formatSmsConsentRecord(record) {
     `IP: ${record.ip || 'not captured in browser (needs server)'}`,
     `Service texts (customer care, booking, reminders): ${record.sms_service_consent}`,
     `Service consent text: ${record.service_text}`,
+    `Shared opt-in disclosure: ${record.disclosure_text}`,
     `Marketing texts (offers and news): ${record.sms_marketing_consent}`,
     `Marketing consent text: ${record.marketing_text}`
   ].join('\n');
@@ -161,9 +163,15 @@ if (inquiryForm) {
   const inquiryTopic = inquiryParams.get('subject')?.trim().slice(0, 160);
   const inquiryMessage = inquiryForm.querySelector('#message');
   if (inquiryTopic && inquiryMessage && !inquiryMessage.value) inquiryMessage.value = `I’d like to ask about ${inquiryTopic}.`;
+  inquiryForm.querySelector('#phone')?.addEventListener('input', e => e.target.setCustomValidity(''));
+  inquiryForm.querySelectorAll('[name="sms_service_consent"], [name="sms_marketing_consent"]').forEach(box => box.addEventListener('change', () => inquiryForm.querySelector('#phone')?.setCustomValidity('')));
   inquiryForm.addEventListener('submit', e => {
     e.preventDefault();
+    const wantsSms = [...inquiryForm.querySelectorAll('[name="sms_service_consent"], [name="sms_marketing_consent"]')].some(box => box.checked);
+    const mobileInput = inquiryForm.querySelector('#phone');
+    mobileInput?.setCustomValidity(wantsSms && !mobileInput.value.trim() ? 'Enter your mobile number to consent to texts.' : '');
     if (!inquiryForm.reportValidity()) return;
+    mobileInput?.setCustomValidity('');
     captureConsentIp(inquiryForm).finally(() => {
       const data = new FormData(inquiryForm);
       const value = key => String(data.get(key) || '').trim();
@@ -198,7 +206,7 @@ if (smsOptInForm) {
       const smsRecord = stampSmsConsentFields(smsOptInForm);
       if (smsOptInForm.querySelector('[name="consent_ip"]')?.value) smsRecord.ip = smsOptInForm.querySelector('[name="consent_ip"]').value;
       const subject = `SMS opt-in: ${value('interest') || 'Wings Over L.A.'}`;
-      const body = `Hello Wings Over L.A. team,\n\nSMS opt-in form submission (consent version v1).\n\nName: ${value('name')}\nEmail: ${value('email')}\nMobile phone: ${value('phone')}\nInterested in: ${value('interest')}\nMessage:\n${value('message') || '(none)'}\n\n${formatSmsConsentRecord(smsRecord)}\n\nThank you,\n${value('name')}`;
+      const body = `Hello Wings Over L.A. team,\n\nSMS opt-in form submission (consent version v2).\n\nName: ${value('name')}\nEmail: ${value('email')}\nMobile phone: ${value('phone')}\nInterested in: ${value('interest')}\nMessage:\n${value('message') || '(none)'}\n\n${formatSmsConsentRecord(smsRecord)}\n\nThank you,\n${value('name')}`;
       const emailLink = `mailto:info@wingsoverla.net?subject=${encodeURIComponent(subject)}&body=${encodeURIComponent(body)}`;
       const send = document.querySelector('#sms-send-email');
       if (send) send.href = emailLink;
