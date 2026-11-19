@@ -1,0 +1,17 @@
+name: Verify Wings Over L.A. preview assets
+
+on:
+  pull_request:
+    branches: [main]
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+jobs:
+  verify-preview:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - name: Check hero media and all fleet cards
+        run: node scripts/verify-pr-preview.mjs
