@@ -375,3 +375,44 @@ body.home-page{--navy:#07182B;--deep:#07182B;--blue:#C6A467;--electric:#C6A467;-
 .aviation-theme.home-page .flight-review-rating > .flight-review-stars,
 .aviation-theme.home-page .flight-review-rating strong { color: #C6A467; }
 @media(max-width:700px) { .home-page .flight-reviews-actions { flex-wrap: wrap; } }
+
+
+/* Licensed KVNY aerial location feature: faithful photo with gentle display adjustments. */
+.kvny-aerial-section {
+  background: linear-gradient(130deg, #07182B 0%, #102943 58%, #162F47 100%);
+  color: #F7F8FA; padding: clamp(56px, 7vw, 96px) 0;
+}
+.kvny-aerial-layout { display: grid; grid-template-columns: minmax(0, 1.08fr) minmax(0, .92fr); align-items: center; gap: clamp(26px, 5vw, 78px); }
+.kvny-aerial-copy .eyebrow { color: #C6A467; margin-bottom: 18px; }
+.kvny-aerial-copy h2 { color: #F7F8FA; font-size: clamp(34px, 4.4vw, 64px); line-height: 1.12; letter-spacing: -.04em; }
+.kvny-aerial-copy h2 span { color: #C6A467; }
+.kvny-aerial-copy > p { max-width: 520px; margin-top: 23px; font-size: 16px; line-height: 1.8; color: #DCE7F0; }
+.kvny-aerial-copy .kvny-aerial-address { border-left: 2px solid #C6A467; padding-left: 17px; margin-top: 25px; font-size: 14px; letter-spacing: .015em; color: #F7F8FA; }
+.kvny-aerial-actions { display: flex; align-items: center; flex-wrap: wrap; gap: 22px; margin-top: 32px; }
+.kvny-aerial-actions .btn { min-height: 49px; }
+.kvny-aerial-actions .text-link { color: #DCE7F0; }
+.kvny-aerial-figure { min-width: 0; margin: 0; }
+.kvny-aerial-photo { position: relative; overflow: hidden; isolation: isolate; border-radius: 18px; aspect-ratio: 4 / 5; max-height: 560px; background: #19334a; border: 1px solid rgb(198 164 103 / .38); box-shadow: 0 26px 70px rgb(0 0 0 / .3); }
+.kvny-aerial-photo::after { content: ''; position: absolute; inset: 45% 0 0; background: linear-gradient(180deg, transparent, rgb(7 24 43 / .58)); pointer-events: none; }
+.kvny-aerial-photo img { width: 100%; height: 100%; display: block; object-fit: cover; object-position: 50% 52%; filter: contrast(1.075) saturate(1.09) brightness(1.025); }
+.kvny-aerial-photo-label { position: absolute; z-index: 1; left: 22px; bottom: 22px; max-width: calc(100% - 44px); color: #F7F8FA; font: 700 11px/1.4 'Plus Jakarta Sans', sans-serif; letter-spacing: .16em; }
+.kvny-aerial-figure figcaption { margin-top: 12px; font: 400 11px/1.65 'DM Sans', sans-serif; color: #B7C5D3; }
+.kvny-aerial-figure figcaption a { color: #E0C697; text-decoration: underline; text-underline-offset: 2px; }
+@media (max-width: 850px) {
+  .kvny-aerial-layout { grid-template-columns: 1fr; }
+  .kvny-aerial-copy h2 { font-size: clamp(34px, 7vw, 52px); }
+  .kvny-aerial-figure { width: min(100%, 540px); }
+  .kvny-aerial-photo { max-height: none; }
+}
+@media (prefers-reduced-motion: reduce) {
+  .kvny-aerial-photo img { transition: none; }
+}
+
+
+/* Restored D95A second cockpit image for the Learn to Fly panel.
+   Small display corrections only; authentic panel detail remains unchanged. */
+.home-page #panel-career .path-photo img {
+  object-fit: cover;
+  object-position: center 45%;
+  filter: contrast(1.09) saturate(1.08) brightness(1.04);
+}

@@ -207,3 +207,106 @@ body.interior-page main > .section:has(.contact-layout) { padding-top: 24px; }
  .aviation-theme .contact-review-marquee .contact-review-heading { font-size: 26px; }
 }
 .aviation-theme .contact-review-marquee .review-summary .contact-score-caption > .contact-review-stars { color: #C6A467; }
+
+/* Compact Google review cards beside Contact Us.
+   Keep the review panel aligned to the form, but do not stretch each
+   carousel card to the entire available vertical space. */
+.contact-review-marquee .contact-review-card {
+  align-self: center;
+  height: auto;
+}
+.contact-review-marquee .contact-review-card figure > img {
+  height: 92px;
+}
+.contact-review-marquee .contact-review-copy {
+  flex: 0 0 auto;
+  padding: 12px 13px;
+}
+.contact-review-marquee .contact-review-person {
+  font-size: 12px;
+}
+.contact-review-marquee .contact-review-platform {
+  margin-top: 4px;
+}
+.contact-review-marquee .contact-review-copy blockquote {
+  margin: 9px 0 5px;
+  font-size: 13px;
+  line-height: 1.5;
+}
+.contact-review-marquee .contact-review-copy > a {
+  min-height: 28px;
+  margin-top: 6px;
+  font-size: 10px;
+}
+@media (min-width: 821px) {
+  .contact-review-marquee .contact-review-track {
+    align-items: center;
+  }
+  .aviation-theme .contact-review-marquee .contact-score > strong {
+    font-size: 54px;
+  }
+  .aviation-theme .contact-review-marquee .contact-review-heading {
+    font-size: 24px;
+  }
+  .contact-review-marquee {
+    gap: 12px;
+  }
+  .contact-review-marquee .review-summary {
+    padding-bottom: 12px;
+  }
+}
+
+/* Preview-only refinement: shorten the entire review block, not just cards. */
+@media (min-width: 821px) {
+  .contact-layout .contact-review-marquee {
+    height: auto;
+    grid-template-rows: auto auto auto auto auto;
+    align-content: start;
+  }
+  .contact-layout .contact-review-marquee .contact-review-viewport,
+  .contact-layout .contact-review-marquee .contact-review-track {
+    height: auto;
+    min-height: 0;
+  }
+}
+
+/* Review approval preview — uniform compact cards, generous form spacing.
+   Every slide matches the height of the tallest review, rather than
+   filling the entire contact form column. Desktop and mobile. */
+.contact-layout .contact-review-marquee .contact-review-track {
+  display: flex;
+  align-items: stretch;
+  height: auto;
+}
+.contact-layout .contact-review-marquee .contact-review-card {
+  align-self: stretch;
+  height: auto;
+  display: flex;
+  flex-direction: column;
+}
+.contact-layout .contact-review-marquee .contact-review-card .contact-review-copy {
+  flex: 1 1 auto;
+  display: flex;
+  flex-direction: column;
+}
+.contact-layout .contact-review-marquee .contact-review-card .contact-review-copy > a {
+  margin-top: auto;
+  padding-top: 10px;
+}
+.contact-layout #inquiry-form .form-privacy-note {
+  margin: 17px 0 20px;
+  line-height: 1.65;
+}
+.contact-layout #inquiry-form .sms-smallprint {
+  margin: 17px 0 24px;
+  line-height: 1.7;
+}
+.contact-layout #inquiry-form button[type="submit"] {
+  margin-top: 0;
+  min-height: 48px;
+}
+@media (max-width: 560px) {
+  .contact-layout #inquiry-form .sms-smallprint {
+    margin-bottom: 22px;
+  }
+}

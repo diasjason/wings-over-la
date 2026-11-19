@@ -140,3 +140,33 @@
 @media (prefers-reduced-motion: reduce) {
   .header *, .header *::after { animation: none !important; transition: none !important; }
 }
+
+
+/* Visually join Flight Training and Our Fleet labels with their dropdown arrows.
+   The label still links to its overview page; the chevron opens the submenu. */
+.header .flight-menu .flight-main {
+  display: inline-flex; align-items: stretch; border-radius: 999px; overflow: hidden;
+  transition: background .22s ease, box-shadow .22s ease;
+}
+.header .flight-menu .flight-main > a {
+  border-radius: 999px 0 0 999px; padding-right: 5px;
+}
+.header .flight-menu .flight-main > .flight-toggle {
+  align-self: stretch; width: 32px; min-height: 44px; margin-left: 0;
+  padding: 0 8px 0 2px; border-radius: 0 999px 999px 0;
+  color: #F7F8FA;
+}
+.header .flight-menu .flight-main:hover,
+.header .flight-menu .flight-main:focus-within { background: rgb(198 164 103 / .14); }
+.header .flight-menu .flight-main > a:hover,
+.header .flight-menu .flight-main > .flight-toggle:hover { background: transparent; color: #F7F8FA; }
+.header .flight-menu .flight-main:has(> a.active) {
+  background: #C6A467; box-shadow: 0 5px 21px rgb(198 164 103 / .32);
+}
+.header .flight-menu .flight-main > a.active { background: transparent; box-shadow: none; color: #07182B; }
+.header .flight-menu .flight-main:has(> a.active) > .flight-toggle { color: #07182B; }
+@media (max-width: 1180px) {
+  .header .flight-menu .flight-main { display: flex; width: 100%; }
+  .header .flight-menu .flight-main > a { flex: 1; }
+  .header .flight-menu .flight-main > .flight-toggle { width: 48px; min-height: 48px; }
+}
