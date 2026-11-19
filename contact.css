@@ -255,3 +255,17 @@ body.interior-page main > .section:has(.contact-layout) { padding-top: 24px; }
     padding-bottom: 12px;
   }
 }
+
+/* Preview-only refinement: shorten the entire review block, not just cards. */
+@media (min-width: 821px) {
+  .contact-layout .contact-review-marquee {
+    height: auto;
+    grid-template-rows: auto auto auto auto auto;
+    align-content: start;
+  }
+  .contact-layout .contact-review-marquee .contact-review-viewport,
+  .contact-layout .contact-review-marquee .contact-review-track {
+    height: auto;
+    min-height: 0;
+  }
+}
