@@ -32,6 +32,25 @@ if ('IntersectionObserver' in window && !reducedMotion.matches) {
     academyRows.forEach(row => revealRows.observe(row));
   }
 }
+async function chooseAvailableAsset(candidate, fallback, mimeType) {
+  if (!candidate) return fallback;
+  try {
+    const response = await fetch(candidate, {method: 'HEAD', cache: 'no-store'});
+    const type = (response.headers.get('Content-Type') || '').split(';')[0].trim().toLowerCase();
+    return response.ok && type === mimeType ? candidate : fallback;
+  } catch {
+    return fallback;
+  }
+}
+const enhancedCockpit = document.querySelector('#panel-career .path-photo img[data-upgrade-src]');
+if (enhancedCockpit) {
+  const fallback = enhancedCockpit.getAttribute('src');
+  chooseAvailableAsset(enhancedCockpit.dataset.upgradeSrc, fallback, 'image/png').then(selected => {
+    if (selected === fallback) return;
+    enhancedCockpit.addEventListener('error', () => { enhancedCockpit.src = fallback; }, {once: true});
+    enhancedCockpit.src = selected;
+  });
+}
 const heroVideo = document.querySelector('#hero-video');
 if (hero && heroVideo) {
   const media = heroVideo.closest('.hero-media');
@@ -42,17 +61,27 @@ if (hero && heroVideo) {
     const paused = heroVideo.paused;
     hero.classList.toggle('paused', paused);
   }
-  function loadVideo() {
+  let loadingVideo;
+  // Corrected media is optional until uploaded to this PR branch.
+  // The original local assets remain working during the handoff.
+  async function loadVideo() {
     if (sourcesLoaded) return;
-    heroVideo.muted = true;
-    heroVideo.defaultMuted = true;
-    heroVideo.querySelectorAll('source[data-src]').forEach(source => { source.src = source.dataset.src; });
-    sourcesLoaded = true;
-    heroVideo.load();
+    if (loadingVideo) return loadingVideo;
+    loadingVideo = (async () => {
+      heroVideo.muted = true;
+      heroVideo.defaultMuted = true;
+      await Promise.all([...heroVideo.querySelectorAll('source[data-src]')].map(async source => {
+        source.src = await chooseAvailableAsset(source.dataset.upgradeSrc, source.dataset.src, 'video/mp4');
+      }));
+      sourcesLoaded = true;
+      heroVideo.load();
+    })();
+    return loadingVideo;
   }
-  function playVideo() {
+  async function playVideo() {
     if (motionDisabled || !heroVisible || document.hidden) return;
-    loadVideo();
+    await loadVideo();
+    if (motionDisabled || !heroVisible || document.hidden) return;
     heroVideo.play().catch(() => syncVideoState());
   }
   heroVideo.addEventListener('playing', () => {
