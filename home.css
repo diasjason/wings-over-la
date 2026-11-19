@@ -407,3 +407,12 @@ body.home-page{--navy:#07182B;--deep:#07182B;--blue:#C6A467;--electric:#C6A467;-
 @media (prefers-reduced-motion: reduce) {
   .kvny-aerial-photo img { transition: none; }
 }
+
+
+/* Restored D95A second cockpit image for the Learn to Fly panel.
+   Small display corrections only; authentic panel detail remains unchanged. */
+.home-page #panel-career .path-photo img {
+  object-fit: cover;
+  object-position: center 45%;
+  filter: contrast(1.09) saturate(1.08) brightness(1.04);
+}
