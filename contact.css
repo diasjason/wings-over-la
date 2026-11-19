@@ -269,3 +269,44 @@ body.interior-page main > .section:has(.contact-layout) { padding-top: 24px; }
     min-height: 0;
   }
 }
+
+/* Review approval preview — uniform compact cards, generous form spacing.
+   Every slide matches the height of the tallest review, rather than
+   filling the entire contact form column. Desktop and mobile. */
+.contact-layout .contact-review-marquee .contact-review-track {
+  display: flex;
+  align-items: stretch;
+  height: auto;
+}
+.contact-layout .contact-review-marquee .contact-review-card {
+  align-self: stretch;
+  height: auto;
+  display: flex;
+  flex-direction: column;
+}
+.contact-layout .contact-review-marquee .contact-review-card .contact-review-copy {
+  flex: 1 1 auto;
+  display: flex;
+  flex-direction: column;
+}
+.contact-layout .contact-review-marquee .contact-review-card .contact-review-copy > a {
+  margin-top: auto;
+  padding-top: 10px;
+}
+.contact-layout #inquiry-form .form-privacy-note {
+  margin: 17px 0 20px;
+  line-height: 1.65;
+}
+.contact-layout #inquiry-form .sms-smallprint {
+  margin: 17px 0 24px;
+  line-height: 1.7;
+}
+.contact-layout #inquiry-form button[type="submit"] {
+  margin-top: 0;
+  min-height: 48px;
+}
+@media (max-width: 560px) {
+  .contact-layout #inquiry-form .sms-smallprint {
+    margin-bottom: 22px;
+  }
+}
