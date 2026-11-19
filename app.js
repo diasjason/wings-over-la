@@ -101,37 +101,120 @@ privacyDialog?.addEventListener('click', event => {
   const rect = privacyDialog.getBoundingClientRect();
   if (event.clientX < rect.left || event.clientX > rect.right || event.clientY < rect.top || event.clientY > rect.bottom) privacyDialog.close();
 });
+
+function stampSmsConsentFields(form) {
+  const now = new Date().toISOString();
+  const urlInput = form.querySelector('[name="consent_page_url"]');
+  const timeInput = form.querySelector('[name="consent_timestamp"]');
+  const ipInput = form.querySelector('[name="consent_ip"]');
+  if (urlInput) urlInput.value = location.href;
+  if (timeInput) timeInput.value = now;
+  const record = {
+    consent_version: 'v1',
+    page_url: location.href,
+    timestamp: now,
+    ip: (ipInput && ipInput.value) || '',
+    sms_service_consent: form.querySelector('[name="sms_service_consent"]')?.checked ? 'yes' : 'no',
+    sms_marketing_consent: form.querySelector('[name="sms_marketing_consent"]')?.checked ? 'yes' : 'no',
+    service_text: form.querySelector('#sms-service-consent')?.closest('label')?.querySelector('.consent-copy')?.innerText.trim() || '',
+    marketing_text: form.querySelector('#sms-marketing-consent')?.closest('label')?.querySelector('.consent-copy')?.innerText.trim() || ''
+  };
+  return record;
+}
+
+function formatSmsConsentRecord(record) {
+  return [
+    `SMS consent version: ${record.consent_version}`,
+    `Page URL: ${record.page_url}`,
+    `Timestamp: ${record.timestamp}`,
+    `IP: ${record.ip || 'not captured in browser (needs server)'}`,
+    `Service texts (customer care, booking, reminders): ${record.sms_service_consent}`,
+    `Service consent text: ${record.service_text}`,
+    `Marketing texts (offers and news): ${record.sms_marketing_consent}`,
+    `Marketing consent text: ${record.marketing_text}`
+  ].join('\n');
+}
+
+function captureConsentIp(form) {
+  const ipInput = form.querySelector('[name="consent_ip"]');
+  if (!ipInput) return Promise.resolve('');
+  const controller = new AbortController();
+  const timer = setTimeout(() => controller.abort(), 2500);
+  return fetch('https://www.cloudflare.com/cdn-cgi/trace', {signal: controller.signal})
+    .then(r => r.text())
+    .then(text => {
+      const match = text.match(/^ip=(.*)$/m);
+      const ip = match ? match[1].trim() : '';
+      ipInput.value = ip;
+      return ip;
+    })
+    .catch(() => '')
+    .finally(() => clearTimeout(timer));
+}
+
 const inquiryForm = document.querySelector('#inquiry-form');
 if (inquiryForm) {
   const inquiryParams = new URLSearchParams(location.search);
   const queryGoal = inquiryParams.get('goal');
   const goalSelect = inquiryForm.querySelector('#goal');
-  if ([...goalSelect.options].some(option => option.value === queryGoal)) goalSelect.value = queryGoal;
+  if (goalSelect && [...goalSelect.options].some(option => option.value === queryGoal)) goalSelect.value = queryGoal;
   const inquiryTopic = inquiryParams.get('subject')?.trim().slice(0, 160);
   const inquiryMessage = inquiryForm.querySelector('#message');
-  if (inquiryTopic && !inquiryMessage.value) inquiryMessage.value = `I’d like to ask about ${inquiryTopic}.`;
+  if (inquiryTopic && inquiryMessage && !inquiryMessage.value) inquiryMessage.value = `I’d like to ask about ${inquiryTopic}.`;
   inquiryForm.addEventListener('submit', e => {
     e.preventDefault();
     if (!inquiryForm.reportValidity()) return;
-    const data = new FormData(inquiryForm);
-    const value = key => String(data.get(key) || '').trim();
-    const marketingOptIn = data.get('marketing_consent') === 'yes';
-    const marketingWording = inquiryForm.querySelector('#marketing-consent')?.closest('label')?.querySelector('.consent-copy')?.textContent.trim() || '';
-    const marketingRecord = marketingOptIn
-      ? `Marketing preference: OPTED IN.\nChannels: Email${value('phone') ? ' and text messages at the phone number provided above' : ' only (no phone number provided)'}.\nConsent wording: ${marketingWording}\nConsent wording version: 2026-11-07.\nEmail draft prepared at: ${new Date().toISOString()}.`
-      : 'Marketing preference: NOT OPTED IN. Please respond to this inquiry only; no marketing messages.';
-    const subject = `Training inquiry: ${value('goal')}`;
-    const body = `Hello Wings Over L.A. team,\n\nI would like to discuss ${value('goal')}.\n\nName: ${value('name')}\nEmail: ${value('email')}\nPhone: ${value('phone') || 'Not provided'}\n\nGoals and experience:\n${value('message') || 'I would like to discuss my options with the team.'}\n\nI request a response to this inquiry using the contact details above. I have reviewed the website privacy notice.\n\n${marketingRecord}\n\nThank you,\n${value('name')}`;
-    const emailLink = `mailto:info@wingsoverla.net?subject=${encodeURIComponent(subject)}&body=${encodeURIComponent(body)}`;
-    document.querySelector('#send-email').href = emailLink;
-    document.querySelector('#email-copy').value = `To: info@wingsoverla.net\nSubject: ${subject}\n\n${body}`;
-    const result = document.querySelector('#email-result'); result.hidden = false; result.scrollIntoView({behavior:reducedMotion.matches?'auto':'smooth',block:'center'});
-    inquiryForm.querySelector('button[type="submit"]').textContent = 'Submit';
+    captureConsentIp(inquiryForm).finally(() => {
+      const data = new FormData(inquiryForm);
+      const value = key => String(data.get(key) || '').trim();
+      const smsRecord = stampSmsConsentFields(inquiryForm);
+      if (inquiryForm.querySelector('[name="consent_ip"]')?.value) smsRecord.ip = inquiryForm.querySelector('[name="consent_ip"]').value;
+      const subject = `Training inquiry: ${value('goal')}`;
+      const body = `Hello Wings Over L.A. team,\n\nI would like to discuss ${value('goal')}.\n\nName: ${value('name')}\nEmail: ${value('email')}\nPhone: ${value('phone') || 'Not provided'}\n\nGoals and experience:\n${value('message') || 'I would like to discuss my options with the team.'}\n\nI request a response to this inquiry using the contact details above. I have reviewed the website privacy notice.\n\n${formatSmsConsentRecord(smsRecord)}\n\nThank you,\n${value('name')}`;
+      const emailLink = `mailto:info@wingsoverla.net?subject=${encodeURIComponent(subject)}&body=${encodeURIComponent(body)}`;
+      document.querySelector('#send-email').href = emailLink;
+      document.querySelector('#email-copy').value = `To: info@wingsoverla.net\nSubject: ${subject}\n\n${body}`;
+      const result = document.querySelector('#email-result');
+      result.hidden = false;
+      result.scrollIntoView({behavior: reducedMotion.matches ? 'auto' : 'smooth', block: 'center'});
+      inquiryForm.querySelector('button[type="submit"]').textContent = 'Submit';
+    });
   });
   document.querySelector('#copy-email')?.addEventListener('click', async () => {
     const text = document.querySelector('#email-copy');
     try { await navigator.clipboard.writeText(text.value); document.querySelector('#copy-status').textContent = 'Copied. Paste this into an email to info@wingsoverla.net and send when ready.'; }
     catch { text.focus(); text.select(); document.querySelector('#copy-status').textContent = 'Select and copy this message, then paste it into your email app.'; }
+  });
+}
+
+const smsOptInForm = document.querySelector('#sms-opt-in-form');
+if (smsOptInForm) {
+  smsOptInForm.addEventListener('submit', e => {
+    e.preventDefault();
+    if (!smsOptInForm.reportValidity()) return;
+    captureConsentIp(smsOptInForm).finally(() => {
+      const data = new FormData(smsOptInForm);
+      const value = key => String(data.get(key) || '').trim();
+      const smsRecord = stampSmsConsentFields(smsOptInForm);
+      if (smsOptInForm.querySelector('[name="consent_ip"]')?.value) smsRecord.ip = smsOptInForm.querySelector('[name="consent_ip"]').value;
+      const subject = `SMS opt-in: ${value('interest') || 'Wings Over L.A.'}`;
+      const body = `Hello Wings Over L.A. team,\n\nSMS opt-in form submission (consent version v1).\n\nName: ${value('name')}\nEmail: ${value('email')}\nMobile phone: ${value('phone')}\nInterested in: ${value('interest')}\nMessage:\n${value('message') || '(none)'}\n\n${formatSmsConsentRecord(smsRecord)}\n\nThank you,\n${value('name')}`;
+      const emailLink = `mailto:info@wingsoverla.net?subject=${encodeURIComponent(subject)}&body=${encodeURIComponent(body)}`;
+      const send = document.querySelector('#sms-send-email');
+      if (send) send.href = emailLink;
+      const copy = document.querySelector('#sms-email-copy');
+      if (copy) copy.value = `To: info@wingsoverla.net\nSubject: ${subject}\n\n${body}`;
+      const result = document.querySelector('#sms-opt-in-result');
+      if (result) {
+        result.hidden = false;
+        result.scrollIntoView({behavior: reducedMotion.matches ? 'auto' : 'smooth', block: 'center'});
+      }
+    });
+  });
+  document.querySelector('#sms-copy-email')?.addEventListener('click', async () => {
+    const text = document.querySelector('#sms-email-copy');
+    try { await navigator.clipboard.writeText(text.value); document.querySelector('#sms-copy-status').textContent = 'Copied. Paste this into an email to info@wingsoverla.net and send when ready.'; }
+    catch { text.focus(); text.select(); document.querySelector('#sms-copy-status').textContent = 'Select and copy this record, then paste it into your email app.'; }
   });
 }
 
@@ -550,26 +633,38 @@ if (careerSection) {
   syncTour();
 }
 
-// Shared flight-program dropdown; the primary link remains a direct page link.
+// Shared nav dropdowns (Flight Training, Our Fleet). The primary link remains a direct page link.
 (() => {
-  const group = document.querySelector('.flight-menu');
-  const toggle = group?.querySelector('.flight-toggle');
-  const submenu = group?.querySelector('.flight-submenu');
-  if (!group || !toggle || !submenu) return;
-  const close = (restoreFocus = false) => {
-    toggle.setAttribute('aria-expanded', 'false');
-    submenu.hidden = true;
-    if (restoreFocus) toggle.focus();
+  const menus = [...document.querySelectorAll('.flight-menu')].map(group => ({
+    group,
+    toggle: group.querySelector('.flight-toggle'),
+    submenu: group.querySelector('.flight-submenu')
+  })).filter(menu => menu.toggle && menu.submenu);
+  if (!menus.length) return;
+  const close = (menu, restoreFocus = false) => {
+    menu.toggle.setAttribute('aria-expanded', 'false');
+    menu.submenu.hidden = true;
+    if (restoreFocus) menu.toggle.focus();
   };
-  toggle.addEventListener('click', () => {
-    const open = toggle.getAttribute('aria-expanded') !== 'true';
-    toggle.setAttribute('aria-expanded', String(open));
-    submenu.hidden = !open;
+  const closeAll = (except) => {
+    menus.forEach(menu => { if (menu !== except) close(menu); });
+  };
+  menus.forEach(menu => {
+    menu.toggle.addEventListener('click', () => {
+      const open = menu.toggle.getAttribute('aria-expanded') !== 'true';
+      closeAll(menu);
+      menu.toggle.setAttribute('aria-expanded', String(open));
+      menu.submenu.hidden = !open;
+    });
   });
   document.addEventListener('click', event => {
-    if (!group.contains(event.target)) close();
+    if (!menus.some(menu => menu.group.contains(event.target))) {
+      menus.forEach(menu => close(menu));
+    }
   });
   document.addEventListener('keydown', event => {
-    if (event.key === 'Escape' && !submenu.hidden) close(true);
+    if (event.key !== 'Escape') return;
+    const openMenu = menus.find(menu => !menu.submenu.hidden);
+    if (openMenu) close(openMenu, true);
   });
 })();

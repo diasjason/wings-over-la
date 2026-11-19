@@ -27,17 +27,7 @@
     [...copy.children].forEach((element,index) => enter(element,Math.min(index,5)*55));
   });
 
-  const hero = root.querySelector('#home-hero');
-  const inquiryBar = root.querySelector('#home-inquiry-bar');
   if ('IntersectionObserver' in window) {
-    new IntersectionObserver(entries => {
-      const passed = entries[0].boundingClientRect.bottom <= 0;
-      if (inquiryBar.hidden === !passed) return;
-      inquiryBar.hidden = !passed;
-      root.classList.toggle('home-inquiry-visible',passed);
-      if (passed) animate(inquiryBar,[{opacity:0},{opacity:1}],{duration:230});
-    },{threshold:0}).observe(hero);
-
     const entrances = new IntersectionObserver(entries => {
       entries.forEach(entry => {
         if (!entry.isIntersecting) return;

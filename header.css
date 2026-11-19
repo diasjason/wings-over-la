@@ -89,6 +89,8 @@
   color: #F7F8FA; font: 500 12px/1.5 'Plus Jakarta Sans', sans-serif;
 }
 .header .flight-submenu a:hover { color: #AAB8C5; background: rgb(198 164 103 / .16); }
+.header #fleet-submenu { min-width: 280px; }
+
 @keyframes navigation-enter { from { opacity: 0; transform: translateY(-6px); } to { opacity: 1; transform: translateY(0); } }
 @media (min-width: 1181px) and (max-width: 1380px) {
   .header .wrap { width: calc(100% - 44px); gap: 20px; }
