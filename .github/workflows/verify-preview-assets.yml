@@ -1,4 +1,4 @@
-name: Verify Wings Over L.A. preview assets
+name: Verify Wings Over L.A. preview assets and lead endpoint
 
 on:
   pull_request:
@@ -13,5 +13,12 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v4
-      - name: Check hero media and all fleet cards
-        run: node scripts/verify-pr-preview.mjs
+      - uses: actions/setup-node@v4
+        with:
+          node-version: '22'
+      - name: Check browser and Worker syntax
+        run: |
+          node --check app.js
+          node --check functions/api/lead.js
+      - name: Test lead handling and verify media/fleet references
+        run: npm test
