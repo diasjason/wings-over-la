@@ -1,0 +1,37 @@
+name: Package Wings Over L.A. local preview
+
+on:
+  push:
+    branches:
+      - followup-contact-legal-nav-2026-11-18
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+jobs:
+  package:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Check out draft PR branch
+        uses: actions/checkout@v4
+      - name: Verify JavaScript and preview references
+        shell: bash
+        run: |
+          node --check app.js
+          node --check functions/api/lead.js
+          npm test
+      - name: Package exact PR snapshot
+        shell: bash
+        run: |
+          mkdir -p dist
+          git archive --format=zip --output=dist/Wings-Over-LA-PR2-Local-Preview.zip HEAD
+          unzip -tq dist/Wings-Over-LA-PR2-Local-Preview.zip
+          echo "Snapshot contains $(unzip -Z1 dist/Wings-Over-LA-PR2-Local-Preview.zip | wc -l) files"
+      - name: Downloadable local preview archive
+        uses: actions/upload-artifact@v4
+        with:
+          name: Wings-Over-LA-PR2-Local-Preview
+          path: dist/Wings-Over-LA-PR2-Local-Preview.zip
+          retention-days: 14
+          if-no-files-found: error

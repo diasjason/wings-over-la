@@ -243,3 +243,22 @@ body.aviation-theme :is(.brand-name,.action-tile strong,.path-tabs strong,.fligh
   font-weight: 600;
 }
 
+
+/* Keep the hero action visible when shared hover styles remove its gradient. */
+.aviation-theme.home-page #home-hero .hero-actions .hero-primary,
+.aviation-theme.home-page #home-hero .hero-actions .hero-primary:is(:hover, :focus-visible, :active) {
+  background-color: #C6A467;
+  color: #07182B;
+}
+
+/* Credit for the Van Nuys runway aerial, within the existing hero frame. */
+.aviation-theme .about-runway-hero > .hero-photo-credit {
+  position: absolute; right: 16px; bottom: 12px; left: 16px; z-index: 1;
+  text-align: right; color: #DCE7F0; font-size: 12px; line-height: 1.5;
+}
+.aviation-theme .about-runway-hero > .hero-photo-credit a {
+  color: inherit; text-decoration: underline; text-underline-offset: 2px;
+}
+
+/* Keep the complete aircraft visible inside the existing course image frame. */
+.aviation-theme .academy-row-image > img.commercial-aircraft-photo { object-fit: contain; }
