@@ -1,6 +1,19 @@
 import test from 'node:test';
+import {readFileSync} from 'node:fs';
 import assert from 'node:assert/strict';
 import {onRequestPost} from '../functions/api/lead.js';
+
+// Saved evidence must match the wording actually presented by each form.
+function assertVisibleConsentMatches(consent, page) {
+  const html = readFileSync(new URL(`../${page}/index.html`, import.meta.url), 'utf8');
+  const text = value => value.replace(/<[^>]+>/g, '').replaceAll('&amp;', '&').trim();
+  const choices = [...html.matchAll(/class="consent-copy"[^>]*>(.*?)<\/span>/g)].map(match => text(match[1]));
+  assert.equal(consent.version, html.match(/name="consent_version" value="([^"]+)"/)[1]);
+  assert.equal(consent.service_text, choices[0]);
+  assert.equal(consent.marketing_text, choices[1]);
+  assert.equal(consent.disclosure_text, text(html.match(/id="sms-consent-disclosures">(.*?)<\/p>/)[1]));
+  assert.equal(consent.program_text, text(html.match(/id="sms-consent-title">(.*?)<\/p>/)[1]));
+}
 
 const origin = 'https://preview.wings.example';
 const base = {
@@ -49,7 +62,8 @@ test('forwards a contact lead with opt-in evidence and server timestamp', async 
     assert.ok(result.reference);
     assert.equal(delivered.url, env.CSIQ_WINGS_LEAD_WEBHOOK_URL);
     assert.equal(delivered.options.headers.Authorization, 'Bearer local-test-token');
-    assert.equal(delivered.body.consent.version, 'v2');
+    assert.equal(delivered.body.consent.version, 'v4');
+    assertVisibleConsentMatches(delivered.body.consent, 'contact');
     assert.equal(delivered.body.consent.sms_service_consent, true);
     assert.equal(delivered.body.consent.sms_marketing_consent, false);
     assert.equal(delivered.body.consent_ip, '203.0.113.25');
@@ -78,6 +92,8 @@ test('SMS opt-in form can record both consent boxes unchecked', async () => {
       ...base, form_type:'sms_opt_in', goal:'Flight training'
     }),env});
     assert.equal(res.status, 201);
+    assert.equal(body.consent.version, 'v4');
+    assertVisibleConsentMatches(body.consent, 'sms-opt-in');
     assert.equal(body.consent.sms_service_consent, false);
     assert.equal(body.consent.sms_marketing_consent, false);
   } finally { globalThis.fetch = oldFetch; }

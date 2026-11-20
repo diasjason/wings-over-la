@@ -17,9 +17,5 @@ Navigation, training pathways, hero video, galleries, responsive layout, pricing
 
 ## Limitations
 - The CRM lead endpoint is a Cloudflare Pages Function (`functions/api/lead.js`). The Python static preview cannot execute it. Forms therefore display the email-draft fallback locally. A successful CRM lead submission must be tested on Cloudflare Pages *after* server-side environment variables are configured.
-- The corrected videos and D95A high-resolution cockpit image will be preferred automatically when these three exact files are uploaded in this PR:
-  - `assets/hero-flight-rudder-corrected.mp4`
-  - `assets/hero-flight-mobile-rudder-corrected.mp4`
-  - `assets/d95a-cockpit-hd.png`
-  Until then, the earlier local media displays. Do not mark the rudder correction visually approved until the replacements are uploaded and viewed.
+- The homepage uses the uploaded rudder-corrected desktop and mobile clips at `assets/hero-flight-rudder-corrected.mp4` and `assets/hero-flight-mobile-rudder-corrected.mp4`, plus the approved enhanced cockpit at `assets/homepage/d95a-cockpit-hd.png`. Desktop/mobile playback was checked on the private ChatGPT preview; final interaction and fleet checks on this PR are still pending.
 - GitHub PR #2 is draft. The snapshot is not merged or published to the production domain.

@@ -1,0 +1,7 @@
+{
+  "project_slug": "wings-over-la",
+  "repository": "https://github.com/diasjason/wings-over-la",
+  "hosting": "Cloudflare Pages",
+  "production_domain": "wingsoverla.com",
+  "review_preview": "https://wings-over-la-pr-preview.clientscaleiq.chatgpt.site/"
+}

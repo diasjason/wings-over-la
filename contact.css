@@ -1,4 +1,4 @@
-/* Clearly separated inquiry and optional marketing permissions. */
+/* Separate optional service and marketing text permissions. */
 #inquiry-form .consent{font-size:12px;line-height:1.45;gap:10px;margin:12px 0;padding:0;border:0;background:transparent}
 #inquiry-form .consent input{width:19px;height:19px;margin-top:3px}
 #inquiry-form .consent strong{display:block;color:#183653;font-size:13px;margin-bottom:5px;font-weight:700}
@@ -207,3 +207,6 @@ body.interior-page main > .section:has(.contact-layout) { padding-top: 24px; }
  .aviation-theme .contact-review-marquee .contact-review-heading { font-size: 26px; }
 }
 .aviation-theme .contact-review-marquee .review-summary .contact-score-caption > .contact-review-stars { color: #C6A467; }
+
+#inquiry-form .inquiry-reply-notice { margin: 20px 0 18px; font-size: 14px; line-height: 1.6; color: #AAB8C5; }
+#inquiry-form .inquiry-reply-notice a { text-decoration: underline; text-underline-offset: 3px; }

@@ -6,9 +6,10 @@ const allowedGoals = new Set([
   'Introductory Flight','Aircraft Rental','Air Tour','Specialty Training',
   'Flight training','Air tour','Other'
 ]);
-const disclosure = 'Text messages are optional. Message frequency varies; message and data rates may apply. Reply STOP to opt out or HELP for help. Consent is not a condition of purchase. We never share SMS opt-in data with third parties for their marketing.';
-const serviceText = 'I agree to receive service texts from Wings Over L.A. about my inquiry, flight lessons, and bookings.';
-const marketingText = 'I agree to occasional promotional texts from Wings Over L.A. about news and offers.';
+const disclosure = 'Message frequency varies. Msg & data rates may apply. Reply STOP to opt out or HELP for help. Consent is not a condition of purchase. Privacy Policy | Terms';
+const serviceText = 'Text me about my inquiry, bookings, reminders and customer support.';
+const marketingText = 'Send me promotional offers and news by text.';
+const programText = 'Optional texts from Wings Over L.A.';
 const json = (status, body) => new Response(JSON.stringify(body), {
   status,
   headers: { 'Content-Type': 'application/json; charset=utf-8', 'Cache-Control': 'no-store',
@@ -69,12 +70,13 @@ export async function onRequestPost({ request, env }) {
     submitted_at: new Date().toISOString(),
     page_url: pageUrl,
     consent: {
-      version: 'v2',
+      version: 'v4',
       sms_service_consent: service,
       sms_marketing_consent: marketing,
       service_text: serviceText,
       marketing_text: marketingText,
-      disclosure_text: disclosure
+      disclosure_text: disclosure,
+      program_text: programText
     },
     // Capture consent evidence on server, not by calling external IP services in browser.
     consent_ip: request.headers.get('CF-Connecting-IP') || null,

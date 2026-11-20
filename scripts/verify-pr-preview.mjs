@@ -23,18 +23,18 @@ const requireFile = (file, minBytes = 1) => {
 const check = (condition, description) => { if (!condition) errors.push(description); };
 
 const home = read('index.html');
-check(home.includes('assets/hero-flight.mp4'), 'Desktop hero video source missing from homepage');
-check(home.includes('assets/hero-flight-mobile.mp4'), 'Mobile hero video source missing from homepage');
+check(home.includes('assets/hero-flight-rudder-corrected.mp4'), 'Desktop hero video source missing from homepage');
+check(home.includes('assets/hero-flight-mobile-rudder-corrected.mp4'), 'Mobile hero video source missing from homepage');
 check(home.includes('assets/hero-flight-poster.webp'), 'Hero fallback poster missing from homepage');
 check(home.includes('id="panel-career"'), 'Learn to Fly panel missing');
 check(
-  home.includes('assets/fleet/N6123V/travel-air-d95-interior-2.jpg'),
+  home.includes('assets/homepage/d95a-cockpit-hd.png'),
   'Learn to Fly D95A cockpit reference missing (do not revert to a generic photo)'
 );
 requireFile('assets/hero-flight-poster.webp', 1024);
-requireFile('assets/fleet/N6123V/travel-air-d95-interior-2.jpg', 1024);
+requireFile('assets/homepage/d95a-cockpit-hd.png', 1024);
 
-for (const file of ['assets/hero-flight.mp4', 'assets/hero-flight-mobile.mp4']) {
+for (const file of ['assets/hero-flight-rudder-corrected.mp4', 'assets/hero-flight-mobile-rudder-corrected.mp4']) {
   requireFile(file, 100000);
   if (!existsSync(join(root, file))) continue;
   const fd = openSync(join(root, file), 'r');

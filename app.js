@@ -32,25 +32,6 @@ if ('IntersectionObserver' in window && !reducedMotion.matches) {
     academyRows.forEach(row => revealRows.observe(row));
   }
 }
-async function chooseAvailableAsset(candidate, fallback, mimeType) {
-  if (!candidate) return fallback;
-  try {
-    const response = await fetch(candidate, {method: 'HEAD', cache: 'no-store'});
-    const type = (response.headers.get('Content-Type') || '').split(';')[0].trim().toLowerCase();
-    return response.ok && type === mimeType ? candidate : fallback;
-  } catch {
-    return fallback;
-  }
-}
-const enhancedCockpit = document.querySelector('#panel-career .path-photo img[data-upgrade-src]');
-if (enhancedCockpit) {
-  const fallback = enhancedCockpit.getAttribute('src');
-  chooseAvailableAsset(enhancedCockpit.dataset.upgradeSrc, fallback, 'image/png').then(selected => {
-    if (selected === fallback) return;
-    enhancedCockpit.addEventListener('error', () => { enhancedCockpit.src = fallback; }, {once: true});
-    enhancedCockpit.src = selected;
-  });
-}
 const heroVideo = document.querySelector('#hero-video');
 if (hero && heroVideo) {
   const media = heroVideo.closest('.hero-media');
@@ -61,27 +42,17 @@ if (hero && heroVideo) {
     const paused = heroVideo.paused;
     hero.classList.toggle('paused', paused);
   }
-  let loadingVideo;
-  // Corrected media is optional until uploaded to this PR branch.
-  // The original local assets remain working during the handoff.
-  async function loadVideo() {
+  function loadVideo() {
     if (sourcesLoaded) return;
-    if (loadingVideo) return loadingVideo;
-    loadingVideo = (async () => {
-      heroVideo.muted = true;
-      heroVideo.defaultMuted = true;
-      await Promise.all([...heroVideo.querySelectorAll('source[data-src]')].map(async source => {
-        source.src = await chooseAvailableAsset(source.dataset.upgradeSrc, source.dataset.src, 'video/mp4');
-      }));
-      sourcesLoaded = true;
-      heroVideo.load();
-    })();
-    return loadingVideo;
+    heroVideo.muted = true;
+    heroVideo.defaultMuted = true;
+    heroVideo.querySelectorAll('source[data-src]').forEach(source => { source.src = source.dataset.src; });
+    sourcesLoaded = true;
+    heroVideo.load();
   }
-  async function playVideo() {
+  function playVideo() {
     if (motionDisabled || !heroVisible || document.hidden) return;
-    await loadVideo();
-    if (motionDisabled || !heroVisible || document.hidden) return;
+    loadVideo();
     heroVideo.play().catch(() => syncVideoState());
   }
   heroVideo.addEventListener('playing', () => {
@@ -139,15 +110,16 @@ function stampSmsConsentFields(form) {
   if (urlInput) urlInput.value = location.href;
   if (timeInput) timeInput.value = now;
   const record = {
-    consent_version: 'v2',
+    consent_version: form.querySelector('[name="consent_version"]')?.value || 'v4',
     page_url: location.href,
     timestamp: now,
     ip: (ipInput && ipInput.value) || '',
     sms_service_consent: form.querySelector('[name="sms_service_consent"]')?.checked ? 'yes' : 'no',
     sms_marketing_consent: form.querySelector('[name="sms_marketing_consent"]')?.checked ? 'yes' : 'no',
-    disclosure_text: form.querySelector('.sms-smallprint')?.innerText.trim() || '',
+    disclosure_text: form.querySelector('#sms-consent-disclosures')?.innerText.trim() || '',
     service_text: form.querySelector('#sms-service-consent')?.closest('label')?.querySelector('.consent-copy')?.innerText.trim() || '',
-    marketing_text: form.querySelector('#sms-marketing-consent')?.closest('label')?.querySelector('.consent-copy')?.innerText.trim() || ''
+    marketing_text: form.querySelector('#sms-marketing-consent')?.closest('label')?.querySelector('.consent-copy')?.innerText.trim() || '',
+    program_text: form.querySelector('#sms-consent-title')?.innerText.trim() || ''
   };
   return record;
 }
@@ -162,7 +134,8 @@ function formatSmsConsentRecord(record) {
     `Service consent text: ${record.service_text}`,
     `Shared opt-in disclosure: ${record.disclosure_text}`,
     `Marketing texts (offers and news): ${record.sms_marketing_consent}`,
-    `Marketing consent text: ${record.marketing_text}`
+    `Marketing consent text: ${record.marketing_text}`,
+    `Text program: ${record.program_text}`
   ].join('\n');
 }
 
@@ -278,7 +251,7 @@ Phone: ${value('phone') || 'Not provided'}
 Goals and experience:
 ${value('message') || 'I would like to discuss my options with the team.'}
 
-I request a response to this inquiry using the contact details above. I have reviewed the website privacy notice.
+I request an email or phone response to this inquiry using the contact details above. Text messages are permitted only for the SMS categories selected below.
 
 ${formatSmsConsentRecord(smsRecord)}
 
@@ -321,7 +294,7 @@ if (smsOptInForm) {
     const subject = `SMS opt-in: ${value('interest') || 'Wings Over L.A.'}`;
     const body = `Hello Wings Over L.A. team,
 
-SMS opt-in form submission (consent version v2).
+SMS opt-in form submission (consent version v4).
 
 Name: ${value('name')}
 Email: ${value('email')}
@@ -769,10 +742,11 @@ if (careerSection) {
   syncTour();
 }
 
-// Shared nav dropdowns (Flight Training, Our Fleet). The primary link remains a direct page link.
+// Shared dropdowns: one combined desktop button; retain the mobile direct link and toggle.
 (() => {
   const menus = [...document.querySelectorAll('.flight-menu')].map(group => ({
     group,
+    primaryLink: group.querySelector('.flight-main > a'),
     toggle: group.querySelector('.flight-toggle'),
     submenu: group.querySelector('.flight-submenu')
   })).filter(menu => menu.toggle && menu.submenu);
@@ -785,6 +759,26 @@ if (careerSection) {
   const closeAll = (except) => {
     menus.forEach(menu => { if (menu !== except) close(menu); });
   };
+  const desktopNavigation = window.matchMedia('(min-width: 1181px)');
+  menus.forEach(menu => {
+    if (!menu.primaryLink) return;
+    const label = document.createElement('span');
+    label.className = 'flight-toggle-label';
+    label.textContent = menu.primaryLink.textContent.trim();
+    menu.toggle.prepend(label);
+    menu.toggle.classList.toggle('active', menu.primaryLink.classList.contains('active'));
+    const overview = menu.primaryLink.cloneNode(true);
+    overview.className = 'flight-overview-link';
+    overview.textContent = label.textContent === 'Our Fleet' ? 'View Our Fleet' : 'All Flight Training';
+    menu.submenu.prepend(overview);
+    const mobileLabel = menu.toggle.getAttribute('aria-label');
+    const syncNavigation = () => {
+      menu.toggle.setAttribute('aria-label', desktopNavigation.matches ? label.textContent : mobileLabel);
+      close(menu);
+    };
+    desktopNavigation.addEventListener('change', syncNavigation);
+    syncNavigation();
+  });
   menus.forEach(menu => {
     menu.toggle.addEventListener('click', () => {
       const open = menu.toggle.getAttribute('aria-expanded') !== 'true';

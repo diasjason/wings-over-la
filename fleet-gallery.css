@@ -3,25 +3,48 @@
   display: flex;
   flex-direction: column;
   width: 100%;
-  height: 100%;
-  min-height: inherit;
+  height: auto;
+  min-width: 0;
+  min-height: 0;
 }
 
-.academy-row-image:has(.fleet-gallery) {
+.academy-rows .academy-row-image:has(.fleet-gallery),
+.academy-rows .academy-row-image:has(.fleet-placeholder) {
   display: flex;
   flex-direction: column;
+  align-self: center;
+  width: 100%;
+  min-width: 0;
+  min-height: 0;
+  aspect-ratio: auto;
 }
 
 .fleet-gallery-main {
   position: relative;
   display: block;
-  flex: 1 1 auto;
-  min-height: 260px;
+  flex: 0 0 auto;
+  width: 100%;
+  min-height: 0;
+  aspect-ratio: 4 / 3;
+  overflow: hidden;
   background: var(--navy, #07182B);
+}
+
+/* Show the whole aircraft in a stable frame, including portrait photographs. */
+.academy-row-image .fleet-gallery-main img {
+  object-fit: contain;
+  object-position: center;
+}
+
+.academy-row-image:hover .fleet-gallery-main img {
+  transform: none;
 }
 
 .fleet-gallery-thumbs {
   display: flex;
+  flex: 0 0 auto;
+  align-items: center;
+  min-width: 0;
   gap: 6px;
   padding: 8px;
   overflow-x: auto;
@@ -29,7 +52,10 @@
 }
 
 .fleet-gallery-thumb {
-  flex: 0 0 auto;
+  flex: 0 0 76px;
+  width: 76px;
+  height: 58px;
+  box-sizing: border-box;
   padding: 0;
   border: 2px solid transparent;
   border-radius: 4px;
@@ -122,8 +148,9 @@
   display: flex;
   align-items: center;
   justify-content: center;
-  min-height: 260px;
-  height: 100%;
+  min-height: 0;
+  height: auto;
+  aspect-ratio: 4 / 3;
   padding: 24px;
   background: rgb(7 24 43 / .55);
   color: #C6A467;
@@ -217,4 +244,129 @@
   color: #AAB8C5;
   font-size: 14px;
   line-height: 1.65;
+}
+
+/* Fleet cards: compact specs, full-width rates and actions. */
+.academy-rows > .fleet-card-compact {
+  grid-template-columns: minmax(0, 1.1fr) minmax(0, 1fr);
+  grid-template-areas: "photo copy" "rates rates" "actions actions";
+  gap: 0;
+}
+.academy-rows > .fleet-card-compact:nth-child(even) {
+  grid-template-areas: "copy photo" "rates rates" "actions actions";
+}
+.academy-rows .fleet-card-compact .academy-row-image {
+  align-self: start;
+}
+.fleet-card-compact .fleet-gallery {
+  height: auto;
+}
+.fleet-card-compact .fleet-gallery-main {
+  flex: 0 0 auto;
+  aspect-ratio: 4 / 3;
+}
+.fleet-card-compact .fleet-gallery-main img {
+  object-fit: cover;
+}
+.fleet-card-compact .fleet-placeholder {
+  height: 100%;
+}
+.academy-rows .fleet-card-compact .academy-card-copy {
+  align-self: start;
+  padding: clamp(22px, 2.4vw, 34px);
+}
+.academy-rows .fleet-card-compact h3 {
+  font-size: clamp(25px, 2.5vw, 34px);
+  line-height: 1.2;
+  margin: 0;
+}
+.fleet-card-compact .academy-card-copy > p {
+  margin: 10px 0 22px;
+}
+.fleet-card-compact .academy-specs {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 0 20px;
+  margin: 0;
+}
+.fleet-card-compact .academy-specs > div {
+  padding-block: 11px;
+}
+.fleet-card-compact .academy-specs > div:last-child {
+  grid-column: 1 / -1;
+}
+.fleet-card-compact .academy-specs dt {
+  font-size: 13px;
+  font-weight: 500;
+  margin-bottom: 4px;
+}
+.fleet-card-compact .academy-specs dd {
+  font-size: 16px;
+  line-height: 1.45;
+}
+.fleet-compact-rates {
+  grid-area: rates;
+  display: grid;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  margin: 0;
+  padding: 22px clamp(22px, 2.4vw, 34px);
+  gap: 12px;
+  border-block: 1px solid rgb(198 164 103 / .25);
+  background: rgb(7 24 43 / .45);
+}
+.fleet-compact-rates > div {
+  min-width: 0;
+}
+.fleet-compact-rates dt {
+  color: #AAB8C5;
+  font-size: 13px;
+  line-height: 1.4;
+  margin-bottom: 7px;
+}
+body.aviation-theme .fleet-compact-rates dd {
+  margin: 0;
+  color: #C6A467;
+  font-size: clamp(23px, 2.3vw, 30px);
+  font-weight: 600;
+  line-height: 1.2;
+  font-variant-numeric: tabular-nums;
+}
+.fleet-compact-footer {
+  grid-area: actions;
+  padding: 20px clamp(22px, 2.4vw, 34px);
+}
+.academy-rows .fleet-card-compact .academy-actions {
+  flex-direction: row;
+  align-items: center;
+  justify-content: space-between;
+  gap: 16px;
+}
+.fleet-card-compact .fleet-cta-row {
+  gap: 12px;
+}
+@media (max-width: 760px) {
+  .academy-rows > .fleet-card-compact,
+  .academy-rows > .fleet-card-compact:nth-child(even) {
+    grid-template-columns: minmax(0, 1fr);
+    grid-template-areas: "photo" "copy" "rates" "actions";
+  }
+  .fleet-card-compact .fleet-gallery-main {
+    flex: 0 0 auto;
+  }
+  .fleet-card-compact .fleet-compact-rates {
+    padding: 20px;
+    gap: 10px;
+  }
+  body.aviation-theme .fleet-card-compact .fleet-compact-rates dd {
+    font-size: clamp(21px, 5.7vw, 28px);
+  }
+  .fleet-card-compact .fleet-compact-rates dt {
+    font-size: 12px;
+  }
+  .fleet-card-compact .fleet-cta-row {
+    width: 100%;
+  }
+  .fleet-card-compact .fleet-cta-row > a {
+    flex: 1 1 auto;
+  }
 }
