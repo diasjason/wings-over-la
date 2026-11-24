@@ -1,7 +1,60 @@
 {
-  "project_slug": "wings-over-la",
+  "projectSlug": "wings-over-la",
+  "businessName": "Wings Over L.A.",
+  "organizationName": "Wings Over L.A. Aviation, LLC",
   "repository": "https://github.com/diasjason/wings-over-la",
-  "hosting": "Cloudflare Pages",
-  "production_domain": "wingsoverla.com",
-  "review_preview": "https://wings-over-la-pr-preview.clientscaleiq.chatgpt.site/"
+  "approval": {
+    "status": "preview-pending",
+    "approvedBy": "",
+    "approvedAt": "",
+    "artifact": "",
+    "destination": ""
+  },
+  "approvalStatus": "preview-pending",
+  "hosting": {
+    "provider": "cloudflare_pages",
+    "url": "https://wings-over-la.pages.dev",
+    "testDomain": "https://wingsoverla.clientscaleiq.com",
+    "customDomain": {
+      "hostname": "wingsoverla.com",
+      "status": "pending_dns_transfer",
+      "cnameTarget": "wings-over-la.pages.dev"
+    }
+  },
+  "cloudflarePages": {
+    "projectName": "wings-over-la",
+    "url": "https://wings-over-la.pages.dev",
+    "source": {
+      "repository": "diasjason/wings-over-la",
+      "productionBranch": "main",
+      "outputDirectory": ""
+    }
+  },
+  "sdk": {
+    "scriptUrl": "https://cdn.clientscaleiq.com/v1/sdk.js",
+    "publicConfig": "clientscaleiq-config.js",
+    "publicSiteKey": "sk_f575f41e0bf2160e51926ec9a30281a66c033b94f372a71b",
+    "formStrategy": "connect",
+    "formTarget": "#inquiry-form",
+    "mountTarget": "",
+    "requiredAllowedOrigins": [
+      "https://wings-over-la.pages.dev",
+      "https://wingsoverla.clientscaleiq.com",
+      "https://wingsoverla.com",
+      "https://www.wingsoverla.com"
+    ],
+    "chat": "on",
+    "whatsapp": "off",
+    "whatsappNumberRequiredInTenant": "",
+    "activationStatus": "ready_preview_pending"
+  },
+  "csiq": {
+    "orgId": "cmw5p08ij000008l5jndkjf2w",
+    "orgName": "Wings Over L.A. Aviation, LLC",
+    "siteId": "cmwv1vzlv000008lbqxchyw9h",
+    "status": "Ready",
+    "kind": "External",
+    "generatePromptPath": "/api/orgs/cmw5p08ij000008l5jndkjf2w/sites/cmwv1vzlv000008lbqxchyw9h/prompt"
+  },
+  "notes": "Production domain wingsoverla.com is pending DNS transfer. Test domain wingsoverla.clientscaleiq.com is allowlisted but has not been attached. Do not merge to main or the production branch."
 }
