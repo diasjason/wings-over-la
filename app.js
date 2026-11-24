@@ -218,6 +218,7 @@ if (inquiryForm) {
   inquiryForm.querySelector('#phone')?.addEventListener('input', e => e.target.setCustomValidity(''));
   inquiryForm.querySelectorAll('[name="sms_service_consent"], [name="sms_marketing_consent"]').forEach(box => box.addEventListener('change', () => inquiryForm.querySelector('#phone')?.setCustomValidity('')));
   inquiryForm.addEventListener('submit', async e => {
+    if (window.__CSIQ_INQUIRY_CONNECTED) return;
     e.preventDefault();
     const wantsSms = [...inquiryForm.querySelectorAll('[name="sms_service_consent"], [name="sms_marketing_consent"]')].some(box => box.checked);
     const mobileInput = inquiryForm.querySelector('#phone');
@@ -357,6 +358,15 @@ pathTabs.forEach((tab, index) => {
   });
 });
 
+if (window.__CSIQ_SDK && window.__CSIQ_SDK.chat) {
+  ['wings-chat-launcher', 'wings-chat', 'wings-chat-teaser', 'chat-live-status'].forEach(id => {
+    const el = document.getElementById(id);
+    if (!el) return;
+    el.hidden = true;
+    el.setAttribute('hidden', '');
+    el.setAttribute('aria-hidden', 'true');
+  });
+} else {
 // Pre-launch AI simulation: only these three preset questions; no SDK or network calls.
 const chatLauncher = document.querySelector('#wings-chat-launcher');
 const chatPanel = document.querySelector('#wings-chat');
@@ -515,6 +525,8 @@ quickQuestions.forEach(button => {
     }
   });
 });
+
+}
 
 // Progressive motion: content is visible by default and reveals only once.
 const interfaceAnimations = new Set();
