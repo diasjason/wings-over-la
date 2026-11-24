@@ -34,14 +34,14 @@
 .home-page .flight-review-platform{display:flex;align-items:center;gap:5px;font-size:10px;color:#DCE7F0}
 .home-page .flight-review-platform .google-mark{width:13px;height:13px}
 .home-page .flight-review-person>.flight-review-stars{margin-left:auto;font-size:12px;letter-spacing:0}
-.home-page .flight-review blockquote{font-size:23px;line-height:1.5;letter-spacing:-.02em;margin:25px 0 26px;min-height:104px;color:#F7F8FA;font-weight:500}
+.home-page .flight-review blockquote,.home-page .flight-review-summary{font-size:23px;line-height:1.5;letter-spacing:-.02em;margin:25px 0 26px;min-height:104px;color:#F7F8FA;font-weight:500}
 .home-page .flight-review-body>a{font-size:12px;color:#C6A467;text-decoration:none;display:flex;justify-content:space-between;align-items:center}
 .home-page .flight-review-body>a:hover{text-decoration:underline}
 .home-page .flight-review-foot{border-top:1px solid #183653;padding:13px 20px;display:flex;justify-content:space-between;color:#AAB8C5;font-size:8px;letter-spacing:.14em}
 .home-page .flight-reviews-note{display:flex;justify-content:space-between;gap:20px;padding-top:15px;font-size:10px;color:#AAB8C5;line-height:1.6}
 .home-page .flight-reviews-note a{color:#AAB8C5;white-space:nowrap}
 .home-page .flight-reviews :focus-visible{outline:3px solid #DCE7F0;outline-offset:4px}
-@media(max-width:700px){.home-page .flight-reviews{padding-top:44px}.home-page .flight-reviews-heading{display:block}.home-page .flight-reviews-actions{align-items:flex-start;flex-direction:row;align-items:center;justify-content:space-between;margin-top:22px;gap:10px}.home-page .flight-review-rating{padding:10px 13px;gap:9px}.home-page .flight-review-rating strong{font-size:32px}.home-page .flight-review-rating>.flight-review-stars{display:none}.home-page .flight-review{width:300px;flex-basis:300px}.home-page .flight-review figure{height:180px}.home-page .flight-review blockquote{font-size:21px}.home-page .flight-reviews-note{flex-direction:column;gap:5px}.home-page .flight-review-controls button{padding:7px 9px;min-width:36px;min-height:44px}}
+@media(max-width:700px){.home-page .flight-reviews{padding-top:44px}.home-page .flight-reviews-heading{display:block}.home-page .flight-reviews-actions{align-items:flex-start;flex-direction:row;align-items:center;justify-content:space-between;margin-top:22px;gap:10px}.home-page .flight-review-rating{padding:10px 13px;gap:9px}.home-page .flight-review-rating strong{font-size:32px}.home-page .flight-review-rating>.flight-review-stars{display:none}.home-page .flight-review{width:300px;flex-basis:300px}.home-page .flight-review figure{height:180px}.home-page .flight-review blockquote,.home-page .flight-review-summary{font-size:21px}.home-page .flight-reviews-note{flex-direction:column;gap:5px}.home-page .flight-review-controls button{padding:7px 9px;min-width:36px;min-height:44px}}
 @media(prefers-reduced-motion:reduce){.home-page .flight-review,.home-page .flight-review figure img{transition:none}.home-page .flight-review:hover figure img{transform:none}}
 body.home-page{--navy:#07182B;--deep:#07182B;--blue:#C6A467;--electric:#C6A467;--cream:#F7F8FA;--ink:#183653;--muted:#AAB8C5;--line:#F7F8FA;--red:#C6A467;background:var(--cream);color:var(--ink)}
 .home-page h1,.home-page h2,.home-page h3{font-weight:500;letter-spacing:-.045em;text-wrap:balance}
