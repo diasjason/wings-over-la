@@ -769,7 +769,7 @@ if (careerSection) {
     menu.toggle.classList.toggle('active', menu.primaryLink.classList.contains('active'));
     const overview = menu.primaryLink.cloneNode(true);
     overview.className = 'flight-overview-link';
-    overview.textContent = label.textContent === 'Our Fleet' ? 'View Our Fleet' : 'All Flight Training';
+    overview.textContent = label.textContent === 'Our Fleet' ? 'Aircraft Rentals' : 'All Flight Training';
     menu.submenu.prepend(overview);
     const mobileLabel = menu.toggle.getAttribute('aria-label');
     const syncNavigation = () => {
