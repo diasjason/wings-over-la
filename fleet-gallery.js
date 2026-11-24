@@ -8,6 +8,34 @@
   }
 
   ready(function () {
+    document.querySelectorAll(".fleet-details").forEach(function (details) {
+      var summary = details.querySelector("summary");
+      var content = details.querySelector(".fleet-details-content");
+      var animation = null;
+      var closing = false;
+      if (!summary || !content) return;
+
+      summary.addEventListener("click", function (event) {
+        if (window.matchMedia("(prefers-reduced-motion: reduce)").matches || !details.animate) return;
+        event.preventDefault();
+        var startHeight = details.offsetHeight;
+        var shouldOpen = !details.open || closing;
+        if (animation) animation.cancel();
+        closing = !shouldOpen;
+        if (shouldOpen) details.open = true;
+        var endHeight = shouldOpen ? summary.offsetHeight + content.offsetHeight : summary.offsetHeight;
+        details.style.overflow = "hidden";
+        animation = details.animate([{ height: startHeight + "px" }, { height: endHeight + "px" }], {
+          duration: 260, easing: "ease-in-out"
+        });
+        animation.onfinish = function () {
+          details.open = shouldOpen;
+          details.style.overflow = "";
+          animation = null;
+          closing = false;
+        };
+      });
+    });
     var lightbox = document.createElement("div");
     lightbox.className = "fleet-lightbox";
     lightbox.hidden = true;

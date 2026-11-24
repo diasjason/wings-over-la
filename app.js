@@ -619,11 +619,25 @@ document.querySelectorAll('.faq-list details').forEach(details => {
 
 let headerScrollFrame = false;
 const floatingHeader = document.querySelector('.header');
+const headerActions = floatingHeader?.querySelector('.header-actions');
+let headerDirectionAnchor = window.scrollY;
 function updateFloatingHeader() {
-  floatingHeader?.classList.toggle('is-scrolled', window.scrollY > 40);
-  floatingHeader?.style.setProperty('--logo-scroll-offset', `${window.scrollY}px`);
+  const scrollPosition = Math.max(0, window.scrollY);
+  floatingHeader?.classList.toggle('is-scrolled', scrollPosition > 40);
+  floatingHeader?.style.setProperty('--logo-scroll-offset', `${scrollPosition}px`);
+  const navigationInUse = headerActions?.contains(document.activeElement) ||
+    menuButton?.getAttribute('aria-expanded') === 'true' ||
+    !!headerActions?.querySelector('.flight-toggle[aria-expanded="true"]');
+  if (scrollPosition <= 80 || navigationInUse) {
+    floatingHeader?.classList.remove('is-nav-hidden');
+    headerDirectionAnchor = scrollPosition;
+  } else if (Math.abs(scrollPosition - headerDirectionAnchor) >= 8) {
+    floatingHeader?.classList.toggle('is-nav-hidden', scrollPosition > headerDirectionAnchor && scrollPosition > 160);
+    headerDirectionAnchor = scrollPosition;
+  }
   headerScrollFrame = false;
 }
+headerActions?.addEventListener('focusin', () => floatingHeader?.classList.remove('is-nav-hidden'));
 window.addEventListener('scroll', () => {
   if (headerScrollFrame) return;
   headerScrollFrame = true;

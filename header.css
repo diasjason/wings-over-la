@@ -198,3 +198,15 @@
 
 /* The navigation stays visible while the logo leaves with the page. */
 .aviation-theme .header .brand-group { transform: translateY(calc(-1 * var(--logo-scroll-offset, 0px))); }
+
+/* Keep the logo in document flow; reveal the floating menu on upward scroll. */
+.aviation-theme .header .header-actions { transition: transform .24s ease, opacity .24s ease; }
+.aviation-theme .header.is-nav-hidden .header-actions { transform: translateY(calc(-100% - 40px)); opacity: 0; pointer-events: none; }
+.aviation-theme .header.is-nav-hidden .header-actions:focus-within { transform: none; opacity: 1; pointer-events: auto; }
+@media (prefers-reduced-motion: reduce) { .aviation-theme .header .header-actions { transition: none; } }
+
+/* Give content more room once the floating navigation is in use. */
+.aviation-theme .header.is-scrolled { top: 4px; }
+@media (min-width: 1181px) {
+  .aviation-theme .header.is-scrolled { top: -1px; }
+}
