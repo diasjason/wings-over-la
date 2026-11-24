@@ -193,3 +193,8 @@
  .header .flight-menu .flight-main > a { display: none; }
  .header .flight-menu .flight-main > .flight-toggle { width: auto; padding: 12px; border-radius: 999px; }
 }
+/* Keep the main navigation in view while scrolling. */
+.aviation-theme .header { position: fixed; z-index: 100; }
+
+/* The navigation stays visible while the logo leaves with the page. */
+.aviation-theme .header .brand-group { transform: translateY(calc(-1 * var(--logo-scroll-offset, 0px))); }

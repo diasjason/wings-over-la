@@ -416,3 +416,6 @@ body.home-page{--navy:#07182B;--deep:#07182B;--blue:#C6A467;--electric:#C6A467;-
   object-position: center 45%;
   filter: contrast(1.09) saturate(1.08) brightness(1.04);
 }
+@media(prefers-reduced-motion:no-preference){.home-page .hero-actions .hero-primary{background-image:linear-gradient(110deg,#C6A467 0%,#C6A467 28%,#DCE7F0 50%,#C6A467 72%,#C6A467 100%);background-size:260% 100%;animation:wola-mei-attention 7s ease-in-out 3s infinite}}
+.home-hours{background:#183653;color:#fff;padding:20px 0}.home-hours .wrap{display:flex;gap:48px;flex-wrap:wrap}.home-hours strong{display:block;color:#c6a467}.home-hours span{display:block}
+.home-hours{border-block:1px solid rgba(170,184,197,.17);background:#10253a;padding:0}.home-hours .wrap{display:flex;justify-content:space-between;gap:24px;padding-block:22px}.home-hours .wrap>div{display:grid;gap:6px;margin:0;font-size:15px;color:#dce7f0}.home-hours strong{font-weight:600;color:#c6a467}@media(max-width:820px){.home-hours .wrap{flex-wrap:wrap}}@media(max-width:400px){.home-hours .wrap>div{font-size:14px}}

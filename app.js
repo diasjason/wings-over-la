@@ -621,6 +621,7 @@ let headerScrollFrame = false;
 const floatingHeader = document.querySelector('.header');
 function updateFloatingHeader() {
   floatingHeader?.classList.toggle('is-scrolled', window.scrollY > 40);
+  floatingHeader?.style.setProperty('--logo-scroll-offset', `${window.scrollY}px`);
   headerScrollFrame = false;
 }
 window.addEventListener('scroll', () => {
@@ -798,3 +799,45 @@ if (careerSection) {
     if (openMenu) close(openMenu, true);
   });
 })();
+
+// Site controls and team profiles.
+const bioDialog = document.querySelector('.bio-dialog');
+let bioTrigger;
+document.querySelectorAll('.bio-trigger').forEach(button => button.addEventListener('click', () => {
+  const card = button.closest('.team-card');
+  bioTrigger = button;
+  const photo = card.querySelector('img');
+  bioDialog.querySelector('#bio-title').textContent = card.querySelector('h3').textContent;
+  bioDialog.querySelector('#bio-role').textContent = card.querySelector('.academy-card-copy > p').textContent;
+  const dialogPhoto = bioDialog.querySelector('.bio-photo');
+  dialogPhoto.src = photo.src;
+  dialogPhoto.alt = photo.alt;
+  bioDialog.querySelector('.bio-text').replaceChildren(card.querySelector('.bio-template').content.cloneNode(true));
+  bioDialog.showModal();
+}));
+bioDialog?.querySelector('.bio-close')?.addEventListener('click', () => bioDialog.close());
+bioDialog?.addEventListener('close', () => bioTrigger?.focus());
+const backToTop = document.createElement('button');
+backToTop.type = 'button';
+backToTop.className = 'back-to-top';
+backToTop.setAttribute('aria-label', 'Back to Top');
+backToTop.innerHTML = '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M12 19V5M5 12l7-7 7 7"/></svg>';
+backToTop.hidden = true;
+document.body.append(backToTop);
+const updateBackToTop = () => {
+  backToTop.hidden = window.scrollY < 500;
+  const launcher = document.querySelector('#wings-chat-launcher');
+  if (!launcher) return;
+  const rect = launcher.getBoundingClientRect();
+  if (!rect.width || !rect.height) return;
+  backToTop.style.setProperty('--back-to-top-right', `${window.innerWidth - rect.left + 14}px`);
+  backToTop.style.setProperty('--back-to-top-bottom', `${window.innerHeight - rect.bottom + (rect.height - 46) / 2}px`);
+};
+window.addEventListener('resize', updateBackToTop, { passive: true });
+new MutationObserver(updateBackToTop).observe(document.body, { attributes: true, attributeFilter: ['class'] });
+if (window.ResizeObserver && document.querySelector('#wings-chat-launcher')) {
+  new ResizeObserver(updateBackToTop).observe(document.querySelector('#wings-chat-launcher'));
+}
+window.addEventListener('scroll', updateBackToTop, { passive: true });
+updateBackToTop();
+backToTop.addEventListener('click', () => window.scrollTo({ top: 0, behavior: matchMedia('(prefers-reduced-motion: reduce)').matches ? 'auto' : 'smooth' }));
