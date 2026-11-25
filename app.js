@@ -19,19 +19,6 @@ nav?.querySelectorAll('a').forEach(a => a.addEventListener('click', () => {
 }));
 const hero = document.querySelector('.hero');
 const reducedMotion = window.matchMedia('(prefers-reduced-motion: reduce)');
-if ('IntersectionObserver' in window && !reducedMotion.matches) {
-  const academyRows = document.querySelectorAll('.academy-rows > .academy-card');
-  if (academyRows.length) {
-    const revealRows = new IntersectionObserver(entries => {
-      for (const entry of entries) {
-        if (!entry.isIntersecting) continue;
-        entry.target.classList.add('academy-row-visible');
-        revealRows.unobserve(entry.target);
-      }
-    }, { threshold: 0.15 });
-    academyRows.forEach(row => revealRows.observe(row));
-  }
-}
 const heroVideo = document.querySelector('#hero-video');
 if (hero && heroVideo) {
   const media = heroVideo.closest('.hero-media');
@@ -525,77 +512,8 @@ function animateInterface(element, keyframes, options = {}) {
   return animation;
 }
 
-const revealSelectors = [
-  'main .section-head > *',
-  'main .split > *',
-  'main .spotlight-grid > *',
-  'main .path-tabs > button',
-  'main .path-panels',
-  'main .program-row',
-  'main .fleet-card',
-  'main .step',
-  'main .experience',
-  'main .flight-route > a',
-  'main .faq-wrap > div:first-child',
-  'main .faq-list > details',
-  'main .contact-layout > div',
-  'main .legal-content > h1',
-  'main .legal-content > h2',
-  'main .legal-content > p',
-  'main .hero-copy',
-  'main .hero-actions > a',
-  '.cta-band .wrap > *',
-  '.footer-grid > div'
-].join(',');
-const allRevealCandidates = [...document.querySelectorAll(revealSelectors)];
-// Avoid moving both a block and a nested block at the same time.
-const revealCandidates = allRevealCandidates.filter(element =>
-  !allRevealCandidates.some(parent => parent !== element && parent.contains(element))
-);
-const revealDelays = new Map();
-document.querySelectorAll('.path-tabs,.step-grid,.fleet-grid,.experiences,.flight-route,.faq-list,.footer-grid,.hero-actions').forEach(group => {
-  [...group.children].forEach((element, index) => revealDelays.set(element, Math.min(index, 3) * 75));
-});
-let revealObserver;
-if ('IntersectionObserver' in window && !reducedMotion.matches && !document.body.classList.contains('home-page')) {
-  revealObserver = new IntersectionObserver(entries => {
-    entries.forEach(entry => {
-      if (!entry.isIntersecting) return;
-      const element = entry.target;
-      revealObserver.unobserve(element);
-      if (reducedMotion.matches || element.contains(document.activeElement)) {
-        element.dataset.revealState = 'done';
-        return;
-      }
-      element.dataset.revealState = 'running';
-      const animation = animateInterface(element, [
-        {opacity: 0, transform: 'translate3d(0, 22px, 0)'},
-        {opacity: 1, transform: 'translate3d(0, 0, 0)'}
-      ], {duration: 640, delay: revealDelays.get(element) || 0, fill: 'both'});
-      if (animation) {
-        const finish = animation.onfinish;
-        animation.onfinish = () => {
-          element.dataset.revealState = 'done';
-          finish();
-        };
-        const cancel = animation.oncancel;
-        animation.oncancel = () => {
-          element.dataset.revealState = 'done';
-          cancel();
-        };
-      } else element.dataset.revealState = 'done';
-    });
-  }, {threshold: 0.06, rootMargin: '0px 0px -24px 0px'});
-  revealCandidates.forEach(element => {
-    element.dataset.revealState = 'pending';
-    revealObserver.observe(element);
-  });
-}
 reducedMotion.addEventListener('change', () => {
-  if (!reducedMotion.matches) return;
-  revealObserver?.disconnect();
-  [...interfaceAnimations].forEach(animation => animation.cancel());
-  revealCandidates.forEach(element => { element.dataset.revealState = 'done'; });
+  if (reducedMotion.matches) [...interfaceAnimations].forEach(animation => animation.cancel());
 });
 
 document.querySelectorAll('.faq-list details').forEach(details => {
@@ -633,19 +551,6 @@ window.addEventListener('scroll', () => {
   requestAnimationFrame(updateFloatingHeader);
 }, {passive: true});
 updateFloatingHeader();
-// A keyboard user can focus any section without waiting for its reveal.
-document.addEventListener('focusin', event => {
-  revealCandidates.forEach(element => {
-    if (!element.contains(event.target) || element.dataset.revealState === 'done') return;
-    revealObserver?.unobserve(element);
-    const animations = typeof element.getAnimations === 'function' ? element.getAnimations() : [];
-    animations.forEach(animation => {
-      if (interfaceAnimations.has(animation)) animation.cancel();
-    });
-    element.dataset.revealState = 'done';
-  });
-});
-
 // Career milestones advance every three seconds while visible.
 const careerSection = document.querySelector('.career-section');
 if (careerSection) {

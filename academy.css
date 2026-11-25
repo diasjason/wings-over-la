@@ -60,10 +60,8 @@
   min-height: 320px;
   overflow: hidden;
   background: var(--navy);
-  --slide-from: -20px;
 }
 
-.academy-rows > :nth-child(even) .academy-row-image { --slide-from: 20px; }
 
 .academy-row-image > img,
 .academy-row-image .fleet-gallery-main img {
@@ -94,27 +92,16 @@
   .academy-rows .academy-row-image {
     min-height: 0;
     aspect-ratio: 16 / 10;
-    --slide-from: 0px;
   }
 }
 
 @media (prefers-reduced-motion: no-preference) {
-  .academy-row-visible .academy-row-image { animation: academy-image-in .65s ease-out both; }
-  .academy-row-visible .academy-card-copy { animation: academy-copy-in .55s .1s ease-out both; }
   .academy-row-image > img,
   .academy-row-image .fleet-gallery-main img { transition: transform .55s ease; }
   .academy-row-image:hover > img,
   .academy-row-image:hover .fleet-gallery-main img { transform: scale(1.035); }
 
-  @keyframes academy-image-in {
-    from { opacity: .35; transform: translateX(var(--slide-from)); }
-    to { opacity: 1; transform: translateX(0); }
-  }
 
-  @keyframes academy-copy-in {
-    from { opacity: .35; transform: translateY(10px); }
-    to { opacity: 1; transform: translateY(0); }
-  }
 }
 
 #academy-team .academy-card > img {

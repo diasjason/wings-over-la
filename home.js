@@ -27,26 +27,6 @@
     [...copy.children].forEach((element,index) => enter(element,Math.min(index,5)*55));
   });
 
-  if ('IntersectionObserver' in window) {
-    const entrances = new IntersectionObserver(entries => {
-      entries.forEach(entry => {
-        if (!entry.isIntersecting) return;
-        entrances.unobserve(entry.target);
-        const element = entry.target;
-        element.getAnimations().forEach(animation => animation.cancel());
-        if (element.classList.contains('aircraft-composition')) {
-          animate(element.querySelector('.main-aircraft'),[
-            {clipPath:'inset(18% 0 0 0 round 16px)',opacity:0},
-            {clipPath:'inset(0 0 0 0 round 16px)',opacity:1}
-          ],{duration:700});
-          enter(element.querySelector('.cockpit-inset'),140);
-          enter(element.querySelector('.aircraft-caption'),200);
-        } else [...element.children].forEach((child,index) => enter(child,index*85));
-        element.dataset.homeReveal = 'done';
-      });
-    },{threshold:.12,rootMargin:'0px 0px -20px 0px'});
-    root.querySelectorAll('.home-proof .wrap,.aircraft-composition,.home-closing-actions').forEach(element => entrances.observe(element));
-  }
   function revealDetails(panel, photoSelector, detailSelector) {
     if (!panel || preference.matches) return;
     panel.getAnimations().forEach(animation => animation.cancel());
