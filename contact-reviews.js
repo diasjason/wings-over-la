@@ -10,7 +10,7 @@
   const reduced = matchMedia('(prefers-reduced-motion: reduce)');
   const layout = section.closest('.contact-layout');
   const form = layout?.querySelector('#inquiry');
-  let perPage = 1, timer = 0, visible = false, hovered = false, userPaused = false;
+  let perPage = 1, timer = 0, visible = false, userPaused = false;
   function matchFormHeight() {
     const columns = getComputedStyle(layout).gridTemplateColumns.trim().split(/\s+/);
     if (form && columns.length === 2) section.style.setProperty('--review-form-height', `${form.getBoundingClientRect().height}px`);
@@ -25,7 +25,7 @@
   function reading() { return section.contains(document.activeElement) && document.activeElement.matches(':focus-visible'); }
   function schedule() {
     clearTimeout(timer);
-    const running = visible && !document.hidden && !reduced.matches && !userPaused && !hovered && !reading();
+    const running = visible && !document.hidden && !reduced.matches && !userPaused && !reading();
     section.dataset.scrolling = running ? 'playing' : 'paused';
     if (running) timer = setTimeout(() => { move(1); schedule(); }, 6500);
   }
@@ -47,8 +47,6 @@
   pause.addEventListener('click', () => { userPaused = !userPaused; sync(); });
   section.querySelector('[data-contact-review-prev]').addEventListener('click', () => { move(-1); schedule(); });
   section.querySelector('[data-contact-review-next]').addEventListener('click', () => { move(1); schedule(); });
-  section.addEventListener('pointerenter', event => { if (event.pointerType === 'mouse') { hovered = true; schedule(); } });
-  section.addEventListener('pointerleave', () => { hovered = false; schedule(); });
   section.addEventListener('focusin', schedule);
   section.addEventListener('focusout', () => setTimeout(schedule, 0));
   viewport.addEventListener('pointerdown', () => clearTimeout(timer));

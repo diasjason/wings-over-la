@@ -40,6 +40,7 @@ export async function onRequestPost({ request, env }) {
   const message = clean(input.message, 2000);
   const service = input.sms_service_consent === true;
   const marketing = input.sms_marketing_consent === true;
+  if (formType === 'contact' && (service || marketing)) return fail(422, 'invalid_consent');
   const mandatoryPhone = formType === 'sms_opt_in' || service || marketing;
   if (!formType || !name || name.length > 100 || !email || email.length > 150 ||
       !/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email) ||
@@ -70,13 +71,13 @@ export async function onRequestPost({ request, env }) {
     submitted_at: new Date().toISOString(),
     page_url: pageUrl,
     consent: {
-      version: 'v4',
+      version: formType === 'sms_opt_in' ? 'v4' : null,
       sms_service_consent: service,
       sms_marketing_consent: marketing,
-      service_text: serviceText,
-      marketing_text: marketingText,
-      disclosure_text: disclosure,
-      program_text: programText
+      service_text: formType === 'sms_opt_in' ? serviceText : null,
+      marketing_text: formType === 'sms_opt_in' ? marketingText : null,
+      disclosure_text: formType === 'sms_opt_in' ? disclosure : null,
+      program_text: formType === 'sms_opt_in' ? programText : null
     },
     // Capture consent evidence on server, not by calling external IP services in browser.
     consent_ip: request.headers.get('CF-Connecting-IP') || null,

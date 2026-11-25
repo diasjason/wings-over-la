@@ -215,15 +215,9 @@ if (inquiryForm) {
   const inquiryTopic = inquiryParams.get('subject')?.trim().slice(0, 160);
   const inquiryMessage = inquiryForm.querySelector('#message');
   if (inquiryTopic && inquiryMessage && !inquiryMessage.value) inquiryMessage.value = `I’d like to ask about ${inquiryTopic}.`;
-  inquiryForm.querySelector('#phone')?.addEventListener('input', e => e.target.setCustomValidity(''));
-  inquiryForm.querySelectorAll('[name="sms_service_consent"], [name="sms_marketing_consent"]').forEach(box => box.addEventListener('change', () => inquiryForm.querySelector('#phone')?.setCustomValidity('')));
   inquiryForm.addEventListener('submit', async e => {
     e.preventDefault();
-    const wantsSms = [...inquiryForm.querySelectorAll('[name="sms_service_consent"], [name="sms_marketing_consent"]')].some(box => box.checked);
-    const mobileInput = inquiryForm.querySelector('#phone');
-    mobileInput?.setCustomValidity(wantsSms && !mobileInput.value.trim() ? 'Enter your mobile number to consent to texts.' : '');
     if (!inquiryForm.reportValidity()) return;
-    mobileInput?.setCustomValidity('');
     setSubmitBusy(inquiryForm, true);
     const data = new FormData(inquiryForm);
     const value = key => String(data.get(key) || '').trim();
@@ -237,8 +231,6 @@ if (inquiryForm) {
     }
 
     // Fallback: prepare a draft but do not pretend that it was delivered.
-    await captureConsentIp(inquiryForm);
-    const smsRecord = stampSmsConsentFields(inquiryForm);
     const subject = `Training inquiry: ${value('goal')}`;
     const body = `Hello Wings Over L.A. team,
 
@@ -251,9 +243,7 @@ Phone: ${value('phone') || 'Not provided'}
 Goals and experience:
 ${value('message') || 'I would like to discuss my options with the team.'}
 
-I request an email or phone response to this inquiry using the contact details above. Text messages are permitted only for the SMS categories selected below.
-
-${formatSmsConsentRecord(smsRecord)}
+I request an email or phone response to this inquiry using the contact details above.
 
 Thank you,
 ${value('name')}`;
@@ -567,7 +557,7 @@ document.querySelectorAll('.path-tabs,.step-grid,.fleet-grid,.experiences,.fligh
   [...group.children].forEach((element, index) => revealDelays.set(element, Math.min(index, 3) * 75));
 });
 let revealObserver;
-if ('IntersectionObserver' in window && !reducedMotion.matches) {
+if ('IntersectionObserver' in window && !reducedMotion.matches && !document.body.classList.contains('home-page')) {
   revealObserver = new IntersectionObserver(entries => {
     entries.forEach(entry => {
       if (!entry.isIntersecting) return;
@@ -624,7 +614,6 @@ let headerDirectionAnchor = window.scrollY;
 function updateFloatingHeader() {
   const scrollPosition = Math.max(0, window.scrollY);
   floatingHeader?.classList.toggle('is-scrolled', scrollPosition > 40);
-  floatingHeader?.style.setProperty('--logo-scroll-offset', `${scrollPosition}px`);
   const navigationInUse = headerActions?.contains(document.activeElement) ||
     menuButton?.getAttribute('aria-expanded') === 'true' ||
     !!headerActions?.querySelector('.flight-toggle[aria-expanded="true"]');

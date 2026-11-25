@@ -44,10 +44,11 @@ test('rejects cross-origin submissions', async () => {
 });
 test('validates required fields, consent phone, and honeypot', async () => {
   assert.equal((await onRequestPost({request: request({...base, email:'not-email'}), env})).status, 422);
-  assert.equal((await onRequestPost({request: request({...base, phone:'',sms_marketing_consent:true}), env})).status, 422);
+  assert.equal((await onRequestPost({request: request({...base, form_type:'sms_opt_in', goal:'Flight training', phone:'',sms_marketing_consent:true}), env})).status, 422);
+  assert.equal((await onRequestPost({request: request({...base, sms_service_consent:true}), env})).status, 422);
   assert.equal((await onRequestPost({request: request({...base, website:'http://spam.example'}), env})).status, 422);
 });
-test('forwards a contact lead with opt-in evidence and server timestamp', async () => {
+test('forwards a contact lead without recording unpresented SMS consent', async () => {
   const oldFetch = globalThis.fetch;
   let delivered;
   globalThis.fetch = async (url, options) => {
@@ -55,16 +56,16 @@ test('forwards a contact lead with opt-in evidence and server timestamp', async 
     return new Response('', {status: 201});
   };
   try {
-    const res = await onRequestPost({request: request({...base, sms_service_consent:true}), env});
+    const res = await onRequestPost({request: request(base), env});
     assert.equal(res.status, 201);
     const result = await res.json();
     assert.equal(result.ok, true);
     assert.ok(result.reference);
     assert.equal(delivered.url, env.CSIQ_WINGS_LEAD_WEBHOOK_URL);
     assert.equal(delivered.options.headers.Authorization, 'Bearer local-test-token');
-    assert.equal(delivered.body.consent.version, 'v4');
-    assertVisibleConsentMatches(delivered.body.consent, 'contact');
-    assert.equal(delivered.body.consent.sms_service_consent, true);
+    assert.equal(delivered.body.consent.version, null);
+    assert.equal(delivered.body.consent.service_text, null);
+    assert.equal(delivered.body.consent.sms_service_consent, false);
     assert.equal(delivered.body.consent.sms_marketing_consent, false);
     assert.equal(delivered.body.consent_ip, '203.0.113.25');
     assert.equal(delivered.body.form_type, 'contact');
