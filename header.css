@@ -193,3 +193,40 @@
  .header .flight-menu .flight-main > a { display: none; }
  .header .flight-menu .flight-main > .flight-toggle { width: auto; padding: 12px; border-radius: 999px; }
 }
+/* Keep the main navigation in view while scrolling. */
+.aviation-theme .header { position: fixed; z-index: 100; }
+
+/* The navigation stays visible while the logo leaves with the page. */
+.aviation-theme .header .brand-group { transform: translateY(calc(-1 * var(--logo-scroll-offset, 0px))); }
+
+/* Keep the logo in document flow; reveal the floating menu on upward scroll. */
+.aviation-theme .header .header-actions { transition: transform .24s ease, opacity .24s ease; }
+.aviation-theme .header.is-nav-hidden .header-actions { transform: translateY(calc(-100% - 40px)); opacity: 0; pointer-events: none; }
+.aviation-theme .header.is-nav-hidden .header-actions:focus-within { transform: none; opacity: 1; pointer-events: auto; }
+@media (prefers-reduced-motion: reduce) { .aviation-theme .header .header-actions { transition: none; } }
+
+/* Give content more room once the floating navigation is in use. */
+.aviation-theme .header.is-scrolled { top: 4px; }
+@media (min-width: 1181px) {
+  .aviation-theme .header.is-scrolled { top: -1px; }
+}
+
+/* The logo remains anchored to the page; only the navigation floats. */
+.aviation-theme .header, .aviation-theme .header.is-scrolled { position: absolute; top: 16px; }
+.aviation-theme .header .brand-group { transform: none; }
+.aviation-theme .header .header-actions { position: fixed; top: 27px; right: max(32px, calc((100vw - 1660px) / 2)); }
+.aviation-theme .header.is-scrolled .header-actions { top: 10px; }
+@media (min-width: 1181px) and (max-width: 1380px) {
+  .aviation-theme .header .header-actions { right: 22px; }
+}
+@media (max-width: 1180px) {
+  .aviation-theme .header, .aviation-theme .header.is-scrolled { top: 10px; }
+  .aviation-theme .header .header-actions { top: 22px; right: 20px; }
+  .aviation-theme .header.is-scrolled .header-actions { top: 16px; }
+}
+@media (max-width: 560px) {
+  .aviation-theme .header, .aviation-theme .header.is-scrolled { top: 7px; }
+  .aviation-theme .header .header-actions { top: 19.5px; right: 12px; }
+  .aviation-theme .header.is-scrolled .header-actions { top: 16.5px; }
+}
+@media (max-width: 370px) { .aviation-theme .header .header-actions { right: 10px; } }

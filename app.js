@@ -19,19 +19,6 @@ nav?.querySelectorAll('a').forEach(a => a.addEventListener('click', () => {
 }));
 const hero = document.querySelector('.hero');
 const reducedMotion = window.matchMedia('(prefers-reduced-motion: reduce)');
-if ('IntersectionObserver' in window && !reducedMotion.matches) {
-  const academyRows = document.querySelectorAll('.academy-rows > .academy-card');
-  if (academyRows.length) {
-    const revealRows = new IntersectionObserver(entries => {
-      for (const entry of entries) {
-        if (!entry.isIntersecting) continue;
-        entry.target.classList.add('academy-row-visible');
-        revealRows.unobserve(entry.target);
-      }
-    }, { threshold: 0.15 });
-    academyRows.forEach(row => revealRows.observe(row));
-  }
-}
 const heroVideo = document.querySelector('#hero-video');
 if (hero && heroVideo) {
   const media = heroVideo.closest('.hero-media');
@@ -215,15 +202,9 @@ if (inquiryForm) {
   const inquiryTopic = inquiryParams.get('subject')?.trim().slice(0, 160);
   const inquiryMessage = inquiryForm.querySelector('#message');
   if (inquiryTopic && inquiryMessage && !inquiryMessage.value) inquiryMessage.value = `I’d like to ask about ${inquiryTopic}.`;
-  inquiryForm.querySelector('#phone')?.addEventListener('input', e => e.target.setCustomValidity(''));
-  inquiryForm.querySelectorAll('[name="sms_service_consent"], [name="sms_marketing_consent"]').forEach(box => box.addEventListener('change', () => inquiryForm.querySelector('#phone')?.setCustomValidity('')));
   inquiryForm.addEventListener('submit', async e => {
     e.preventDefault();
-    const wantsSms = [...inquiryForm.querySelectorAll('[name="sms_service_consent"], [name="sms_marketing_consent"]')].some(box => box.checked);
-    const mobileInput = inquiryForm.querySelector('#phone');
-    mobileInput?.setCustomValidity(wantsSms && !mobileInput.value.trim() ? 'Enter your mobile number to consent to texts.' : '');
     if (!inquiryForm.reportValidity()) return;
-    mobileInput?.setCustomValidity('');
     setSubmitBusy(inquiryForm, true);
     const data = new FormData(inquiryForm);
     const value = key => String(data.get(key) || '').trim();
@@ -237,8 +218,6 @@ if (inquiryForm) {
     }
 
     // Fallback: prepare a draft but do not pretend that it was delivered.
-    await captureConsentIp(inquiryForm);
-    const smsRecord = stampSmsConsentFields(inquiryForm);
     const subject = `Training inquiry: ${value('goal')}`;
     const body = `Hello Wings Over L.A. team,
 
@@ -251,9 +230,7 @@ Phone: ${value('phone') || 'Not provided'}
 Goals and experience:
 ${value('message') || 'I would like to discuss my options with the team.'}
 
-I request an email or phone response to this inquiry using the contact details above. Text messages are permitted only for the SMS categories selected below.
-
-${formatSmsConsentRecord(smsRecord)}
+I request an email or phone response to this inquiry using the contact details above.
 
 Thank you,
 ${value('name')}`;
@@ -535,77 +512,8 @@ function animateInterface(element, keyframes, options = {}) {
   return animation;
 }
 
-const revealSelectors = [
-  'main .section-head > *',
-  'main .split > *',
-  'main .spotlight-grid > *',
-  'main .path-tabs > button',
-  'main .path-panels',
-  'main .program-row',
-  'main .fleet-card',
-  'main .step',
-  'main .experience',
-  'main .flight-route > a',
-  'main .faq-wrap > div:first-child',
-  'main .faq-list > details',
-  'main .contact-layout > div',
-  'main .legal-content > h1',
-  'main .legal-content > h2',
-  'main .legal-content > p',
-  'main .hero-copy',
-  'main .hero-actions > a',
-  '.cta-band .wrap > *',
-  '.footer-grid > div'
-].join(',');
-const allRevealCandidates = [...document.querySelectorAll(revealSelectors)];
-// Avoid moving both a block and a nested block at the same time.
-const revealCandidates = allRevealCandidates.filter(element =>
-  !allRevealCandidates.some(parent => parent !== element && parent.contains(element))
-);
-const revealDelays = new Map();
-document.querySelectorAll('.path-tabs,.step-grid,.fleet-grid,.experiences,.flight-route,.faq-list,.footer-grid,.hero-actions').forEach(group => {
-  [...group.children].forEach((element, index) => revealDelays.set(element, Math.min(index, 3) * 75));
-});
-let revealObserver;
-if ('IntersectionObserver' in window && !reducedMotion.matches) {
-  revealObserver = new IntersectionObserver(entries => {
-    entries.forEach(entry => {
-      if (!entry.isIntersecting) return;
-      const element = entry.target;
-      revealObserver.unobserve(element);
-      if (reducedMotion.matches || element.contains(document.activeElement)) {
-        element.dataset.revealState = 'done';
-        return;
-      }
-      element.dataset.revealState = 'running';
-      const animation = animateInterface(element, [
-        {opacity: 0, transform: 'translate3d(0, 22px, 0)'},
-        {opacity: 1, transform: 'translate3d(0, 0, 0)'}
-      ], {duration: 640, delay: revealDelays.get(element) || 0, fill: 'both'});
-      if (animation) {
-        const finish = animation.onfinish;
-        animation.onfinish = () => {
-          element.dataset.revealState = 'done';
-          finish();
-        };
-        const cancel = animation.oncancel;
-        animation.oncancel = () => {
-          element.dataset.revealState = 'done';
-          cancel();
-        };
-      } else element.dataset.revealState = 'done';
-    });
-  }, {threshold: 0.06, rootMargin: '0px 0px -24px 0px'});
-  revealCandidates.forEach(element => {
-    element.dataset.revealState = 'pending';
-    revealObserver.observe(element);
-  });
-}
 reducedMotion.addEventListener('change', () => {
-  if (!reducedMotion.matches) return;
-  revealObserver?.disconnect();
-  [...interfaceAnimations].forEach(animation => animation.cancel());
-  revealCandidates.forEach(element => { element.dataset.revealState = 'done'; });
+  if (reducedMotion.matches) [...interfaceAnimations].forEach(animation => animation.cancel());
 });
 
 document.querySelectorAll('.faq-list details').forEach(details => {
@@ -619,29 +527,30 @@ document.querySelectorAll('.faq-list details').forEach(details => {
 
 let headerScrollFrame = false;
 const floatingHeader = document.querySelector('.header');
+const headerActions = floatingHeader?.querySelector('.header-actions');
+let headerDirectionAnchor = window.scrollY;
 function updateFloatingHeader() {
-  floatingHeader?.classList.toggle('is-scrolled', window.scrollY > 40);
+  const scrollPosition = Math.max(0, window.scrollY);
+  floatingHeader?.classList.toggle('is-scrolled', scrollPosition > 40);
+  const navigationInUse = headerActions?.contains(document.activeElement) ||
+    menuButton?.getAttribute('aria-expanded') === 'true' ||
+    !!headerActions?.querySelector('.flight-toggle[aria-expanded="true"]');
+  if (scrollPosition <= 80 || navigationInUse) {
+    floatingHeader?.classList.remove('is-nav-hidden');
+    headerDirectionAnchor = scrollPosition;
+  } else if (Math.abs(scrollPosition - headerDirectionAnchor) >= 8) {
+    floatingHeader?.classList.toggle('is-nav-hidden', scrollPosition > headerDirectionAnchor && scrollPosition > 160);
+    headerDirectionAnchor = scrollPosition;
+  }
   headerScrollFrame = false;
 }
+headerActions?.addEventListener('focusin', () => floatingHeader?.classList.remove('is-nav-hidden'));
 window.addEventListener('scroll', () => {
   if (headerScrollFrame) return;
   headerScrollFrame = true;
   requestAnimationFrame(updateFloatingHeader);
 }, {passive: true});
 updateFloatingHeader();
-// A keyboard user can focus any section without waiting for its reveal.
-document.addEventListener('focusin', event => {
-  revealCandidates.forEach(element => {
-    if (!element.contains(event.target) || element.dataset.revealState === 'done') return;
-    revealObserver?.unobserve(element);
-    const animations = typeof element.getAnimations === 'function' ? element.getAnimations() : [];
-    animations.forEach(animation => {
-      if (interfaceAnimations.has(animation)) animation.cancel();
-    });
-    element.dataset.revealState = 'done';
-  });
-});
-
 // Career milestones advance every three seconds while visible.
 const careerSection = document.querySelector('.career-section');
 if (careerSection) {
@@ -769,7 +678,7 @@ if (careerSection) {
     menu.toggle.classList.toggle('active', menu.primaryLink.classList.contains('active'));
     const overview = menu.primaryLink.cloneNode(true);
     overview.className = 'flight-overview-link';
-    overview.textContent = label.textContent === 'Our Fleet' ? 'View Our Fleet' : 'All Flight Training';
+    overview.textContent = label.textContent === 'Our Fleet' ? 'Aircraft Rentals' : 'All Flight Training';
     menu.submenu.prepend(overview);
     const mobileLabel = menu.toggle.getAttribute('aria-label');
     const syncNavigation = () => {
@@ -798,3 +707,45 @@ if (careerSection) {
     if (openMenu) close(openMenu, true);
   });
 })();
+
+// Site controls and team profiles.
+const bioDialog = document.querySelector('.bio-dialog');
+let bioTrigger;
+document.querySelectorAll('.bio-trigger').forEach(button => button.addEventListener('click', () => {
+  const card = button.closest('.team-card');
+  bioTrigger = button;
+  const photo = card.querySelector('img');
+  bioDialog.querySelector('#bio-title').textContent = card.querySelector('h3').textContent;
+  bioDialog.querySelector('#bio-role').textContent = card.querySelector('.academy-card-copy > p').textContent;
+  const dialogPhoto = bioDialog.querySelector('.bio-photo');
+  dialogPhoto.src = photo.src;
+  dialogPhoto.alt = photo.alt;
+  bioDialog.querySelector('.bio-text').replaceChildren(card.querySelector('.bio-template').content.cloneNode(true));
+  bioDialog.showModal();
+}));
+bioDialog?.querySelector('.bio-close')?.addEventListener('click', () => bioDialog.close());
+bioDialog?.addEventListener('close', () => bioTrigger?.focus());
+const backToTop = document.createElement('button');
+backToTop.type = 'button';
+backToTop.className = 'back-to-top';
+backToTop.setAttribute('aria-label', 'Back to Top');
+backToTop.innerHTML = '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M12 19V5M5 12l7-7 7 7"/></svg>';
+backToTop.hidden = true;
+document.body.append(backToTop);
+const updateBackToTop = () => {
+  backToTop.hidden = window.scrollY < 500;
+  const launcher = document.querySelector('#wings-chat-launcher');
+  if (!launcher) return;
+  const rect = launcher.getBoundingClientRect();
+  if (!rect.width || !rect.height) return;
+  backToTop.style.setProperty('--back-to-top-right', `${window.innerWidth - rect.left + 14}px`);
+  backToTop.style.setProperty('--back-to-top-bottom', `${window.innerHeight - rect.bottom + (rect.height - 46) / 2}px`);
+};
+window.addEventListener('resize', updateBackToTop, { passive: true });
+new MutationObserver(updateBackToTop).observe(document.body, { attributes: true, attributeFilter: ['class'] });
+if (window.ResizeObserver && document.querySelector('#wings-chat-launcher')) {
+  new ResizeObserver(updateBackToTop).observe(document.querySelector('#wings-chat-launcher'));
+}
+window.addEventListener('scroll', updateBackToTop, { passive: true });
+updateBackToTop();
+backToTop.addEventListener('click', () => window.scrollTo({ top: 0, behavior: matchMedia('(prefers-reduced-motion: reduce)').matches ? 'auto' : 'smooth' }));

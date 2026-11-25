@@ -370,3 +370,29 @@ body.aviation-theme .fleet-compact-rates dd {
     flex: 1 1 auto;
   }
 }
+
+/* Aircraft specifications accordion */
+.fleet-card-compact .fleet-details { margin: 14px 0 0; border: 1px solid rgb(198 164 103 / .4); border-radius: 10px; background: rgb(7 24 43 / .24); }
+.fleet-details summary { color: #F7F8FA; cursor: pointer; font-size: 14px; font-weight: 600; min-height: 48px; padding: 12px 15px; display: flex; align-items: center; justify-content: space-between; gap: 12px; list-style: none; }
+.fleet-details summary::-webkit-details-marker { display: none; }
+.fleet-details summary::after { content: ""; flex: 0 0 8px; width: 8px; height: 8px; border-right: 2px solid #C6A467; border-bottom: 2px solid #C6A467; transform: rotate(45deg) translateY(-2px); transition: transform .2s ease; }
+.fleet-details[open] summary::after { transform: rotate(225deg) translate(-2px, -1px); }
+.fleet-details summary:hover { color: #C6A467; }
+.fleet-details summary:focus-visible { outline: 3px solid #DCE7F0; outline-offset: 3px; border-radius: 8px; }
+.fleet-details-content { padding: 16px 15px 18px; border-top: 1px solid rgb(198 164 103 / .25); }
+.fleet-details-content dl { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 16px 20px; margin: 0; }
+.fleet-details-content dt { color: #AAB8C5; font-size: 12px; margin-bottom: 4px; }
+.fleet-details-content dd { color: #F7F8FA; font-size: 14px; line-height: 1.4; margin: 0; }
+@media (prefers-reduced-motion: reduce) { .fleet-details summary::after { transition: none; } }
+
+/* Align pricing and actions in one balanced desktop row. */
+.fleet-compact-rates > div { text-align: center; }
+.fleet-compact-rates dt.block-rate-label { justify-content: center; }
+@media (min-width: 1200px) {
+  .academy-rows > .fleet-card-compact { grid-template-areas: "photo copy" "rates actions"; }
+  .academy-rows > .fleet-card-compact:nth-child(even) { grid-template-areas: "copy photo" "rates actions"; }
+  .fleet-compact-rates { align-items: center; padding-right: 12px; }
+  .fleet-compact-footer { display: flex; justify-content: flex-end; align-items: center; padding-left: 12px; border-block: 1px solid rgb(198 164 103 / .25); background: rgb(7 24 43 / .45); }
+  .academy-rows .fleet-card-compact .academy-actions { justify-content: flex-end; }
+  .fleet-card-compact .fleet-cta-row { justify-content: flex-end; }
+}

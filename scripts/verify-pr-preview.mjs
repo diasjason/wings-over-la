@@ -28,11 +28,11 @@ check(home.includes('assets/hero-flight-mobile-rudder-corrected.mp4'), 'Mobile h
 check(home.includes('assets/hero-flight-poster.webp'), 'Hero fallback poster missing from homepage');
 check(home.includes('id="panel-career"'), 'Learn to Fly panel missing');
 check(
-  home.includes('assets/homepage/d95a-cockpit-hd.png'),
+  home.includes('assets/homepage/d95a-cockpit-hd.webp'),
   'Learn to Fly D95A cockpit reference missing (do not revert to a generic photo)'
 );
 requireFile('assets/hero-flight-poster.webp', 1024);
-requireFile('assets/homepage/d95a-cockpit-hd.png', 1024);
+requireFile('assets/homepage/d95a-cockpit-hd.webp', 1024);
 
 for (const file of ['assets/hero-flight-rudder-corrected.mp4', 'assets/hero-flight-mobile-rudder-corrected.mp4']) {
   requireFile(file, 100000);

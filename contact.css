@@ -143,7 +143,7 @@ body.interior-page main > .section:has(.contact-layout) { padding-top: 24px; }
 .contact-review-stars { font-size: 14px; }
 .contact-review-platform { display: flex; align-items: center; gap: 6px; margin-top: 6px; color: #AAB8C5; font-size: 10px; }
 .contact-review-platform svg { width: 14px; height: 14px; flex: 0 0 14px; }
-.contact-review-copy blockquote { min-height: 48px; margin: 14px 0 8px; color: #F7F8FA; font-size: 14px; line-height: 1.65; }
+.contact-review-copy :is(blockquote, .contact-review-summary) { min-height: 48px; margin: 14px 0 8px; color: #F7F8FA; font-size: 14px; line-height: 1.65; }
 .contact-review-copy > a { display: inline-flex; align-items: center; min-height: 32px; margin-top: auto; color: #DCE7F0; font-size: 11px; }
 .contact-review-bottom { display: flex; flex-wrap: wrap; align-items: center; justify-content: space-between; gap: 8px; }
 .contact-review-controls { display: flex; align-items: center; gap: 6px; }
@@ -197,7 +197,7 @@ body.interior-page main > .section:has(.contact-layout) { padding-top: 24px; }
 .contact-review-card { width: var(--contact-review-card-width, 250px); scroll-snap-align: start; }
 .contact-review-card figure > img { display: block; height: 108px; }
 .contact-review-copy { padding: 15px; }
-.contact-review-copy blockquote { min-height: 0; }
+.contact-review-copy :is(blockquote, .contact-review-summary) { min-height: 0; }
 @media (prefers-reduced-motion: no-preference) {
  .aviation-theme .contact-review-marquee .contact-score > strong { animation: contact-rating-shimmer 7s ease-in-out infinite; }
 }

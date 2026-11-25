@@ -27,26 +27,6 @@
     [...copy.children].forEach((element,index) => enter(element,Math.min(index,5)*55));
   });
 
-  if ('IntersectionObserver' in window) {
-    const entrances = new IntersectionObserver(entries => {
-      entries.forEach(entry => {
-        if (!entry.isIntersecting) return;
-        entrances.unobserve(entry.target);
-        const element = entry.target;
-        element.getAnimations().forEach(animation => animation.cancel());
-        if (element.classList.contains('aircraft-composition')) {
-          animate(element.querySelector('.main-aircraft'),[
-            {clipPath:'inset(18% 0 0 0 round 16px)',opacity:0},
-            {clipPath:'inset(0 0 0 0 round 16px)',opacity:1}
-          ],{duration:700});
-          enter(element.querySelector('.cockpit-inset'),140);
-          enter(element.querySelector('.aircraft-caption'),200);
-        } else [...element.children].forEach((child,index) => enter(child,index*85));
-        element.dataset.homeReveal = 'done';
-      });
-    },{threshold:.12,rootMargin:'0px 0px -20px 0px'});
-    root.querySelectorAll('.home-proof .wrap,.aircraft-composition,.home-closing-actions').forEach(element => entrances.observe(element));
-  }
   function revealDetails(panel, photoSelector, detailSelector) {
     if (!panel || preference.matches) return;
     panel.getAnimations().forEach(animation => animation.cancel());
@@ -154,22 +134,6 @@
   careerTabs.forEach(tab => selectionObserver.observe(tab,{attributes:true,attributeFilter:['aria-selected']}));
   syncMilestone();
 
-  const aircraft = root.querySelector('.main-aircraft');
-  const finePointer = window.matchMedia('(hover:hover) and (pointer:fine)');
-  let scrollFrame = false;
-  function moveAircraft() {
-    scrollFrame = false;
-    if (!aircraft || preference.matches || !finePointer.matches || innerWidth <= 820) return;
-    const rect = aircraft.getBoundingClientRect();
-    if (rect.bottom < 0 || rect.top > innerHeight) return;
-    const shift = Math.max(-12,Math.min(12,(innerHeight/2 - rect.top - rect.height/2)*.035));
-    aircraft.style.setProperty('--image-shift',shift+'px');
-  }
-  window.addEventListener('scroll',() => {
-    if (scrollFrame) return;
-    scrollFrame = true;
-    requestAnimationFrame(moveAircraft);
-  },{passive:true});
   root.addEventListener('focusin',event => {
     let element = event.target;
     while (element && element !== root) {
@@ -182,7 +146,6 @@
   preference.addEventListener('change',() => {
     if (!preference.matches) return;
     [...animations].forEach(animation => animation.cancel());
-    aircraft?.style.setProperty('--image-shift','0px');
   });
 })();
 // Static, attributed review marquee. Native scrolling remains available without JS.

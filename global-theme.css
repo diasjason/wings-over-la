@@ -262,3 +262,11 @@ body.aviation-theme :is(.brand-name,.action-tile strong,.path-tabs strong,.fligh
 
 /* Keep the complete aircraft visible inside the existing course image frame. */
 .aviation-theme .academy-row-image > img.commercial-aircraft-photo { object-fit: contain; }
+/* Match the MEI consultation shimmer on the primary home action. */
+@media (prefers-reduced-motion: no-preference) {
+  .aviation-theme.home-page .hero-actions .hero-primary {
+    background-image: linear-gradient(110deg, #C6A467 0%, #C6A467 28%, #DCE7F0 50%, #C6A467 72%, #C6A467 100%);
+    background-size: 260% 100%;
+    animation: wola-mei-attention 7s ease-in-out 3s infinite;
+  }
+}
