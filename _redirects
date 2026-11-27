@@ -1,0 +1,7 @@
+# Core legacy routes only. Cloudflare Pages handles index.html and clean-URL normalization; verify on deployment.
+/index / 301
+/index/ / 301
+/index/flight-training /flight-training/ 301
+/index/flight-training/ /flight-training/ 301
+/rentals/airplane-rentals /rentals/ 301
+/rentals/airplane-rentals/ /rentals/ 301
