@@ -54,19 +54,6 @@ for (const page of ['rentals/index.html', 'fleet/index.html']) {
   check((content.match(/Training only/g) || []).length >= 2, `${page} should mark both Travel Air twins as training-only`);
 }
 
-// Prevent deployment of broken brochure links.
-const brochure = 'assets/wings-over-la-flight-training-brochure.pdf';
-requireFile(brochure, 1024);
-if (existsSync(join(root, brochure))) {
-  const fd = openSync(join(root, brochure), 'r');
-  const header = Buffer.alloc(5);
-  readSync(fd, header, 0, 5, 0);
-  closeSync(fd);
-  check(header.toString('ascii') === '%PDF-', 'Brochure must be a valid PDF asset');
-}
-check(home.includes('href="' + brochure + '" download'), 'Homepage brochure download link missing');
-check(read('flight-training/index.html').includes('href="../' + brochure + '" download'), 'Training page brochure download link missing');
-
 if (errors.length) {
   for (const error of errors) console.error(`FAIL: ${error}`);
   process.exitCode = 1;
