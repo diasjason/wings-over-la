@@ -1,0 +1,4 @@
+# Keep the default Pages production hostname out of search results.
+# Hashed and branch preview deployments receive Cloudflare's default X-Robots-Tag: noindex.
+https://wings-over-la.pages.dev/*
+  X-Robots-Tag: noindex

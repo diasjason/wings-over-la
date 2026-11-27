@@ -2,6 +2,6 @@
   "private": true,
   "type": "module",
   "scripts": {
-    "test": "node --test tests/lead-function.test.mjs && node scripts/verify-pr-preview.mjs"
+    "test": "node --test tests/lead-function.test.mjs && node scripts/verify-pr-preview.mjs && node scripts/verify-seo.mjs"
   }
 }
